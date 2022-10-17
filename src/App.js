@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { EndMenu, StartMenu, TrainingScene } from './components';
 import { MainLayout } from './layouts/MainLayout';
-import gameConfig from '../shared/gameConfig.json';
+import gameConfig from './shared/gameConfig.json';
 import './index.css';
 
 export default function App() {
@@ -11,6 +11,7 @@ export default function App() {
       {mode === 'start' && (
         <StartMenu
           onStart={() => {
+            console.log('start');
             setMode('training');
           }}
         />
