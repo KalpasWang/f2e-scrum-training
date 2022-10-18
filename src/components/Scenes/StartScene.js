@@ -1,6 +1,6 @@
-import { Button } from '../Button/Button';
+import { Button } from '../Common';
 
-export const StartMenu = ({ onStart }) => {
+export const StartScene = ({ onStart }) => {
   return (
     <main className="h-full w-full flex justify-center items-center">
       <Button onClick={onStart}>Start</Button>

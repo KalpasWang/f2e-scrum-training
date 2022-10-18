@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
-import { DialogStage, DnDStage } from '../Stages';
+import { useGameContext } from '../../context/gameContext';
+import { DialogStage, DnDStage, GroupChatStage } from '../Stages';
 
-export const TrainingScene = ({ game, onComplete }) => {
-  const { stages } = game;
+export const TrainingScene = ({ onGameComplete }) => {
+  const { stages } = useGameContext();
   const [currentStage, setCurrentStage] = useState({
     name: stages[0].name,
     index: 0,
   });
 
-  const nextStageHandler = (params) => {
+  const nextStageHandler = () => {
+    if (currentStage.index >= stages.length - 1) {
+      onGameComplete();
+      return;
+    }
     setCurrentStage((prevStage) => {
-      if (prevStage.index >= stages.length - 1) {
-        onComplete();
-      }
       return {
         name: stages?.[prevStage.index + 1]?.name,
         index: prevStage.index + 1,
@@ -27,6 +29,9 @@ export const TrainingScene = ({ game, onComplete }) => {
       )}
       {currentStage.name === 'DnDStage' && (
         <DnDStage onComplete={nextStageHandler} />
+      )}
+      {currentStage.name === 'GroupChatStage' && (
+        <GroupChatStage onComplete={nextStageHandler} />
       )}
     </>
   );

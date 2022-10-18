@@ -1,23 +1,30 @@
-import { useState } from 'react';
-import { EndMenu, StartMenu, TrainingScene } from './components';
-import { MainLayout } from './layouts/MainLayout';
-import gameConfig from './shared/gameConfig.json';
+import { EndScene, StartScene, TrainingScene } from './components/Scenes';
+import { MainLayout } from './components/layouts';
 import './index.css';
+import { useGameContext } from './context/gameContext';
 
 export default function App() {
-  const [mode, setMode] = useState('start');
+  const { currentScene, setCurrentScene } = useGameContext();
+
+  const onStart = () => {
+    setCurrentScene('training');
+  };
+
+  const onComplete = () => {
+    setCurrentScene('end');
+  };
+
+  const onReset = () => {
+    setCurrentScene('start');
+  };
+
   return (
     <MainLayout>
-      {mode === 'start' && (
-        <StartMenu
-          onStart={() => {
-            console.log('start');
-            setMode('training');
-          }}
-        />
+      {currentScene === 'start' && <StartScene onStart={onStart} />}
+      {currentScene === 'training' && (
+        <TrainingScene onGameComplete={onComplete} />
       )}
-      {mode === 'training' && <TrainingScene game={gameConfig} />}
-      {mode === 'end' && <EndMenu />}
+      {currentScene === 'end' && <EndScene onReset={onReset} />}
     </MainLayout>
   );
 }

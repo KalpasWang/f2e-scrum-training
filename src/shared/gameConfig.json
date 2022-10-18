@@ -8,7 +8,13 @@
       "action": "接受挑戰"
     },
     {
-      "name": "DialogStage",
+      "name": "DnDStage",
+      "text": "Hi，歡迎加入 $companyName, 試試看調整產品優先度，排出代辦清單吧！",
+      "variables": ["companyName"],
+      "action": "接受挑戰"
+    },
+    {
+      "name": "GroupChatStage",
       "text": "Hi，歡迎加入 $companyName, 試試看調整產品優先度，排出代辦清單吧！",
       "variables": ["companyName"],
       "action": "接受挑戰"

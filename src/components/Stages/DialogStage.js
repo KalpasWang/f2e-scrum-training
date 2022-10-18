@@ -1,3 +1,10 @@
-export const DialogStage = () => {
-  return <div>DialogStage</div>;
+import { Button } from '../Common';
+
+export const DialogStage = ({ onComplete }) => {
+  return (
+    <main className="h-full w-full flex flex-col justify-center items-center">
+      <h1 className="text-center">DialogStage</h1>
+      <Button onClick={onComplete}>接受挑戰</Button>
+    </main>
+  );
 };
