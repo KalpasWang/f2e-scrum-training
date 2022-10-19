@@ -1,30 +1,30 @@
+import { useCallback } from 'react';
 import { EndScene, StartScene, TrainingScene } from './components/Scenes';
 import { MainLayout } from './components/layouts';
 import './index.css';
 import { useGameContext } from './context/gameContext';
 
 export default function App() {
-  const { currentScene, setCurrentScene } = useGameContext();
+  const { state, dispatch } = useGameContext();
+  const toNext = useCallback(() => {
+    dispatch({ type: 'nextSatge' });
+  }, [dispatch]);
 
-  const onStart = () => {
-    setCurrentScene('training');
+  const Scenes = {
+    StartScene,
+    TrainingScene,
+    EndScene,
   };
-
-  const onComplete = () => {
-    setCurrentScene('end');
-  };
-
-  const onReset = () => {
-    setCurrentScene('start');
-  };
+  const CurrentScene = Scenes[state.currentScene];
 
   return (
     <MainLayout>
-      {currentScene === 'start' && <StartScene onStart={onStart} />}
+      <CurrentScene onComplete={toNext} />
+      {/* {currentScene === 'start' && <StartScene onStart={onStart} />}
       {currentScene === 'training' && (
         <TrainingScene onGameComplete={onComplete} />
       )}
-      {currentScene === 'end' && <EndScene onReset={onReset} />}
+      {currentScene === 'end' && <EndScene onReset={onReset} />} */}
     </MainLayout>
   );
 }

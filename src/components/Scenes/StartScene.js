@@ -1,9 +1,9 @@
 import { Button } from '../Common';
 
-export const StartScene = ({ onStart }) => {
+export const StartScene = ({ onComplete }) => {
   return (
     <main className="h-full w-full flex justify-center items-center">
-      <Button onClick={onStart}>Start</Button>
+      <Button onClick={onComplete}>Start</Button>
     </main>
   );
 };
