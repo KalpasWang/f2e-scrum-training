@@ -10,8 +10,9 @@ export const TrainingScene = ({ onComplete }) => {
   );
 
   const nextStageHandler = () => {
-    if (state.progress < state.stagesAmount) {
-      setCurrentStageName(state.stages[state.progress].name);
+    if (state.progress < state.stagesAmount - 1) {
+      const nextIdx = state.progress + 1;
+      setCurrentStageName(state.stages[nextIdx].name);
     }
     onComplete();
   };
@@ -22,7 +23,7 @@ export const TrainingScene = ({ onComplete }) => {
   return (
     <div className="container mx-auto">
       <div className="my-4">
-        <Bar value={state.progress} maxValue={state.stagesAmount + 1} />
+        <Bar value={state.progress} maxValue={state.stagesAmount} />
       </div>
       <div className="h-full">
         <CurrentStage onComplete={nextStageHandler} />

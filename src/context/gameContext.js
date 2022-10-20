@@ -5,7 +5,7 @@ const initialState = {
   currentScene: 'start',
   stages: game.stages,
   companyName: game.companyName,
-  progress: 0,
+  progress: -1,
   stagesAmount: game.stages.length,
 };
 
@@ -14,7 +14,7 @@ export const GameContext = React.createContext({
     currentScene: '',
     stages: [],
     companyName: '',
-    progress: 0,
+    progress: -1,
     stagesAmount: 0,
   },
   dispatch: () => {},
@@ -28,12 +28,12 @@ const gameReducer = (state, action) => {
       if (state.currentScene === 'start') {
         scene = 'training';
       }
-      if (state.progress === state.stagesAmount) {
+      if (progress === state.stagesAmount) {
         scene = 'end';
       }
-      if (state.progress > state.stagesAmount) {
+      if (progress > state.stagesAmount) {
         scene = 'start';
-        progress = 0;
+        progress = -1;
       }
       return { ...state, progress: progress, currentScene: scene };
     }
