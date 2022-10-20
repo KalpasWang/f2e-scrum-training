@@ -6,25 +6,20 @@ import { useGameContext } from './context/gameContext';
 
 export default function App() {
   const { state, dispatch } = useGameContext();
-  const toNext = useCallback(() => {
+  const toNextStage = useCallback(() => {
     dispatch({ type: 'nextSatge' });
   }, [dispatch]);
 
   const Scenes = {
-    StartScene,
-    TrainingScene,
-    EndScene,
+    start: StartScene,
+    training: TrainingScene,
+    end: EndScene,
   };
   const CurrentScene = Scenes[state.currentScene];
 
   return (
     <MainLayout>
-      <CurrentScene onComplete={toNext} />
-      {/* {currentScene === 'start' && <StartScene onStart={onStart} />}
-      {currentScene === 'training' && (
-        <TrainingScene onGameComplete={onComplete} />
-      )}
-      {currentScene === 'end' && <EndScene onReset={onReset} />} */}
+      <CurrentScene onComplete={toNextStage} />
     </MainLayout>
   );
 }

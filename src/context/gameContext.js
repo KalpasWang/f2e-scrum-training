@@ -5,29 +5,37 @@ const initialState = {
   currentScene: 'start',
   stages: game.stages,
   companyName: game.companyName,
-  progress: 1,
-  stagesAmount: game.stages.length + 2,
+  progress: 0,
+  stagesAmount: game.stages.length,
 };
 
 export const GameContext = React.createContext({
-  state: initialState,
+  state: {
+    currentScene: '',
+    stages: [],
+    companyName: '',
+    progress: 0,
+    stagesAmount: 0,
+  },
   dispatch: () => {},
 });
 
 const gameReducer = (state, action) => {
   switch (action.type) {
     case 'nextSatge': {
-      if (state.progress === 1) {
-        return { ...state, progress: 2, currentScene: 'training' };
+      let scene = 'training';
+      let progress = state.progress + 1;
+      if (state.currentScene === 'start') {
+        scene = 'training';
       }
       if (state.progress === state.stagesAmount) {
-        return { ...state, progress: 1, currentScene: 'start' };
-      }
-      let scene = 'training';
-      if (state.progress === state.stagesAmount - 1) {
         scene = 'end';
       }
-      return { ...state, progress: state.progress + 1, currentScene: scene };
+      if (state.progress > state.stagesAmount) {
+        scene = 'start';
+        progress = 0;
+      }
+      return { ...state, progress: progress, currentScene: scene };
     }
     default:
       return state;
