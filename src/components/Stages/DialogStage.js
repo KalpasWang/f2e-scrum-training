@@ -12,10 +12,18 @@ export const DialogStage = ({ onComplete }) => {
       texts = texts.replaceAll(finding, replacement);
     });
   }
+  const renderTexts = texts.split('\n').map((p, i) => {
+    return (
+      <p key={i} className="mb-4">
+        {p}
+      </p>
+    );
+  });
+
   return (
-    <main className="h-full w-full p-4">
-      <div className="border-2 border-gray-700 flex flex-col justify-center items-center gap-4">
-        <p className="text-center">{texts}</p>
+    <main className="h-full w-full border-2 border-gray-700 max-w-3xl py-2 px-5">
+      <div className="h-full mx-auto flex flex-col justify-around items-center gap-4">
+        <div>{renderTexts}</div>
         <Button onClick={onComplete}>接受挑戰</Button>
       </div>
     </main>

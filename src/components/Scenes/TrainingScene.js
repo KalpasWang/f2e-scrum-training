@@ -21,11 +21,11 @@ export const TrainingScene = ({ onComplete }) => {
   const CurrentStage = Stages[currentStageName];
 
   return (
-    <div className="container mx-auto">
-      <div className="my-4">
+    <div className="container mx-auto h-full flex flex-col justify-center items-center">
+      <div className="my-4 w-full">
         <Bar value={state.progress} maxValue={state.stagesAmount} />
       </div>
-      <div className="h-full">
+      <div className="flex-grow p-4 overflow-y-auto">
         <CurrentStage onComplete={nextStageHandler} />
       </div>
     </div>

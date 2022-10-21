@@ -3,13 +3,13 @@
   "stages": [
     {
       "name": "DialogStage",
-      "text": "嗨囉，歡迎加入$companyName\n在正式加入專案開發之前，需要請你先了解 Scrum 的流程與精神!\n\n請接受挑戰任務，成功通過Scrum 新手村的挑戰任務吧~~",
+      "text": "嗨囉，歡迎加入$companyName\n在正式加入專案開發之前，需要請你先了解 Scrum 的流程與精神!\n請接受挑戰任務，成功通過Scrum 新手村的挑戰任務吧~~",
       "variables": ["companyName"],
       "action": "接受挑戰"
     },
     {
       "name": "DialogStage",
-      "text": "我是$companyName，開發A組的PO，小敏。\n\nPO也就是產品負責人(Product Owner)。\n\n產品負責人會負責評估產品待辦清單的價值與重要性，依序排列要 執行的優先順序，對齊產品目標。最後排出產品待辦清單(Product Backlog)唷！\n\n剛好我最近手邊有一個『人才招募系統』的案子，我才剛列出了『 產品需求清單」\n\n既然你都來了，來試試看調整產品優先度，排出產品待辦清單吧！",
+      "text": "我是$companyName，開發A組的PO，小敏。\nPO也就是產品負責人(Product Owner)。\n產品負責人會負責評估產品待辦清單的價值與重要性，依序排列要 執行的優先順序，對齊產品目標。最後排出產品待辦清單(Product Backlog)唷！\n剛好我最近手邊有一個『人才招募系統』的案子，我才剛列出了『 產品需求清單」\n既然你都來了，來試試看調整產品優先度，排出產品待辦清單吧！",
       "variables": ["companyName"],
       "avatar": "default",
       "action": "接受挑戰"
