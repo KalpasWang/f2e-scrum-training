@@ -16,9 +16,23 @@
     },
     {
       "name": "DnDStage",
-      "text": "Hi，歡迎加入 $companyName, 試試看調整產品優先度，排出代辦清單吧！",
-      "variables": ["companyName"],
-      "action": "接受挑戰"
+      "type": "priority",
+      "messages": [
+        {
+          "role": "PO - 小敏",
+          "avatar": "default",
+          "text": "請把需求放到產品待辦清單，並調整待辦的優先度順序。我們公司也推薦使用 Jira 來做任務的管理呢！"
+        }
+      ],
+      "listTitle": "產品代辦清單(Product Backlog)",
+      "items": [
+        "會員系統(登入、註冊、權限管理)",
+        "應徵者的線上履歷編輯器",
+        "前台職缺列表(職缺詳細內容、點選可發送應徵意願)",
+        "後台職缺管理功能(資訊上架、下架、顯示應徵者資料)",
+        "後台職缺管理功能(資訊上架、 下架、顯示應徵者資料)"
+      ],
+      "action": "我完成了"
     },
     {
       "name": "GroupChatStage",
