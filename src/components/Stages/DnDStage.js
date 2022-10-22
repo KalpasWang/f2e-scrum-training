@@ -5,14 +5,20 @@ import { Message } from '../Common/Message';
 export const DnDStage = ({ onComplete }) => {
   const { state } = useGameContext();
   const stageData = state.stages[state.progress];
+
   return (
-    <main className="h-full w-full flex flex-col justify-center items-center">
-      <h1 className="text-center">DnDStage</h1>
-      <Message
-        text={stageData.messages[0].text}
-        role={stageData.messages[0].role}
-      />
-      <Button onClick={onComplete}>接受挑戰</Button>
+    <main className="h-full w-full flex flex-row">
+      <div className="basis-1/2">
+        <Message
+          text={stageData.messages[0].text}
+          role={stageData.messages[0].role}
+          className="mb-6"
+        />
+      </div>
+      <div className="basis-1/2">
+        <h1>代辦清單</h1>
+        <Button onClick={onComplete}>{stageData.action}</Button>
+      </div>
     </main>
   );
 };

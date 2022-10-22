@@ -1,15 +1,21 @@
-import React from 'react';
+import classNames from 'classnames';
 
-export const Message = ({ text, role }) => {
+export const Message = ({ text, role, ...other }) => {
   const texts = text.split('\n').map((p, i) => {
     return (
-      <p key={i} className={i > 0 && 'mt-4'}>
+      <p key={i} className={i > 0 ? 'mt-4' : undefined}>
         {p}
       </p>
     );
   });
+
+  const containerClass = classNames(
+    'flex flex-row items-center gap-6',
+    other.className
+  );
+
   return (
-    <div className="flex flex-row items-center gap-6">
+    <div className={containerClass}>
       <div className="basis-20 relative">
         <img
           src="http://gravatar.com/avatar/5fe1d67c1a4749dff7c75a0bac039ee4?s=80&d=https://codepen.io/assets/avatars/user-avatar-80x80-94696e1c3870f64217a8040eedd4a1ed.png"
