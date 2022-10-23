@@ -1,3 +1,3 @@
 export * from './DialogStage';
-export * from './DnDStage';
+export * from './PriorityDnDStage';
 export * from './GroupChatStage';

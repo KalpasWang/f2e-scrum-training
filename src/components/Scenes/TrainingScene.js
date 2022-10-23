@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useGameContext } from '../../context/gameContext';
 import { Bar } from '../Common';
-import { DialogStage, DnDStage, GroupChatStage } from '../Stages';
+import { DialogStage, PriorityDnDStage, GroupChatStage } from '../Stages';
 
 export const TrainingScene = ({ onComplete }) => {
   const { state } = useGameContext();
@@ -17,7 +17,7 @@ export const TrainingScene = ({ onComplete }) => {
     onComplete();
   };
 
-  const Stages = { DialogStage, DnDStage, GroupChatStage };
+  const Stages = { DialogStage, PriorityDnDStage, GroupChatStage };
   const CurrentStage = Stages[currentStageName];
 
   return (

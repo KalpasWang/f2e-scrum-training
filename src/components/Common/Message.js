@@ -18,7 +18,7 @@ export const Message = ({ text, role, ...other }) => {
     <div className={containerClass}>
       <div className="basis-20 relative">
         <img
-          src="http://gravatar.com/avatar/5fe1d67c1a4749dff7c75a0bac039ee4?s=80&d=https://codepen.io/assets/avatars/user-avatar-80x80-94696e1c3870f64217a8040eedd4a1ed.png"
+          src="https://cdn.icon-icons.com/icons2/1879/PNG/512/iconfinder-4-avatar-2754580_120522.png"
           alt="avatar"
           className="rounded-full max-w-full"
         />
