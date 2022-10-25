@@ -7,6 +7,11 @@ import { Message } from '../Common/Message';
 
 function candidatesReducer(state, action) {
   switch (action.type) {
+    case 'addItemAt': {
+      const { item, index } = action.payload;
+      state.splice(index, 0, item);
+      return state;
+    }
     case 'remove': {
       const idx = state.findIndex((item) => item.id === action.payload);
       if (idx >= 0) {
@@ -26,6 +31,13 @@ function backlogReducer(state, action) {
       state.splice(index, 0, item);
       return state;
     }
+    case 'remove': {
+      const idx = state.findIndex((item) => item.id === action.payload);
+      if (idx >= 0) {
+        state.splice(idx, 1);
+      }
+      return state;
+    }
     default:
       return state;
   }
@@ -39,23 +51,37 @@ export const PriorityDnDStage = ({ onComplete }) => {
     stageData.items
   );
   const [backlog, backlogDispatch] = useReducer(backlogReducer, []);
-  const targets = { candidates, backlog };
+  const target = { candidates, backlog };
+  const dispatch = { candidates: candidatesDispatch, backlog: backlogDispatch };
 
   function handleDragEnd({ source, destination }) {
     if (!destination) return;
 
-    const draggedItem = targets[source.droppableId][source.index];
-    candidatesDispatch('remove', draggedItem.id);
-    backlogDispatch('addItemAt', {
-      item: draggedItem,
-      index: destination.index,
+    const draggedItem = target[source.droppableId][source.index];
+    dispatch[source.droppableId]({
+      type: 'remove',
+      payload: draggedItem.id,
+    });
+    dispatch[destination.droppableId]({
+      type: 'addItemAt',
+      payload: {
+        item: draggedItem,
+        index: destination.index,
+      },
     });
   }
 
+  function checkAnswers() {
+    const isCorrect = backlog.every((item, i) => item.priority === i + 1);
+    if (isCorrect) {
+      onComplete();
+    }
+  }
+
   return (
-    <main className="h-full w-full flex flex-row gap-3">
-      <DragDropContext onDragEnd={handleDragEnd}>
-        <div className="basis-1/2 px-2">
+    <DragDropContext onDragEnd={handleDragEnd}>
+      <main className="h-full w-full flex flex-row gap-3">
+        <div className="basis-1/2 px-2 flex flex-col items-stretch">
           <Message
             text={stageData.messages[0].text}
             role={stageData.messages[0].role}
@@ -65,7 +91,7 @@ export const PriorityDnDStage = ({ onComplete }) => {
             {(provided, snapshot) => {
               return (
                 <div
-                  className="bg-red-300 h-full"
+                  className="bg-red-300 flex-grow"
                   ref={provided.innerRef}
                   {...provided.droppableProps}
                 >
@@ -82,7 +108,7 @@ export const PriorityDnDStage = ({ onComplete }) => {
             }}
           </Droppable>
         </div>
-        <div className="basis-1/2 px-2">
+        <div className="basis-1/2 px-2 flex flex-col items-stretch">
           <h1 className="text-3xl text-right font-bold mb-2">
             {stageData.listTitle}
           </h1>
@@ -90,7 +116,7 @@ export const PriorityDnDStage = ({ onComplete }) => {
             {(provided, snapshot) => {
               return (
                 <div
-                  className="bg-lime-300 h-full"
+                  className="bg-lime-300 flex-grow"
                   ref={provided.innerRef}
                   {...provided.droppableProps}
                 >
@@ -106,11 +132,11 @@ export const PriorityDnDStage = ({ onComplete }) => {
               );
             }}
           </Droppable>
-          <div>
-            <Button onClick={onComplete}>{stageData.action}</Button>
+          <div className="mt-4 text-right">
+            <Button onClick={checkAnswers}>{stageData.action}</Button>
           </div>
         </div>
-      </DragDropContext>
-    </main>
+      </main>
+    </DragDropContext>
   );
 };
