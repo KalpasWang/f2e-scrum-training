@@ -81,7 +81,7 @@ export const PriorityDnDStage = ({ onComplete }) => {
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
       <main className="h-full w-full flex flex-row gap-3">
-        <div className="basis-1/2 px-2 flex flex-col items-stretch">
+        <div className="basis-1/2 px-2 flex flex-col items-stretch ">
           <Message
             text={stageData.messages[0].text}
             role={stageData.messages[0].role}
@@ -91,7 +91,7 @@ export const PriorityDnDStage = ({ onComplete }) => {
             {(provided, snapshot) => {
               return (
                 <div
-                  className="bg-red-300 flex-grow"
+                  className="bg-red-300 flex-grow flex flex-col justify-evenly items-stretch"
                   ref={provided.innerRef}
                   {...provided.droppableProps}
                 >
