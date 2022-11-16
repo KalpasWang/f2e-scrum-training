@@ -2,7 +2,7 @@ import { useReducer } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { useGameContext } from '../../context/gameContext';
 import { Button } from '../Common';
-import { DraggableCard } from '../Common/DraggableCard';
+import { DraggableCard, DroppableBox } from '../Common';
 import { Message } from '../Common/Message';
 
 function candidatesReducer(state, action) {
@@ -87,26 +87,21 @@ export const PriorityDnDStage = ({ onComplete }) => {
             role={stageData.messages[0].role}
             className="mb-6"
           />
-          <Droppable droppableId="candidates">
-            {(provided, snapshot) => {
-              return (
-                <div
-                  className="bg-red-300 flex-grow flex flex-col justify-evenly items-stretch"
-                  ref={provided.innerRef}
-                  {...provided.droppableProps}
+          {candidates.map((item, i) => {
+            return (
+              <div className="my-3">
+                <DroppableBox
+                  id={item.container}
+                  key={item.container}
+                  className="min-h-3.75"
                 >
-                  {candidates.map((item, i) => {
-                    return (
-                      <DraggableCard id={item.id} index={i} key={item.id}>
-                        {item.text}
-                      </DraggableCard>
-                    );
-                  })}
-                  {provided.placeholder}
-                </div>
-              );
-            }}
-          </Droppable>
+                  <DraggableCard id={item.id} index={i}>
+                    {item.text}
+                  </DraggableCard>
+                </DroppableBox>
+              </div>
+            );
+          })}
         </div>
         <div className="basis-1/2 px-2 flex flex-col items-stretch">
           <h1 className="text-3xl text-right font-bold mb-2">
