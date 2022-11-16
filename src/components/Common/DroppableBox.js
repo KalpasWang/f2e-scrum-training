@@ -6,7 +6,7 @@ export const DroppableBox = ({ id, className, children }) => {
     'bg-red-300 border border-slate-400',
     className
   );
-
+  console.log(children);
   return (
     <Droppable droppableId={id}>
       {(provided, snapshot) => {

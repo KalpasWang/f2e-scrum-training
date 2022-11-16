@@ -26,28 +26,42 @@
       "listTitle": "產品代辦清單(Product Backlog)",
       "items": [
         {
-          "id": "01",
-          "container": "box01",
+          "id": "card01",
           "text": "會員系統(登入、註冊、權限管理)",
           "priority": 1
         },
         {
-          "id": "02",
-          "container": "box02",
+          "id": "card02",
           "text": "應徵者的線上履歷編輯器",
           "priority": 2
         },
         {
-          "id": "03",
-          "container": "box03",
+          "id": "card03",
           "text": "前台職缺列表(職缺詳細內容、點選可發送應徵意願)",
           "priority": 3
         },
         {
-          "id": "04",
-          "container": "box04",
+          "id": "card04",
           "text": "後台職缺管理功能(資訊上架、下架、顯示應徵者資料)",
           "priority": 4
+        }
+      ],
+      "candidateBoxes": [
+        {
+          "id": "box01",
+          "itemId": "card01"
+        },
+        {
+          "id": "box02",
+          "itemId": "card02"
+        },
+        {
+          "id": "box03",
+          "itemId": "card03"
+        },
+        {
+          "id": "box04",
+          "itemId": "card04"
         }
       ],
       "action": "我完成了"

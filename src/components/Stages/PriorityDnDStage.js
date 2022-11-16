@@ -46,6 +46,7 @@ function backlogReducer(state, action) {
 export const PriorityDnDStage = ({ onComplete }) => {
   const { state } = useGameContext();
   const stageData = state.stages[state.progress];
+  const boxes = stageData.candidateBoxes;
   const [candidates, candidatesDispatch] = useReducer(
     candidatesReducer,
     stageData.items
@@ -87,15 +88,12 @@ export const PriorityDnDStage = ({ onComplete }) => {
             role={stageData.messages[0].role}
             className="mb-6"
           />
-          {candidates.map((item, i) => {
+          {boxes.map((box) => {
+            const item = candidates.find((c) => c.id === box.itemId);
             return (
               <div className="my-3">
-                <DroppableBox
-                  id={item.container}
-                  key={item.container}
-                  className="min-h-3.75"
-                >
-                  <DraggableCard id={item.id} index={i}>
+                <DroppableBox id={box.id} key={box.id} className="min-h-3.75">
+                  <DraggableCard id={item.id} index={0}>
                     {item.text}
                   </DraggableCard>
                 </DroppableBox>
