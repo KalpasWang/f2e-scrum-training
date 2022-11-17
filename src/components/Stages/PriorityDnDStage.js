@@ -12,8 +12,10 @@ function dndReducer(state, action) {
       if (droppableId === 'backlog') {
         state.backlog.itemsId.splice(index, 0, draggableId);
       } else {
-        const box = state.candidateBoxes.find((b) => b.id === droppableId);
-        box.itemId = draggableId;
+        const i = state.candidateBoxes.findIndex((b) => b.id === droppableId);
+        if (i > -1) {
+          state.candidateBoxes[i].itemId = draggableId;
+        }
       }
       return state;
     }
@@ -22,8 +24,10 @@ function dndReducer(state, action) {
       if (droppableId === 'backlog') {
         state.backlog.itemsId.splice(index, 1);
       } else {
-        const box = state.candidateBoxes.find((b) => b.id === droppableId);
-        box.itemId = '';
+        const i = state.candidateBoxes.findIndex((b) => b.id === droppableId);
+        if (i > -1) {
+          state.candidateBoxes[i].itemId = '';
+        }
       }
       return state;
     }

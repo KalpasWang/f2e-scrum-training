@@ -5,7 +5,9 @@ import { DraggableCard } from './DraggableCard';
 export const DroppableBox = ({ id, className, item }) => {
   const containerStyle = classNames(
     'bg-red-300 border border-slate-400',
-    'min-h-3.75',
+    {
+      'min-h-3.75': !item,
+    },
     className
   );
   return (
