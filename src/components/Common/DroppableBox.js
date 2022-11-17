@@ -1,14 +1,15 @@
 import { Droppable } from 'react-beautiful-dnd';
 import classNames from 'classnames';
+import { DraggableCard } from './DraggableCard';
 
-export const DroppableBox = ({ id, className, children }) => {
+export const DroppableBox = ({ id, className, item }) => {
   const containerStyle = classNames(
     'bg-red-300 border border-slate-400',
+    'min-h-3.75',
     className
   );
-  console.log(children);
   return (
-    <Droppable droppableId={id}>
+    <Droppable droppableId={id} isDropDisabled={!!item}>
       {(provided, snapshot) => {
         return (
           <div
@@ -16,7 +17,11 @@ export const DroppableBox = ({ id, className, children }) => {
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
-            {children}
+            {item && (
+              <DraggableCard id={item.id} index={0}>
+                {item.text}
+              </DraggableCard>
+            )}
             {provided.placeholder}
           </div>
         );

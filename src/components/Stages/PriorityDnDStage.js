@@ -5,17 +5,25 @@ import { Button } from '../Common';
 import { DraggableCard, DroppableBox } from '../Common';
 import { Message } from '../Common/Message';
 
-function candidatesReducer(state, action) {
+function dndReducer(state, action) {
   switch (action.type) {
-    case 'addItemAt': {
-      const { item, index } = action.payload;
-      state.splice(index, 0, item);
+    case 'add': {
+      const { draggableId, droppableId, index } = action.payload;
+      if (droppableId === 'backlog') {
+        state.backlog.itemsId.splice(index, 0, draggableId);
+      } else {
+        const box = state.candidateBoxes.find((b) => b.id === droppableId);
+        box.itemId = draggableId;
+      }
       return state;
     }
     case 'remove': {
-      const idx = state.findIndex((item) => item.id === action.payload);
-      if (idx >= 0) {
-        state.splice(idx, 1);
+      const { droppableId, index } = action.payload;
+      if (droppableId === 'backlog') {
+        state.backlog.itemsId.splice(index, 1);
+      } else {
+        const box = state.candidateBoxes.find((b) => b.id === droppableId);
+        box.itemId = '';
       }
       return state;
     }
@@ -24,50 +32,54 @@ function candidatesReducer(state, action) {
   }
 }
 
-function backlogReducer(state, action) {
-  switch (action.type) {
-    case 'addItemAt': {
-      const { item, index } = action.payload;
-      state.splice(index, 0, item);
-      return state;
-    }
-    case 'remove': {
-      const idx = state.findIndex((item) => item.id === action.payload);
-      if (idx >= 0) {
-        state.splice(idx, 1);
-      }
-      return state;
-    }
-    default:
-      return state;
-  }
-}
+// function backlogReducer(state, action) {
+//   switch (action.type) {
+//     case 'addItemAt': {
+//       const { item, index } = action.payload;
+//       state.splice(index, 0, item);
+//       return state;
+//     }
+//     case 'remove': {
+//       const idx = state.findIndex((item) => item.id === action.payload);
+//       if (idx >= 0) {
+//         state.splice(idx, 1);
+//       }
+//       return state;
+//     }
+//     default:
+//       return state;
+//   }
+// }
 
 export const PriorityDnDStage = ({ onComplete }) => {
   const { state } = useGameContext();
   const stageData = state.stages[state.progress];
-  const boxes = stageData.candidateBoxes;
-  const [candidates, candidatesDispatch] = useReducer(
-    candidatesReducer,
-    stageData.items
-  );
-  const [backlog, backlogDispatch] = useReducer(backlogReducer, []);
-  const target = { candidates, backlog };
-  const dispatch = { candidates: candidatesDispatch, backlog: backlogDispatch };
+  const { items, candidateBoxes, backlog } = stageData;
+  const [dndState, dispatch] = useReducer(dndReducer, {
+    items,
+    candidateBoxes,
+    backlog,
+  });
 
-  function handleDragEnd({ source, destination }) {
+  function handleDragEnd({ draggableId, source, destination }) {
+    // 排除拖移到非 Droppable 與 沒有移動的情形
     if (!destination) return;
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return;
+    }
 
-    const draggedItem = target[source.droppableId][source.index];
-    dispatch[source.droppableId]({
+    dispatch({
       type: 'remove',
-      payload: draggedItem.id,
+      payload: source,
     });
-    dispatch[destination.droppableId]({
-      type: 'addItemAt',
+    dispatch({
+      type: 'add',
       payload: {
-        item: draggedItem,
-        index: destination.index,
+        ...destination,
+        draggableId,
       },
     });
   }
@@ -88,22 +100,21 @@ export const PriorityDnDStage = ({ onComplete }) => {
             role={stageData.messages[0].role}
             className="mb-6"
           />
-          {boxes.map((box) => {
-            const item = candidates.find((c) => c.id === box.itemId);
+          {dndState.candidateBoxes.map((box) => {
+            const item = dndState.items.find((c) => c.id === box.itemId);
             return (
-              <div className="my-3">
-                <DroppableBox id={box.id} key={box.id} className="min-h-3.75">
-                  <DraggableCard id={item.id} index={0}>
-                    {item.text}
-                  </DraggableCard>
-                </DroppableBox>
-              </div>
+              <DroppableBox
+                id={box.id}
+                key={box.id}
+                item={item}
+                className="my-3"
+              />
             );
           })}
         </div>
         <div className="basis-1/2 px-2 flex flex-col items-stretch">
           <h1 className="text-3xl text-right font-bold mb-2">
-            {stageData.listTitle}
+            {dndState.backlog.title}
           </h1>
           <Droppable droppableId="backlog">
             {(provided, snapshot) => {
@@ -113,7 +124,8 @@ export const PriorityDnDStage = ({ onComplete }) => {
                   ref={provided.innerRef}
                   {...provided.droppableProps}
                 >
-                  {backlog.map((item, i) => {
+                  {dndState.backlog.itemsId.map((itemId, i) => {
+                    const item = dndState.items.find((e) => e.id === itemId);
                     return (
                       <DraggableCard id={item.id} index={i} key={item.id}>
                         {item.text}

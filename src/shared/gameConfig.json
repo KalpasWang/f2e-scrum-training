@@ -23,7 +23,6 @@
           "text": "請把需求放到產品待辦清單，並調整待辦的優先度順序。我們公司也推薦使用 Jira 來做任務的管理呢！"
         }
       ],
-      "listTitle": "產品代辦清單(Product Backlog)",
       "items": [
         {
           "id": "card01",
@@ -64,6 +63,11 @@
           "itemId": "card04"
         }
       ],
+      "backlog": {
+        "id": "backlog",
+        "title": "產品代辦清單(Product Backlog)",
+        "itemsId": []
+      },
       "action": "我完成了"
     },
     {
