@@ -2,19 +2,15 @@ import React, { useContext, useReducer } from 'react';
 import game from '../shared/gameConfig.json';
 
 const initialState = {
-  currentScene: 'start',
   stages: game.stages,
-  companyName: game.companyName,
-  progress: -1,
+  progress: 1,
   stagesAmount: game.stages.length,
 };
 
 export const GameContext = React.createContext({
   state: {
-    currentScene: '',
     stages: [],
-    companyName: '',
-    progress: -1,
+    progress: 1,
     stagesAmount: 0,
   },
   dispatch: () => {},
@@ -23,19 +19,11 @@ export const GameContext = React.createContext({
 const gameReducer = (state, action) => {
   switch (action.type) {
     case 'nextSatge': {
-      let scene = 'training';
       let progress = state.progress + 1;
-      if (state.currentScene === 'start') {
-        scene = 'training';
-      }
-      if (progress === state.stagesAmount) {
-        scene = 'end';
-      }
       if (progress > state.stagesAmount) {
-        scene = 'start';
-        progress = -1;
+        progress = 1;
       }
-      return { ...state, progress: progress, currentScene: scene };
+      return { ...state, progress: progress };
     }
     default:
       return state;

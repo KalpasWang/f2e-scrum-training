@@ -1,10 +1,10 @@
 {
-  "companyName": "TT資訊",
   "stages": [
     {
       "name": "DialogStage",
-      "text": "嗨囉，歡迎加入$companyName\n在正式加入專案開發之前，需要請你先了解 Scrum 的流程與精神!\n請接受挑戰任務，成功通過Scrum 新手村的挑戰任務吧~~",
-      "variables": ["companyName"],
+      "text": "勇者！歡迎來到TT資訊王國，我是TT King\n在正式加入王國的敏捷騎士團以前，需要請你先了解騎士團的Scrum流程與精神\n\n請跟隨我一起通過Scrum新手村的挑戰任務吧！",
+      "markText1": "Scrum流程與精神",
+      "markColor1": "primary3",
       "action": "接受挑戰"
     },
     {
