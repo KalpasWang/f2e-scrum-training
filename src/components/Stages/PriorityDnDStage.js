@@ -17,7 +17,7 @@ function dndReducer(state, action) {
           state.candidateBoxes[i].itemId = draggableId;
         }
       }
-      return state;
+      return { ...state };
     }
     case 'remove': {
       const { droppableId, index } = action.payload;
@@ -29,31 +29,12 @@ function dndReducer(state, action) {
           state.candidateBoxes[i].itemId = '';
         }
       }
-      return state;
+      return { ...state };
     }
     default:
       return state;
   }
 }
-
-// function backlogReducer(state, action) {
-//   switch (action.type) {
-//     case 'addItemAt': {
-//       const { item, index } = action.payload;
-//       state.splice(index, 0, item);
-//       return state;
-//     }
-//     case 'remove': {
-//       const idx = state.findIndex((item) => item.id === action.payload);
-//       if (idx >= 0) {
-//         state.splice(idx, 1);
-//       }
-//       return state;
-//     }
-//     default:
-//       return state;
-//   }
-// }
 
 export const PriorityDnDStage = ({ onComplete }) => {
   const { state } = useGameContext();
@@ -89,7 +70,13 @@ export const PriorityDnDStage = ({ onComplete }) => {
   }
 
   function checkAnswers() {
-    const isCorrect = backlog.every((item, i) => item.priority === i + 1);
+    const isCorrect = dndState.backlog.itemsId.every((itemId, i) => {
+      const item = dndState.items.find((e) => e.id === itemId);
+      if (item) {
+        return item.priority === i + 1;
+      }
+      return false;
+    });
     if (isCorrect) {
       onComplete();
     }

@@ -1,7 +1,9 @@
 import { useReducer } from 'react';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { useGameContext } from '../../context/gameContext';
 import { Button } from '../Common';
 import { DraggableCard } from '../Common/DraggableCard';
+import { Message } from '../Common/Message';
 
 function candidatesReducer(state, action) {
   switch (action.type) {

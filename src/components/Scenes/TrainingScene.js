@@ -2,7 +2,12 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useGameContext } from '../../context/gameContext';
 import { Bar } from '../Common';
-import { DialogStage, PriorityDnDStage, GroupChatStage } from '../Stages';
+import {
+  DialogStage,
+  PriorityDnDStage,
+  GroupChatStage,
+  SprintListDnDStage,
+} from '../Stages';
 
 export const TrainingScene = ({ onComplete }) => {
   const { state } = useGameContext();
@@ -18,7 +23,12 @@ export const TrainingScene = ({ onComplete }) => {
     onComplete();
   };
 
-  const Stages = { DialogStage, PriorityDnDStage, GroupChatStage };
+  const Stages = {
+    DialogStage,
+    PriorityDnDStage,
+    GroupChatStage,
+    SprintListDnDStage,
+  };
   const CurrentStage = Stages[currentStageName];
 
   return (
