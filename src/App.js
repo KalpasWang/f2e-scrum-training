@@ -1,21 +1,25 @@
-import { useState } from 'react';
-import { EndMenu, StartMenu, TrainingScene } from './components';
-import { MainLayout } from './layouts/MainLayout';
+import { useCallback } from 'react';
+import { EndScene, StartScene, TrainingScene } from './components/Scenes';
+import { MainLayout } from './components/layouts';
 import './index.css';
+import { useGameContext } from './context/gameContext';
 
 export default function App() {
-  const [mode, setMode] = useState('start');
+  const { state, dispatch } = useGameContext();
+  const toNextStage = useCallback(() => {
+    dispatch({ type: 'nextSatge' });
+  }, [dispatch]);
+
+  const Scenes = {
+    start: StartScene,
+    training: TrainingScene,
+    end: EndScene,
+  };
+  const CurrentScene = Scenes[state.currentScene];
+
   return (
     <MainLayout>
-      {mode === 'start' && (
-        <StartMenu
-          onStart={() => {
-            setMode('training');
-          }}
-        />
-      )}
-      {mode === 'training' && <TrainingScene />}
-      {mode === 'end' && <EndMenu />}
+      <CurrentScene onComplete={toNextStage} />
     </MainLayout>
   );
 }

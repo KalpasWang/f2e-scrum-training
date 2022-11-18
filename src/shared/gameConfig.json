@@ -1,0 +1,113 @@
+{
+  "companyName": "TT資訊",
+  "stages": [
+    {
+      "name": "DialogStage",
+      "text": "嗨囉，歡迎加入$companyName\n在正式加入專案開發之前，需要請你先了解 Scrum 的流程與精神!\n請接受挑戰任務，成功通過Scrum 新手村的挑戰任務吧~~",
+      "variables": ["companyName"],
+      "action": "接受挑戰"
+    },
+    {
+      "name": "DialogStage",
+      "text": "我是$companyName，開發A組的PO，小敏。\nPO也就是產品負責人(Product Owner)。\n產品負責人會負責評估產品待辦清單的價值與重要性，依序排列要 執行的優先順序，對齊產品目標。最後排出產品待辦清單(Product Backlog)唷！\n剛好我最近手邊有一個『人才招募系統』的案子，我才剛列出了『 產品需求清單」\n既然你都來了，來試試看調整產品優先度，排出產品待辦清單吧！",
+      "variables": ["companyName"],
+      "avatar": "default",
+      "action": "接受挑戰"
+    },
+    {
+      "name": "PriorityDnDStage",
+      "messages": [
+        {
+          "role": "PO - 小敏",
+          "avatar": "default",
+          "text": "請把需求放到產品待辦清單，並調整待辦的優先度順序。我們公司也推薦使用 Jira 來做任務的管理呢！"
+        }
+      ],
+      "items": [
+        {
+          "id": "card01",
+          "text": "會員系統(登入、註冊、權限管理)",
+          "priority": 1
+        },
+        {
+          "id": "card02",
+          "text": "應徵者的線上履歷編輯器",
+          "priority": 2
+        },
+        {
+          "id": "card03",
+          "text": "前台職缺列表(職缺詳細內容、點選可發送應徵意願)",
+          "priority": 3
+        },
+        {
+          "id": "card04",
+          "text": "後台職缺管理功能(資訊上架、下架、顯示應徵者資料)",
+          "priority": 4
+        }
+      ],
+      "candidateBoxes": [
+        {
+          "id": "box01",
+          "itemId": "card01"
+        },
+        {
+          "id": "box02",
+          "itemId": "card02"
+        },
+        {
+          "id": "box03",
+          "itemId": "card03"
+        },
+        {
+          "id": "box04",
+          "itemId": "card04"
+        }
+      ],
+      "backlog": {
+        "id": "backlog",
+        "title": "產品代辦清單(Product Backlog)",
+        "itemsId": []
+      },
+      "action": "我完成了"
+    },
+    {
+      "name": "GroupChatStage",
+      "text": "Hi，歡迎加入 $companyName, 試試看調整產品優先度，排出代辦清單吧！",
+      "variables": ["companyName"],
+      "action": "接受挑戰"
+    },
+    {
+      "name": "SprintListDnDStage",
+      "list1Title": "產品代辦清單(Product Backlog)",
+      "list2Title": "開發 A 組的短衝代辦清單",
+      "list2Limit": "20 點 / 5 人",
+      "items": [
+        {
+          "id": "01",
+          "status": "backlog",
+          "text": "會員系統(登入、註冊、權限管理)",
+          "points": 8
+        },
+        {
+          "id": "02",
+          "status": "backlog",
+          "text": "應徵者的線上履歷編輯器",
+          "points": 13
+        },
+        {
+          "id": "03",
+          "status": "backlog",
+          "text": "前台職缺列表(職缺詳細內容、點選可發送應徵意願)",
+          "points": 5
+        },
+        {
+          "id": "04",
+          "status": "backlog",
+          "text": "後台職缺管理功能(資訊上架、下架、顯示應徵者資料)",
+          "points": 8
+        }
+      ],
+      "action": "準備好了！開始 Sprint"
+    }
+  ]
+}
