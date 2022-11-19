@@ -1,6 +1,6 @@
 import { useReducer } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { useGameContext } from '../../context/gameContext';
+// import { useGameContext } from '../../context/gameContext';
 import { Button } from '../Common';
 import { DraggableCard, DroppableBox } from '../Common';
 import { Message } from '../Common/Message';
@@ -36,9 +36,8 @@ function dndReducer(state, action) {
   }
 }
 
-export const PriorityDnDStage = ({ onComplete }) => {
-  const { state } = useGameContext();
-  const stageData = state.stages[state.progress];
+export const PriorityDnDStage = ({ stageData, onComplete }) => {
+  // const { state } = useGameContext();
   const { items, candidateBoxes, backlog } = stageData;
   const [dndState, dispatch] = useReducer(dndReducer, {
     items,
@@ -83,14 +82,27 @@ export const PriorityDnDStage = ({ onComplete }) => {
   }
 
   return (
-    <DragDropContext onDragEnd={handleDragEnd}>
-      <main className="h-full w-full flex flex-row gap-3">
+    <div className="h-full w-full flex flex-row gap-3">
+      <DragDropContext onDragEnd={handleDragEnd}>
         <div className="basis-1/2 px-2 flex flex-col items-stretch ">
-          <Message
-            text={stageData.messages[0].text}
-            role={stageData.messages[0].role}
-            className="mb-6"
-          />
+          <div className="relative">
+            <Message text={stageData.message} className="mb-6" />
+            <svg
+              width="44"
+              height="8"
+              viewBox="0 0 44 8"
+              fill="none"
+              className="absolute left-0 top-2/3 -translate-x-full"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M2 2C8.51163 5.01849 25.6279 9.24439 42 2"
+                stroke="#FF60FA"
+                stroke-width="3"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
           {dndState.candidateBoxes.map((box) => {
             const item = dndState.items.find((c) => c.id === box.itemId);
             return (
@@ -132,7 +144,7 @@ export const PriorityDnDStage = ({ onComplete }) => {
             <Button onClick={checkAnswers}>{stageData.action}</Button>
           </div>
         </div>
-      </main>
-    </DragDropContext>
+      </DragDropContext>
+    </div>
   );
 };

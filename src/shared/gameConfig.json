@@ -14,14 +14,16 @@
       "button": "next"
     },
     {
+      "name": "DialogStage",
+      "text": "剛好我手邊有一個「人才招募系統」的案子，我才剛列出了「產品需求清單」\n\n既然你都來了，來試試看<span class=\"text-primary3\">調整產品優先度，排出產品代辦清單</span>吧！",
+      "roleImg": "poHand.svg",
+      "button": "default",
+      "action": "開始任務"
+    },
+    {
       "name": "PriorityDnDStage",
-      "messages": [
-        {
-          "role": "PO - 小敏",
-          "avatar": "default",
-          "text": "請把需求放到產品待辦清單，並調整待辦的優先度順序。我們公司也推薦使用 Jira 來做任務的管理呢！"
-        }
-      ],
+      "message": "請把需求放到產品待辦清單，並調整待辦的優先度順序。TT王國也推薦使用 <span class=\"text-primary1\">Jira</span> 來做任務的管理呢！",
+      "roleImg": "poSit.svg",
       "items": [
         {
           "id": "card01",
@@ -65,9 +67,10 @@
       "backlog": {
         "id": "backlog",
         "title": "產品代辦清單(Product Backlog)",
+        "placeholder": ["優先度最高", "優先度高", "優先度中", "優先度低"],
         "itemsId": []
       },
-      "action": "我完成了"
+      "action": "完成清單"
     },
     {
       "name": "GroupChatStage",
