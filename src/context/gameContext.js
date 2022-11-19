@@ -25,6 +25,10 @@ const gameReducer = (state, action) => {
       }
       return { ...state, progress: progress };
     }
+    case 'prevStage': {
+      console.log('dispatch');
+      return { ...state, progress: state.progress - 1 };
+    }
     default:
       return state;
   }

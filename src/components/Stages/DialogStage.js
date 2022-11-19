@@ -25,8 +25,8 @@ export const DialogStage = ({ stageData, onComplete }) => {
         <div className="w-full text-assist2 text-2xl leading-relaxed">
           {renderTexts}
         </div>
-        <Button type="next" onClick={onComplete}>
-          接受挑戰
+        <Button type={stageData.button} onClick={onComplete}>
+          {stageData.action}
         </Button>
       </div>
       {stageData.roleImg && (

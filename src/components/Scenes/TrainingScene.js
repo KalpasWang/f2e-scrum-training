@@ -10,13 +10,20 @@ import {
 } from '../Stages';
 
 export const TrainingScene = ({ onComplete }) => {
-  const { state } = useGameContext();
+  const { state, dispatch } = useGameContext();
   const [currentStageName, setCurrentStageName] = useState(
     state.stages[0].name
   );
 
   const nextStageHandler = () => {
     onComplete();
+    const i = state.progress - 1;
+    setCurrentStageName(state.stages[i].name);
+  };
+
+  const prevPageHandler = () => {
+    console.log('prev');
+    dispatch({ type: 'prevStage' });
     const i = state.progress - 1;
     setCurrentStageName(state.stages[i].name);
   };
@@ -39,7 +46,11 @@ export const TrainingScene = ({ onComplete }) => {
     >
       {state.progress > 1 && (
         <div className="absolute left-6 top-7">
-          <button type="button" className="text-assist1 leading-6">
+          <button
+            type="button"
+            onClick={prevPageHandler}
+            className="text-assist1 leading-6"
+          >
             &lt; 回上一頁
           </button>
         </div>
