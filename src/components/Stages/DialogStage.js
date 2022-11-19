@@ -1,31 +1,43 @@
 import { Button } from '../Common';
-import { useGameContext } from '../../context/gameContext';
 
-export const DialogStage = ({ onComplete }) => {
-  const { state } = useGameContext();
-  const stageData = state.stages[state.progress];
+export const DialogStage = ({ stageData, onComplete }) => {
   let texts = stageData.text;
-  if (stageData.variables) {
-    stageData.variables.forEach((val) => {
-      const finding = '$' + val;
-      const replacement = state[val];
-      texts = texts.replaceAll(finding, replacement);
-    });
-  }
   const renderTexts = texts.split('\n').map((p, i) => {
+    if (!p) {
+      return (
+        <p key={i} className="mb-4">
+          &nbsp;
+        </p>
+      );
+    }
     return (
-      <p key={i} className="mb-4">
-        {p}
-      </p>
+      <p
+        key={i}
+        dangerouslySetInnerHTML={{ __html: p }}
+        className="leading-normal"
+      ></p>
     );
   });
 
   return (
-    <main className="h-full w-full border-2 border-gray-700 max-w-3xl py-2 px-5">
-      <div className="h-full mx-auto flex flex-col justify-around items-center gap-4">
-        <div>{renderTexts}</div>
-        <Button onClick={onComplete}>接受挑戰</Button>
+    <div className="h-full">
+      <div className="bg-assist1 rounded-4xl px-[7vw] py-16 flex flex-col justify-around items-center gap-[15vh]">
+        <div className="w-full text-assist2 text-2xl leading-relaxed">
+          {renderTexts}
+        </div>
+        <Button type="next" onClick={onComplete}>
+          接受挑戰
+        </Button>
       </div>
-    </main>
+      {stageData.roleImg && (
+        <div className="fixed bottom-0 right-0">
+          <img
+            src={require(`../../assets/${stageData.roleImg}`)}
+            className="w-[30vw]"
+            alt="role"
+          />
+        </div>
+      )}
+    </div>
   );
 };

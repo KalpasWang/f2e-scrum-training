@@ -11,6 +11,7 @@ module.exports = {
       primary3: '#FFCB2D',
       assist1: '#2B2B2B',
       assist2: '#FFF9F6',
+      gray5: '#E0E0E0',
       disabled: '#BDBDBD',
     },
     container: {
@@ -20,6 +21,9 @@ module.exports = {
     extend: {
       minHeight: {
         3.75: '3.75rem',
+      },
+      borderRadius: {
+        '4xl': '2.25rem',
       },
     },
   },

@@ -6,3 +6,7 @@
   font-family: 'Cubic 11';
   src: url('./assets/Cubic_11_1.013_R.woff2') format('woff2');
 }
+
+.text-primary3 {
+  color: theme(colors.primary3);
+}

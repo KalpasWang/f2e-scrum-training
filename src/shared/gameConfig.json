@@ -2,9 +2,10 @@
   "stages": [
     {
       "name": "DialogStage",
-      "text": "勇者！歡迎來到TT資訊王國，我是TT King\n在正式加入王國的敏捷騎士團以前，需要請你先了解騎士團的Scrum流程與精神\n\n請跟隨我一起通過Scrum新手村的挑戰任務吧！",
-      "markText1": "Scrum流程與精神",
-      "markColor1": "primary3",
+      "text": "勇者！歡迎來到TT資訊王國，我是TT King\n在正式加入王國的敏捷騎士團以前，需要請你先了解騎士團的<span class=\"text-primary3\">Scrum流程與精神</span>\n\n請跟隨我一起通過Scrum新手村的挑戰任務吧！",
+      "markText": ["Scrum流程與精神"],
+      "markColor": ["primary3"],
+      "roleImg": "king.svg",
       "action": "接受挑戰"
     },
     {
