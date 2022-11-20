@@ -22,7 +22,9 @@
     },
     {
       "name": "PriorityDnDStage",
-      "message": "請把需求放到產品待辦清單，並調整待辦的優先度順序。TT王國也推薦使用 <span class=\"text-primary1\">Jira</span> 來做任務的管理呢！",
+      "message": "請把需求貓貓拖拉到右邊產品代辦清單，並調整代辦的優先度順序～<br />TT王國也推薦使用 <span class=\"text-primary1\">Jira</span> 來做任務的管理喔！",
+      "messageColor": "primary2",
+      "messageImg": "jira_logo.png",
       "roleImg": "poSit.svg",
       "items": [
         {

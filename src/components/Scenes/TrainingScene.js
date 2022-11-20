@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useGameContext } from '../../context/gameContext';
 import { Bar } from '../Common';
@@ -15,17 +15,16 @@ export const TrainingScene = ({ onComplete }) => {
     state.stages[0].name
   );
 
+  useEffect(() => {
+    setCurrentStageName(state.stages[state.progress - 1].name);
+  }, [state]);
+
   const nextStageHandler = () => {
     onComplete();
-    const i = state.progress - 1;
-    setCurrentStageName(state.stages[i].name);
   };
 
   const prevPageHandler = () => {
-    console.log('prev');
     dispatch({ type: 'prevStage' });
-    const i = state.progress - 1;
-    setCurrentStageName(state.stages[i].name);
   };
 
   const Stages = {

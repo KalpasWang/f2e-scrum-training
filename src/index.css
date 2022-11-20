@@ -10,3 +10,11 @@
 .text-primary3 {
   color: theme(colors.primary3);
 }
+
+.text-primary2 {
+  color: theme(colors.primary2);
+}
+
+.text-primary1 {
+  color: theme(colors.primary1);
+}

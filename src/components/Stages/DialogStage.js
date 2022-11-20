@@ -1,7 +1,7 @@
 import { Button } from '../Common';
 
 export const DialogStage = ({ stageData, onComplete }) => {
-  let texts = stageData.text;
+  let texts = stageData.text || '';
   const renderTexts = texts.split('\n').map((p, i) => {
     if (!p) {
       return (

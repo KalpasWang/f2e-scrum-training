@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useReducer, useState } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 // import { useGameContext } from '../../context/gameContext';
 import { Button } from '../Common';
@@ -44,6 +44,7 @@ export const PriorityDnDStage = ({ stageData, onComplete }) => {
     candidateBoxes,
     backlog,
   });
+  const [btnState, setBtnState] = useState('disabled');
 
   function handleDragEnd({ draggableId, source, destination }) {
     // 排除拖移到非 Droppable 與 沒有移動的情形
@@ -82,69 +83,86 @@ export const PriorityDnDStage = ({ stageData, onComplete }) => {
   }
 
   return (
-    <div className="h-full w-full flex flex-row gap-3">
+    <div>
+      <div className="flex justify-start items-start overflow-visible">
+        <img
+          className="mr-4 -translate-y-6"
+          src={require('../../assets/' + stageData.roleImg)}
+          alt="role"
+        />
+        <svg
+          width="44"
+          height="8"
+          viewBox="0 0 44 8"
+          fill="none"
+          className="translate-y-16"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M2 2C8.51163 5.01849 25.6279 9.24439 42 2"
+            stroke="#FF60FA"
+            strokeWidth="3"
+            strokeLinecap="round"
+          />
+        </svg>
+        <Message
+          borderColor={stageData.messageColor}
+          color={stageData.messageColor}
+          text={stageData.message}
+          img={stageData.messageImg}
+        />
+      </div>
       <DragDropContext onDragEnd={handleDragEnd}>
-        <div className="basis-1/2 px-2 flex flex-col items-stretch ">
-          <div className="relative">
-            <Message text={stageData.message} className="mb-6" />
-            <svg
-              width="44"
-              height="8"
-              viewBox="0 0 44 8"
-              fill="none"
-              className="absolute left-0 top-2/3 -translate-x-full"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M2 2C8.51163 5.01849 25.6279 9.24439 42 2"
-                stroke="#FF60FA"
-                stroke-width="3"
-                stroke-linecap="round"
-              />
-            </svg>
-          </div>
-          {dndState.candidateBoxes.map((box) => {
-            const item = dndState.items.find((c) => c.id === box.itemId);
-            return (
-              <DroppableBox
-                id={box.id}
-                key={box.id}
-                item={item}
-                className="my-3"
-              />
-            );
-          })}
-        </div>
-        <div className="basis-1/2 px-2 flex flex-col items-stretch">
-          <h1 className="text-3xl text-right font-bold mb-2">
-            {dndState.backlog.title}
-          </h1>
-          <Droppable droppableId="backlog">
-            {(provided, snapshot) => {
+        <div className="h-full w-full flex flex-row gap-3">
+          <div className="basis-1/2 px-2 flex flex-col items-stretch ">
+            {dndState.candidateBoxes.map((box) => {
+              const item = dndState.items.find((c) => c.id === box.itemId);
               return (
-                <div
-                  className="bg-lime-300 flex-grow"
-                  ref={provided.innerRef}
-                  {...provided.droppableProps}
-                >
-                  {dndState.backlog.itemsId.map((itemId, i) => {
-                    const item = dndState.items.find((e) => e.id === itemId);
-                    return (
-                      <DraggableCard id={item.id} index={i} key={item.id}>
-                        {item.text}
-                      </DraggableCard>
-                    );
-                  })}
-                  {provided.placeholder}
-                </div>
+                <DroppableBox
+                  id={box.id}
+                  key={box.id}
+                  item={item}
+                  className="my-3"
+                />
               );
-            }}
-          </Droppable>
-          <div className="mt-4 text-right">
-            <Button onClick={checkAnswers}>{stageData.action}</Button>
+            })}
+          </div>
+          <div className="basis-1/2 px-2 flex flex-col items-stretch">
+            <h1 className="text-3xl text-right font-bold mb-2">
+              {dndState.backlog.title}
+            </h1>
+            <Droppable droppableId="backlog">
+              {(provided, snapshot) => {
+                return (
+                  <div
+                    className="bg-lime-300 flex-grow"
+                    ref={provided.innerRef}
+                    {...provided.droppableProps}
+                  >
+                    {dndState.backlog.itemsId.map((itemId, i) => {
+                      const item = dndState.items.find((e) => e.id === itemId);
+                      return (
+                        <DraggableCard id={item.id} index={i} key={item.id}>
+                          {item.text}
+                        </DraggableCard>
+                      );
+                    })}
+                    {provided.placeholder}
+                  </div>
+                );
+              }}
+            </Droppable>
+            <div className="mt-4 text-right">
+              <Button onClick={checkAnswers}>{stageData.action}</Button>
+            </div>
           </div>
         </div>
       </DragDropContext>
+      <div className="text-center py-8">
+        <Button type={btnState} onClick={onComplete}>
+          {stageData.action}
+        </Button>
+      </div>
     </div>
   );
 };
