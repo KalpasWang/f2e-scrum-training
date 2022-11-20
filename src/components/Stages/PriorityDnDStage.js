@@ -9,26 +9,12 @@ function dndReducer(state, action) {
   switch (action.type) {
     case 'add': {
       const { draggableId, droppableId, index } = action.payload;
-      if (droppableId === 'backlog') {
-        state.backlog.itemsId.splice(index, 0, draggableId);
-      } else {
-        const i = state.candidateBoxes.findIndex((b) => b.id === droppableId);
-        if (i > -1) {
-          state.candidateBoxes[i].itemId = draggableId;
-        }
-      }
+      state[droppableId].itemsId.splice(index, 0, draggableId);
       return { ...state };
     }
     case 'remove': {
       const { droppableId, index } = action.payload;
-      if (droppableId === 'backlog') {
-        state.backlog.itemsId.splice(index, 1);
-      } else {
-        const i = state.candidateBoxes.findIndex((b) => b.id === droppableId);
-        if (i > -1) {
-          state.candidateBoxes[i].itemId = '';
-        }
-      }
+      state[droppableId].itemsId.splice(index, 1);
       return { ...state };
     }
     default:
@@ -38,10 +24,10 @@ function dndReducer(state, action) {
 
 export const PriorityDnDStage = ({ stageData, onComplete }) => {
   // const { state } = useGameContext();
-  const { items, candidateBoxes, backlog } = stageData;
+  const { items, candidates, backlog } = stageData;
   const [dndState, dispatch] = useReducer(dndReducer, {
     items,
-    candidateBoxes,
+    candidates,
     backlog,
   });
   const [btnState, setBtnState] = useState('disabled');
@@ -84,9 +70,9 @@ export const PriorityDnDStage = ({ stageData, onComplete }) => {
 
   return (
     <div>
-      <div className="flex justify-start items-start overflow-visible">
+      <div className="flex justify-start items-center">
         <img
-          className="mr-4 -translate-y-6"
+          className="mr-4"
           src={require('../../assets/' + stageData.roleImg)}
           alt="role"
         />
@@ -95,7 +81,7 @@ export const PriorityDnDStage = ({ stageData, onComplete }) => {
           height="8"
           viewBox="0 0 44 8"
           fill="none"
-          className="translate-y-16"
+          className="-translate-y-6"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
@@ -110,50 +96,47 @@ export const PriorityDnDStage = ({ stageData, onComplete }) => {
           color={stageData.messageColor}
           text={stageData.message}
           img={stageData.messageImg}
+          className="-translate-y-6"
         />
       </div>
       <DragDropContext onDragEnd={handleDragEnd}>
-        <div className="h-full w-full flex flex-row gap-3">
-          <div className="basis-1/2 px-2 flex flex-col items-stretch ">
-            {dndState.candidateBoxes.map((box) => {
-              const item = dndState.items.find((c) => c.id === box.itemId);
-              return (
-                <DroppableBox
-                  id={box.id}
-                  key={box.id}
-                  item={item}
-                  className="my-3"
-                />
-              );
-            })}
+        <div className="h-full w-full md:columns-1 columns-2 gap-3">
+          <div className="px-6 pb-8 pt-28 bg-assist1 rounded-4xl">
+            <DroppableBox
+              id="candidates"
+              className="w-full h-full flex flex-col justify-between items-start"
+              items={dndState.candidates}
+              size="4"
+            />
           </div>
-          <div className="basis-1/2 px-2 flex flex-col items-stretch">
-            <h1 className="text-3xl text-right font-bold mb-2">
+          <div className="px-6 py-32 bg-assist1 rounded-4xl">
+            <h1 className="text-3xl text-center mb-4">
               {dndState.backlog.title}
             </h1>
-            <Droppable droppableId="backlog">
-              {(provided, snapshot) => {
-                return (
-                  <div
-                    className="bg-lime-300 flex-grow"
-                    ref={provided.innerRef}
-                    {...provided.droppableProps}
-                  >
-                    {dndState.backlog.itemsId.map((itemId, i) => {
-                      const item = dndState.items.find((e) => e.id === itemId);
-                      return (
-                        <DraggableCard id={item.id} index={i} key={item.id}>
-                          {item.text}
-                        </DraggableCard>
-                      );
-                    })}
-                    {provided.placeholder}
-                  </div>
-                );
-              }}
-            </Droppable>
-            <div className="mt-4 text-right">
-              <Button onClick={checkAnswers}>{stageData.action}</Button>
+            <div className="flex flex-col justify-between items-stretch">
+              <Droppable droppableId="backlog">
+                {(provided, snapshot) => {
+                  return (
+                    <div
+                      className="bg-lime-300 flex-grow"
+                      ref={provided.innerRef}
+                      {...provided.droppableProps}
+                    >
+                      {dndState.backlog.itemsId.map((itemId, i) => {
+                        const item = dndState.items.find(
+                          (e) => e.id === itemId
+                        );
+                        return (
+                          <DraggableCard id={item.id} index={i} key={item.id}>
+                            {item.text}
+                          </DraggableCard>
+                        );
+                      })}
+                      {provided.placeholder}
+                    </div>
+                  );
+                }}
+              </Droppable>
             </div>
           </div>
         </div>

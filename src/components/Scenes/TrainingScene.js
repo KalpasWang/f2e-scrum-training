@@ -56,11 +56,11 @@ export const TrainingScene = ({ onComplete }) => {
       )}
       <div className="container flex flex-col justify-start items-stretch">
         <Bar
-          className="mt-20 mb-14"
+          className="mt-20 mb-2"
           value={state.progress}
           maxValue={state.stagesAmount}
         />
-        <div className="flex-grow overflow-y-auto">
+        <div className="flex-grow">
           <CurrentStage
             stageData={state.stages[state.progress - 1]}
             onComplete={nextStageHandler}

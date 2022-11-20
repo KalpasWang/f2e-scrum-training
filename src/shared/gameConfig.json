@@ -48,24 +48,10 @@
           "priority": 4
         }
       ],
-      "candidateBoxes": [
-        {
-          "id": "box01",
-          "itemId": "card01"
-        },
-        {
-          "id": "box02",
-          "itemId": "card02"
-        },
-        {
-          "id": "box03",
-          "itemId": "card03"
-        },
-        {
-          "id": "box04",
-          "itemId": "card04"
-        }
-      ],
+      "candidates": {
+        "id": "candidates",
+        "itemsId": ["card01", "card02", "card03", "card04"]
+      },
       "backlog": {
         "id": "backlog",
         "title": "產品代辦清單(Product Backlog)",
