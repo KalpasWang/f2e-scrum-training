@@ -36,7 +36,7 @@ export const DroppableBox = ({
                 >
                   {item === 'empty' && placeholders && placeholders[i]}
                   {item !== 'empty' && (
-                    <DraggableCard id={item.id} index={i}>
+                    <DraggableCard id={item.id} index={i} type="dark">
                       {item.text}
                     </DraggableCard>
                   )}

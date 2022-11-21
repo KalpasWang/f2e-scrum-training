@@ -13,6 +13,7 @@ module.exports = {
       assist2: '#FFF9F6',
       gray5: '#E0E0E0',
       disabled: '#BDBDBD',
+      transparent: 'transparent',
     },
     container: {
       center: true,
@@ -20,7 +21,7 @@ module.exports = {
     },
     extend: {
       minHeight: {
-        3.75: '3.75rem',
+        24: '6rem', // 96px
       },
       borderRadius: {
         '4xl': '2.25rem',
@@ -28,6 +29,8 @@ module.exports = {
       },
       borderWidth: {
         3: '3px',
+        6: '6px',
+        7: '7px',
       },
     },
   },
