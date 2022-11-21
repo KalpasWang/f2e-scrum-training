@@ -26,37 +26,36 @@
       "messageColor": "primary2",
       "messageImg": "jira_logo.png",
       "roleImg": "poSit.svg",
-      "items": [
-        {
-          "id": "card01",
-          "text": "會員系統(登入、註冊、權限管理)",
-          "priority": 1
-        },
-        {
-          "id": "card02",
-          "text": "應徵者的線上履歷編輯器",
-          "priority": 2
-        },
-        {
-          "id": "card03",
-          "text": "前台職缺列表(職缺詳細內容、點選可發送應徵意願)",
-          "priority": 3
-        },
-        {
-          "id": "card04",
-          "text": "後台職缺管理功能(資訊上架、下架、顯示應徵者資料)",
-          "priority": 4
-        }
-      ],
       "candidates": {
         "id": "candidates",
-        "itemsId": ["card01", "card02", "card03", "card04"]
+        "items": [
+          {
+            "id": "item01",
+            "text": "會員系統(登入、註冊、權限管理)",
+            "priority": 1
+          },
+          {
+            "id": "item02",
+            "text": "應徵者的線上履歷編輯器",
+            "priority": 2
+          },
+          {
+            "id": "item03",
+            "text": "前台職缺列表(職缺詳細內容、點選可發送應徵意願)",
+            "priority": 3
+          },
+          {
+            "id": "item04",
+            "text": "後台職缺管理功能(資訊上架、下架、顯示應徵者資料)",
+            "priority": 4
+          }
+        ]
       },
       "backlog": {
         "id": "backlog",
         "title": "產品代辦清單(Product Backlog)",
-        "placeholder": ["優先度最高", "優先度高", "優先度中", "優先度低"],
-        "itemsId": []
+        "placeholders": ["優先度最高", "優先度高", "優先度中", "優先度低"],
+        "items": ["empty", "empty", "empty", "empty"]
       },
       "action": "完成清單"
     },

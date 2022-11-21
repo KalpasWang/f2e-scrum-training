@@ -10,7 +10,7 @@ export const DraggableCard = (props) => {
             snapshot={snapshot}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
-            className="bg-white border border-slate-400 p-4"
+            className="bg-primary1 text-assist2 p-4"
           >
             {props.children}
           </div>
