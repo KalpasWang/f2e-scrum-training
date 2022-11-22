@@ -105,22 +105,31 @@ export const PriorityDnDStage = ({ stageData, onComplete }) => {
           <div className="basis-5/12 px-6 pb-8 pt-28 bg-assist1 rounded-5xl">
             <DroppableBox
               id="candidates"
-              type="candidates"
               items={dndState.candidates.items}
-              className="gap-4"
+              className="gap-7"
             />
           </div>
           <div className="basis-5/12 flex flex-col px-6 py-8 bg-assist1 rounded-5xl">
-            <h1 className="text-3xl-auto text-assist2 text-center mb-4">
+            <h1 className="text-3xl text-assist2 text-center mb-4">
               {dndState.backlog.title}
             </h1>
-            <DroppableBox
-              id="backlog"
-              type="priority"
-              items={dndState.backlog.items}
-              placeholders={dndState.backlog.placeholders}
-              className="gap-4 flex-grow"
-            />
+            <div className="flex-grow w-full relative flex flex-col items-stretch gap-4">
+              {dndState.backlog.placeholders.map((p, i) => {
+                return (
+                  <div
+                    key={p}
+                    className="border-3 border-primary3 border-dashed rounded-full h-24 flex justify-center items-center text-primary3"
+                  >
+                    {p}
+                  </div>
+                );
+              })}
+              <DroppableBox
+                id="backlog"
+                items={dndState.backlog.items}
+                className="gap-4 absolute inset-0"
+              />
+            </div>
           </div>
         </div>
       </DragDropContext>

@@ -1,46 +1,29 @@
 import { Droppable } from 'react-beautiful-dnd';
-import classNames from 'classnames';
 import { DraggableCard } from './DraggableCard';
 
 // type = { 'candidates', 'priority', 'backlog', 'sprint' }
 
-export const DroppableBox = ({
-  id,
-  className,
-  items = [],
-  type,
-  placeholders,
-}) => {
-  const containerStyle = classNames(
-    'w-full h-full flex flex-col justify-between items-stretch',
-    className
-  );
-
+export const DroppableBox = ({ id, className, items = [] }) => {
   return (
     <Droppable droppableId={id}>
       {(provided, snapshot) => {
         return (
           <div
-            className={containerStyle}
+            className={`w-full h-full flex flex-col justify-start items-stretch ${className}`}
             ref={provided.innerRef}
+            snapshot={snapshot}
             {...provided.droppableProps}
           >
             {items.map((item, i) => {
               return (
-                <div
-                  key={item.id || i}
-                  className={classNames({
-                    'border-3 border-primary3 border-dashed rounded-full h-16 flex justify-center items-center text-primary3':
-                      item === 'empty' && type !== 'candidates',
-                  })}
+                <DraggableCard
+                  key={item.id}
+                  id={item.id}
+                  index={i}
+                  type={item.type}
                 >
-                  {item === 'empty' && placeholders && placeholders[i]}
-                  {item !== 'empty' && (
-                    <DraggableCard id={item.id} index={i} type="dark">
-                      {item.text}
-                    </DraggableCard>
-                  )}
-                </div>
+                  {item.text}
+                </DraggableCard>
               );
             })}
             {provided.placeholder}
