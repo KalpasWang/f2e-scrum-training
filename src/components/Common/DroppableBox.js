@@ -11,7 +11,6 @@ export const DroppableBox = ({ id, className, items = [] }) => {
           <div
             className={`w-full h-full flex flex-col justify-start items-stretch ${className}`}
             ref={provided.innerRef}
-            snapshot={snapshot}
             {...provided.droppableProps}
           >
             {items.map((item, i) => {

@@ -9,6 +9,19 @@ function dndReducer(state, action) {
   switch (action.type) {
     case 'add/remove': {
       const { item, droppableId, index } = action.payload;
+      if (
+        item.type !== 'empty' &&
+        !item.type.includes('dropped-') &&
+        droppableId === 'backlog'
+      ) {
+        item.type = 'dropped-' + item.type;
+      } else if (
+        item.type !== 'empty' &&
+        item.type.includes('dropped-') &&
+        droppableId === 'candidates'
+      ) {
+        item.type = item.type.split('-')[1];
+      }
       state[droppableId].items.splice(index, 1, item);
       return { ...state };
     }
@@ -57,21 +70,21 @@ export const PriorityDnDStage = ({ stageData, onComplete }) => {
   }
 
   function checkAnswers() {
-    const isCorrect = dndState.backlog.itemsId.every((itemId, i) => {
-      const item = dndState.items.find((e) => e.id === itemId);
+    return dndState.backlog.items.every((item, i) => {
       if (item) {
         return item.priority === i + 1;
       }
       return false;
     });
-    if (isCorrect) {
-      onComplete();
-    }
+  }
+
+  if (checkAnswers()) {
+    setBtnState('default');
   }
 
   return (
     <div>
-      <div className="flex justify-start items-center relative z-10">
+      <div className="flex justify-start items-center px-8 relative z-10">
         <img
           className="mr-4"
           src={require('../../assets/' + stageData.roleImg)}
@@ -133,7 +146,7 @@ export const PriorityDnDStage = ({ stageData, onComplete }) => {
           </div>
         </div>
       </DragDropContext>
-      <div className="text-center py-8">
+      <div className="text-center pt-3 pb-8">
         <Button type={btnState} onClick={onComplete}>
           {stageData.action}
         </Button>

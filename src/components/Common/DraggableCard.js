@@ -1,12 +1,12 @@
 import { Draggable } from 'react-beautiful-dnd';
+import dragIcon from '../../assets/drag-icon.svg';
 
-// type = {'dark', 'light', 'stable', 'empty'}
+// type = {'dark', 'light', 'dropped-dark','dropped-light', 'points', 'empty'}
 
 const darkItem = (provided, snapshot, className, children) => {
   return (
     <div
       ref={provided.innerRef}
-      snapshot={snapshot}
       {...provided.draggableProps}
       {...provided.dragHandleProps}
       className="relative"
@@ -26,11 +26,11 @@ const darkItem = (provided, snapshot, className, children) => {
         {/* 臉 */}
         <div className="relative basis-20 flex-shrink-0">
           {/* 眼睛1 */}
-          <span className="w-1.5 h-3 rounded-full bg-assist2 absolute top-1/3 left-1/4 -translate-x-1/2"></span>
+          <span className="w-1.5 h-3 rounded-full bg-assist2 absolute top-1/4 left-1/4"></span>
           {/* 眼睛2 */}
-          <span className="w-1.5 h-3 rounded-full bg-assist2 absolute top-1/3 left-3/4 -translate-x-1/2"></span>
+          <span className="w-1.5 h-3 rounded-full bg-assist2 absolute top-1/4 left-3/4"></span>
           {/* 嘴巴 */}
-          <span className="border-x-6 border-t-7 border-transparent border-t-primary3 absolute top-1/2 left-1/2 -translate-x-1/2"></span>
+          <span className="border-x-6 border-t-7 border-transparent border-t-primary3 absolute top-1/2 left-9"></span>
         </div>
         {/* 身體 */}
         <div className="px-4 flex-grow flex justify-center items-center">
@@ -45,7 +45,6 @@ const lightItem = (provided, snapshot, className, children) => {
   return (
     <div
       ref={provided.innerRef}
-      snapshot={snapshot}
       {...provided.draggableProps}
       {...provided.dragHandleProps}
       className="relative"
@@ -69,12 +68,40 @@ const lightItem = (provided, snapshot, className, children) => {
         {/* 臉 */}
         <div className="relative basis-20 flex-shrink-0">
           {/* 眼睛1 */}
-          <span className="w-1.5 h-3 rounded-full bg-primary1 absolute top-1/3 right-1/4 translate-x-1/2"></span>
+          <span className="w-1.5 h-3 rounded-full bg-primary1 absolute top-1/4 right-1/4"></span>
           {/* 眼睛2 */}
-          <span className="w-1.5 h-3 rounded-full bg-primary1 absolute top-1/3 right-3/4 translate-x-1/2"></span>
+          <span className="w-1.5 h-3 rounded-full bg-primary1 absolute top-1/4 right-3/4"></span>
           {/* 嘴巴 */}
-          <span className="border-x-6 border-t-7 border-transparent border-t-primary2 absolute top-1/2 right-1/2 translate-x-1/2"></span>
+          <span className="border-x-6 border-t-7 border-transparent border-t-primary2 absolute top-1/2 right-9"></span>
         </div>
+      </div>
+    </div>
+  );
+};
+
+const droppedItem = (provided, snapshot, className, children) => {
+  return (
+    <div
+      ref={provided.innerRef}
+      {...provided.draggableProps}
+      {...provided.dragHandleProps}
+      className={`h-24 bg-primary3 text-assist1 border-4 border-assist2 rounded-full flex items-stretch ${className}`}
+    >
+      <div className="basis-1/6 flex-shrink-0 flex justify-center items-center">
+        <img src={dragIcon} alt="drag" />
+      </div>
+      {/* 身體 */}
+      <div className="px-4 flex-grow flex justify-center items-center">
+        {children}
+      </div>
+      {/* 臉 */}
+      <div className="relative basis-20 flex-shrink-0">
+        {/* 眼睛1 */}
+        <span className="w-1.5 h-3 rounded-full bg-primary1 absolute top-1/3 right-1/4"></span>
+        {/* 眼睛2 */}
+        <span className="w-1.5 h-3 rounded-full bg-primary1 absolute top-1/3 right-3/4"></span>
+        {/* 嘴巴 */}
+        <span className="border-x-6 border-t-7 border-transparent border-t-primary2 absolute top-12 right-9"></span>
       </div>
     </div>
   );
@@ -88,11 +115,12 @@ export const DraggableCard = ({ id, index, type, children, className }) => {
           return darkItem(provided, snapshot, className, children);
         } else if (type === 'light') {
           return lightItem(provided, snapshot, className, children);
+        } else if (type.includes('dropped')) {
+          return droppedItem(provided, snapshot, className, children);
         }
         return (
           <div
             ref={provided.innerRef}
-            snapshot={snapshot}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             className="h-24 bg-transparent"
