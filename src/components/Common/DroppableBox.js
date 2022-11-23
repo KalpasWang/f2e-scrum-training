@@ -9,7 +9,7 @@ export const DroppableBox = ({ id, className, items = [] }) => {
       {(provided, snapshot) => {
         return (
           <div
-            className={`w-full h-full flex flex-col justify-start items-stretch ${className}`}
+            className={`w-full h-full flex flex-col justify-start items-stretch flex-nowrap overflow-visible ${className}`}
             ref={provided.innerRef}
             {...provided.droppableProps}
           >

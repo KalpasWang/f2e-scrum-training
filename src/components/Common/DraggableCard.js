@@ -109,7 +109,7 @@ const droppedItem = (provided, snapshot, className, children) => {
 
 export const DraggableCard = ({ id, index, type, children, className }) => {
   return (
-    <Draggable draggableId={id} index={index}>
+    <Draggable draggableId={id} index={index} isDragDisabled={type === 'empty'}>
       {(provided, snapshot) => {
         if (type === 'dark') {
           return darkItem(provided, snapshot, className, children);

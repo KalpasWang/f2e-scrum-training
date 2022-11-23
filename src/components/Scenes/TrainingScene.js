@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useGameContext } from '../../context/gameContext';
 import { Bar } from '../Common';
@@ -9,18 +9,18 @@ import {
   SprintListDnDStage,
 } from '../Stages';
 
-export const TrainingScene = ({ onComplete }) => {
+export const TrainingScene = () => {
   const { state, dispatch } = useGameContext();
   const [currentStageName, setCurrentStageName] = useState(
     state.stages[0].name
   );
 
-  useEffect(() => {
+  if (currentStageName !== state.stages[state.progress - 1].name) {
     setCurrentStageName(state.stages[state.progress - 1].name);
-  }, [state]);
+  }
 
   const nextStageHandler = () => {
-    onComplete();
+    dispatch({ type: 'nextStage' });
   };
 
   const prevPageHandler = () => {

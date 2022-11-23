@@ -1,6 +1,5 @@
-import { useReducer, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
-// import { useGameContext } from '../../context/gameContext';
 import { Button } from '../Common';
 import { DroppableBox } from '../Common';
 import { Message } from '../Common/Message';
@@ -31,7 +30,6 @@ function dndReducer(state, action) {
 }
 
 export const PriorityDnDStage = ({ stageData, onComplete }) => {
-  // const { state } = useGameContext();
   const { candidates, backlog } = stageData;
   const [dndState, dispatch] = useReducer(dndReducer, {
     candidates,
@@ -69,18 +67,16 @@ export const PriorityDnDStage = ({ stageData, onComplete }) => {
     });
   }
 
-  function checkAnswers() {
-    return dndState.backlog.items.every((item, i) => {
-      if (item) {
-        return item.priority === i + 1;
-      }
-      return false;
-    });
-  }
-
-  if (checkAnswers()) {
-    setBtnState('default');
-  }
+  useEffect(() => {
+    const isSet = dndState.backlog.items.every(
+      (item, i) => item.type !== 'empty'
+    );
+    if (isSet && btnState === 'disabled') {
+      setBtnState('default');
+    } else if (!isSet && btnState === 'default') {
+      setBtnState('disabled');
+    }
+  }, [dndState, btnState]);
 
   return (
     <div>
@@ -114,15 +110,15 @@ export const PriorityDnDStage = ({ stageData, onComplete }) => {
         />
       </div>
       <DragDropContext onDragEnd={handleDragEnd}>
-        <div className="h-full w-full flex flex-col lg:flex-row gap-y-4 justify-between items-stretch -translate-y-20">
-          <div className="basis-5/12 px-6 pb-8 pt-28 bg-assist1 rounded-5xl">
+        <div className="relative -top-16 h-full w-full flex flex-col lg:flex-row gap-4 justify-between items-stretch">
+          <div className="xl:basis-5/12 w-full px-6 pb-8 pt-28 bg-assist1 rounded-5xl">
             <DroppableBox
               id="candidates"
               items={dndState.candidates.items}
               className="gap-7"
             />
           </div>
-          <div className="basis-5/12 flex flex-col px-6 py-8 bg-assist1 rounded-5xl">
+          <div className="xl:basis-5/12 w-full flex flex-col px-6 py-8 bg-assist1 rounded-5xl">
             <h1 className="text-3xl text-assist2 text-center mb-4">
               {dndState.backlog.title}
             </h1>

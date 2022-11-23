@@ -18,7 +18,7 @@ export const GameContext = React.createContext({
 
 const gameReducer = (state, action) => {
   switch (action.type) {
-    case 'nextSatge': {
+    case 'nextStage': {
       let progress = state.progress + 1;
       if (progress > state.stagesAmount) {
         progress = 1;
@@ -26,7 +26,6 @@ const gameReducer = (state, action) => {
       return { ...state, progress: progress };
     }
     case 'prevStage': {
-      console.log('dispatch');
       return { ...state, progress: state.progress - 1 };
     }
     default:
