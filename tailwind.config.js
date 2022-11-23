@@ -22,6 +22,7 @@ module.exports = {
     extend: {
       minHeight: {
         24: '6rem', // 96px
+        96: '24rem', // 384px
       },
       borderRadius: {
         '4xl': '2.25rem',
