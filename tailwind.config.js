@@ -24,6 +24,9 @@ module.exports = {
         24: '6rem', // 96px
         96: '24rem', // 384px
       },
+      minWidth: {
+        72: '18rem', //288px
+      },
       borderRadius: {
         '4xl': '2.25rem',
         '5xl': '2.5rem',

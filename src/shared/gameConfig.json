@@ -86,31 +86,58 @@
         {
           "id": "po",
           "name": "PO 小敏",
-          "color": "primary2",
           "img": "po-chat.svg"
         },
         {
           "id": "sm",
           "name": "SM 小捷",
-          "color": "primary3",
           "img": "sm-chat.svg"
         },
         {
           "id": "rd1",
           "name": "開發 小碼",
-          "color": "primary1",
           "img": "rd1-chat.svg"
         },
         {
           "id": "rd2",
           "name": "開發 小扣",
-          "color": "primary1",
           "img": "rd2-chat.svg"
         }
       ],
       "active": {
         "role": "sm",
+        "color": "primary3",
         "text": "嗨！你是新來的前端勇者吧！<br />我是祭司小捷，也就是 <span class=\"text-primary3\">Scrum Master</span>，我的工作主要是促成開發騎士們的協作、引導團隊進行<span class=\"text-primary3\">自省會議</span>，以及提升騎士團團員對Scrum的了解。"
+      }
+    },
+    {
+      "name": "GroupChatStage",
+      "roles": [
+        {
+          "id": "po",
+          "name": "PO 小敏",
+          "img": "po-chat.svg"
+        },
+        {
+          "id": "sm",
+          "name": "SM 小捷",
+          "img": "sm-chat.svg"
+        },
+        {
+          "id": "rd1",
+          "name": "開發 小碼",
+          "img": "rd1-chat.svg"
+        },
+        {
+          "id": "rd2",
+          "name": "開發 小扣",
+          "img": "rd2-chat.svg"
+        }
+      ],
+      "active": {
+        "role": "po",
+        "color": "primary2",
+        "text": "產品代辦清單好了之後，我們來召集SM和開發騎士們共同召開<span class=\"text-primary3\">短衝規劃會議</span> (Sprint Planning)。"
       }
     },
     {
