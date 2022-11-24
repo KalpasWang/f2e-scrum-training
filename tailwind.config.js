@@ -39,6 +39,12 @@ module.exports = {
         26: '26px',
         44: '44px',
       },
+      width: {
+        26: '6.5rem', // 104px
+      },
+      height: {
+        26: '6.5rem', // 104px
+      },
     },
   },
   plugins: [],

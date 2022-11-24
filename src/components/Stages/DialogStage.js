@@ -1,3 +1,4 @@
+import ReactDOM from 'react-dom';
 import { Button } from '../Common';
 
 export const DialogStage = ({ stageData, onComplete }) => {
@@ -21,7 +22,7 @@ export const DialogStage = ({ stageData, onComplete }) => {
 
   return (
     <div className="h-full">
-      <div className="bg-assist1 rounded-4xl px-[7vw] py-16 flex flex-col justify-around items-center gap-[15vh]">
+      <div className="min-h-max bg-assist1 rounded-4xl px-[7vw] py-[6vh] flex flex-col justify-between items-center gap-4">
         <div className="w-full text-assist2 text-2xl leading-relaxed">
           {renderTexts}
         </div>
@@ -29,15 +30,15 @@ export const DialogStage = ({ stageData, onComplete }) => {
           {stageData.action}
         </Button>
       </div>
-      {stageData.roleImg && (
-        <div className="fixed bottom-0 right-0">
+      {stageData.roleImg &&
+        ReactDOM.createPortal(
           <img
             src={require(`../../assets/${stageData.roleImg}`)}
-            className="w-[30vw]"
+            className="w-[25vw]"
             alt="role"
-          />
-        </div>
-      )}
+          />,
+          document.getElementById('role')
+        )}
     </div>
   );
 };

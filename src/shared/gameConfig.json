@@ -141,6 +141,126 @@
       }
     },
     {
+      "name": "GroupChatStage",
+      "roles": [
+        {
+          "id": "po",
+          "name": "PO 小敏",
+          "img": "po-chat.svg"
+        },
+        {
+          "id": "sm",
+          "name": "SM 小捷",
+          "img": "sm-chat.svg"
+        },
+        {
+          "id": "rd1",
+          "name": "開發 小碼",
+          "img": "rd1-chat.svg"
+        },
+        {
+          "id": "rd2",
+          "name": "開發 小扣",
+          "img": "rd2-chat.svg"
+        }
+      ],
+      "active": {
+        "role": "po",
+        "color": "primary2",
+        "text": "<span class=\"text-primary3\">短衝即是一個迭代</span>，具有<span class=\"text-primary3\">固定時間限制</span>，我們會在這個會議中，決定要完成哪些工作事項來到商業需求，<span class=\"text-primary3\">列出短衝待辦清單(Sprint Backlog)</span>，並由開發騎士們在接下來的產品開發週期裡執行。"
+      }
+    },
+    {
+      "name": "GroupChatStage",
+      "roles": [
+        {
+          "id": "po",
+          "name": "PO 小敏",
+          "img": "po-chat.svg"
+        },
+        {
+          "id": "sm",
+          "name": "SM 小捷",
+          "img": "sm-chat.svg"
+        },
+        {
+          "id": "rd1",
+          "name": "開發 小碼",
+          "img": "rd1-chat.svg"
+        },
+        {
+          "id": "rd2",
+          "name": "開發 小扣",
+          "img": "rd2-chat.svg"
+        }
+      ],
+      "active": {
+        "role": "sm",
+        "color": "primary3",
+        "text": "這兩位是小碼和小扣，是團隊裡的開發騎士唷～<br /><br />目前我們團隊一次Sprint是兩週的時間，依照我的觀察，目前團隊可以負擔的<span class=\"text-primary3\">點數(Sprint Point)</span>是20點左右。"
+      }
+    },
+    {
+      "name": "GroupChatStage",
+      "roles": [
+        {
+          "id": "po",
+          "name": "PO 小敏",
+          "img": "po-chat.svg"
+        },
+        {
+          "id": "sm",
+          "name": "SM 小捷",
+          "img": "sm-chat.svg"
+        },
+        {
+          "id": "rd1",
+          "name": "開發 小碼",
+          "img": "rd1-chat.svg"
+        },
+        {
+          "id": "rd2",
+          "name": "開發 小扣",
+          "img": "rd2-chat.svg"
+        }
+      ],
+      "active": {
+        "role": "rd1",
+        "color": "primary1",
+        "text": "欸新來的，你應該不知道點數是甚麼意思吧哈哈<br />讓我來跟你介紹一下吧～Sprint Point目的是為了<span class=\"text-primary3\">衡量速度</span>，是用<span class=\"text-primary3\">任務大概將花費的時間來預估出相對的點數。</span>"
+      }
+    },
+    {
+      "name": "GroupChatStage",
+      "roles": [
+        {
+          "id": "po",
+          "name": "PO 小敏",
+          "img": "po-chat.svg"
+        },
+        {
+          "id": "sm",
+          "name": "SM 小捷",
+          "img": "sm-chat.svg"
+        },
+        {
+          "id": "rd1",
+          "name": "開發 小碼",
+          "img": "rd1-chat.svg"
+        },
+        {
+          "id": "rd2",
+          "name": "開發 小扣",
+          "img": "rd2-chat.svg"
+        }
+      ],
+      "active": {
+        "role": "rd2",
+        "color": "primary1",
+        "text": "小碼哥說的沒錯，我已經把剛剛討論好的點數標上去囉～<br />你來試著把任務排到短衝清單上吧！<br /><br />BTW，我們平常管理任務是使用<span class=\"text-primary3\">Jira</span>這套軟體，你有時間記得先去註冊和熟悉一下唷！"
+      }
+    },
+    {
       "name": "SprintListDnDStage",
       "list1Title": "產品代辦清單(Product Backlog)",
       "list2Title": "開發 A 組的短衝代辦清單",

@@ -54,7 +54,12 @@ export const GroupChatStage = ({ stageData, onComplete }) => {
                 className="flex-grow text-assist2"
                 dangerouslySetInnerHTML={{ __html: active.text }}
               ></p>
-              <Button type="next" onClick={onComplete}></Button>
+              <Button
+                type="next"
+                color={active.color}
+                size="sm"
+                onClick={onComplete}
+              />
             </motion.div>
           </AnimatePresence>
           {/* 角色指示線 */}
