@@ -262,36 +262,47 @@
     },
     {
       "name": "SprintListDnDStage",
-      "list1Title": "產品代辦清單(Product Backlog)",
-      "list2Title": "開發 A 組的短衝代辦清單",
-      "list2Limit": "20 點 / 5 人",
-      "items": [
-        {
-          "id": "01",
-          "status": "backlog",
-          "text": "會員系統(登入、註冊、權限管理)",
-          "points": 8
-        },
-        {
-          "id": "02",
-          "status": "backlog",
-          "text": "應徵者的線上履歷編輯器",
-          "points": 13
-        },
-        {
-          "id": "03",
-          "status": "backlog",
-          "text": "前台職缺列表(職缺詳細內容、點選可發送應徵意願)",
-          "points": 5
-        },
-        {
-          "id": "04",
-          "status": "backlog",
-          "text": "後台職缺管理功能(資訊上架、下架、顯示應徵者資料)",
-          "points": 8
-        }
-      ],
-      "action": "準備好了！開始 Sprint"
+      "title": "把待辦清單在點數限制內移動到短衝代辦清單",
+      "backlog": {
+        "id": "backlog",
+        "title": "產品代辦清單(Product Backlog)",
+        "items": [
+          {
+            "id": "01",
+            "type": "points",
+            "text": "會員系統(登入、註冊、權限管理)",
+            "points": 8
+          },
+          {
+            "id": "02",
+            "type": "points",
+            "text": "應徵者的線上履歷編輯器",
+            "points": 13
+          },
+          {
+            "id": "03",
+            "type": "points",
+            "text": "前台職缺列表(職缺詳細內容、點選可發送應徵意願)",
+            "points": 5
+          },
+          {
+            "id": "04",
+            "type": "points",
+            "text": "後台職缺管理功能(資訊上架、下架、顯示應徵者資料)",
+            "points": 8
+          }
+        ]
+      },
+      "sprint": {
+        "id": "sprint",
+        "title": "開發騎士的短衝代辦清單",
+        "limit": "20 點 / 5 人",
+        "items": []
+      },
+      "totalPoints": 34,
+      "maxPoints": 20,
+      "action": "完成清單",
+      "exceed": "超過20點！請再調整清單"
     }
   ]
 }

@@ -1,142 +1,136 @@
-import { useReducer } from 'react';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { useGameContext } from '../../context/gameContext';
+import { useEffect, useReducer, useState } from 'react';
+import { DragDropContext } from 'react-beautiful-dnd';
 import { Button } from '../Common';
-import { DraggableCard } from '../Common/DraggableCard';
-import { Message } from '../Common/Message';
+import { DroppableBox } from '../Common';
 
-function candidatesReducer(state, action) {
+function dndReducer(state, action) {
   switch (action.type) {
-    case 'addItemAt': {
-      const { item, index } = action.payload;
-      state.splice(index, 0, item);
-      return state;
+    case 'add': {
+      const { item, droppableId, index } = action.payload;
+      state[droppableId].items.splice(index, 0, item);
+      return { ...state };
     }
     case 'remove': {
-      const idx = state.findIndex((item) => item.id === action.payload);
-      if (idx >= 0) {
-        state.splice(idx, 1);
-      }
-      return state;
+      const { droppableId, index } = action.payload;
+      state[droppableId].items.splice(index, 1);
+      return { ...state };
     }
     default:
       return state;
   }
 }
 
-function backlogReducer(state, action) {
-  switch (action.type) {
-    case 'addItemAt': {
-      const { item, index } = action.payload;
-      state.splice(index, 0, item);
-      return state;
-    }
-    case 'remove': {
-      const idx = state.findIndex((item) => item.id === action.payload);
-      if (idx >= 0) {
-        state.splice(idx, 1);
-      }
-      return state;
-    }
-    default:
-      return state;
-  }
-}
-
-export const SprintListDnDStage = ({ onComplete }) => {
-  const { state } = useGameContext();
-  const stageData = state.stages[state.progress];
-  const [candidates, candidatesDispatch] = useReducer(
-    candidatesReducer,
-    stageData.items
-  );
-  const [backlog, backlogDispatch] = useReducer(backlogReducer, []);
-  const target = { candidates, backlog };
-  const dispatch = { candidates: candidatesDispatch, backlog: backlogDispatch };
+export const SprintListDnDStage = ({ stageData, onComplete }) => {
+  const { backlog, sprint } = stageData;
+  const [dndState, dispatch] = useReducer(dndReducer, {
+    sprint,
+    backlog,
+  });
+  const [btnState, setBtnState] = useState({
+    type: 'default',
+    text: stageData.action,
+  });
 
   function handleDragEnd({ source, destination }) {
+    // 排除拖移到非 Droppable 與 沒有移動的情形
     if (!destination) return;
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return;
+    }
 
-    const draggedItem = target[source.droppableId][source.index];
-    dispatch[source.droppableId]({
-      type: 'remove',
-      payload: draggedItem.id,
-    });
-    dispatch[destination.droppableId]({
-      type: 'addItemAt',
+    const sourceItem = dndState[source.droppableId].items[source.index];
+
+    dispatch({
+      type: 'add',
       payload: {
-        item: draggedItem,
-        index: destination.index,
+        ...source,
+        item: sourceItem,
       },
     });
+    dispatch({
+      type: 'remove',
+      payload: destination,
+    });
   }
 
-  function checkAnswers() {
-    const isCorrect = backlog.every((item, i) => item.priority === i + 1);
-    if (isCorrect) {
-      onComplete();
+  useEffect(() => {
+    const total = dndState.sprint.items.reduce(
+      (accu, item) => (accu += item.points),
+      0
+    );
+    if (total > stageData.maxPoints && btnState.type === 'default') {
+      setBtnState({ type: 'disabled', text: stageData.exceed });
+    } else if (total <= stageData.maxPoints && btnState.type === 'disabled') {
+      setBtnState({ type: 'default', text: stageData.action });
     }
-  }
+  }, [dndState, btnState, stageData]);
 
   return (
-    <DragDropContext onDragEnd={handleDragEnd}>
-      <main className="h-full w-full flex flex-row gap-3">
-        <div className="basis-1/2 px-2 flex flex-col items-stretch ">
-          <Message
-            text={stageData.messages[0].text}
-            role={stageData.messages[0].role}
-            className="mb-6"
-          />
-          <Droppable droppableId="candidates">
-            {(provided, snapshot) => {
-              return (
-                <div
-                  className="bg-red-300 flex-grow flex flex-col justify-evenly items-stretch"
-                  ref={provided.innerRef}
-                  {...provided.droppableProps}
-                >
-                  {candidates.map((item, i) => {
-                    return (
-                      <DraggableCard id={item.id} index={i} key={item.id}>
-                        {item.text}
-                      </DraggableCard>
-                    );
-                  })}
-                  {provided.placeholder}
-                </div>
-              );
-            }}
-          </Droppable>
-        </div>
-        <div className="basis-1/2 px-2 flex flex-col items-stretch">
-          <h1 className="text-3xl text-right font-bold mb-2">
-            {stageData.listTitle}
-          </h1>
-          <Droppable droppableId="backlog">
-            {(provided, snapshot) => {
-              return (
-                <div
-                  className="bg-lime-300 flex-grow"
-                  ref={provided.innerRef}
-                  {...provided.droppableProps}
-                >
-                  {backlog.map((item, i) => {
-                    return (
-                      <DraggableCard id={item.id} index={i} key={item.id}>
-                        {item.text}
-                      </DraggableCard>
-                    );
-                  })}
-                  {provided.placeholder}
-                </div>
-              );
-            }}
-          </Droppable>
-          <div className="mt-4 text-right">
-            <Button onClick={checkAnswers}>{stageData.action}</Button>
+    <div className="h-full">
+      <h3 className="text-center text-2xl text-assist1 mt-6 mb-8">
+        {stageData.title}
+      </h3>
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <div className="relative h-full w-full flex flex-col lg:flex-row gap-4 justify-between items-stretch">
+          <div className="xl:basis-5/12 w-full px-6 py-8 flex flex-col bg-assist1 rounded-5xl">
+            <h2 className="text-3xl text-assist2 text-center mb-4">
+              {dndState.backlog.title}
+            </h2>
+            <p className="text-center text-assist2 text-2xl mb-4">
+              共
+              <span className="text-primary2 px-1">
+                {stageData.totalPoints}
+              </span>
+              點
+            </p>
+            <div className="flex-grow w-full relative flex flex-col items-stretch gap-4">
+              {[1, 2, 3, 4].map((_, i) => {
+                return (
+                  <div
+                    key={i}
+                    className="border-3 border-primary3 border-dashed rounded-full h-24 flex justify-center items-center text-primary3 text-2xl"
+                  >
+                    代辦清單
+                  </div>
+                );
+              })}
+              <DroppableBox
+                id={dndState.backlog.id}
+                items={dndState.backlog.items}
+                className="gap-4 absolute inset-0"
+              />
+            </div>
+          </div>
+          <div className="xl:basis-5/12 w-full flex flex-col px-6 py-8 bg-assist1 rounded-5xl">
+            <h1 className="text-3xl text-assist2 text-center mb-4">
+              {dndState.backlog.title}
+            </h1>
+            <div className="flex-grow w-full relative flex flex-col items-stretch gap-4">
+              {[1, 2, 3, 4].map((_, i) => {
+                return (
+                  <div
+                    key={i}
+                    className="border-3 border-primary3 border-dashed rounded-full h-24 flex justify-center items-center text-primary3"
+                  ></div>
+                );
+              })}
+              <DroppableBox
+                id={dndState.sprint.id}
+                items={dndState.sprint.items}
+                className="gap-4 absolute inset-0"
+              />
+            </div>
           </div>
         </div>
-      </main>
-    </DragDropContext>
+      </DragDropContext>
+      <div className="text-center pt-3 pb-8">
+        <Button type={btnState.type} onClick={onComplete}>
+          {btnState.text}
+        </Button>
+      </div>
+    </div>
   );
 };
