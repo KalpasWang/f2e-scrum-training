@@ -14,7 +14,6 @@ export const DroppableBox = ({ id, className, items = [] }) => {
             {...provided.droppableProps}
           >
             {items.map((item, i) => {
-              console.log(item);
               return (
                 <DraggableCard
                   key={item.id}

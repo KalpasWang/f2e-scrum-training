@@ -303,6 +303,36 @@
       "maxPoints": 20,
       "action": "完成清單",
       "exceed": "超過20點！請再調整清單"
+    },
+    {
+      "name": "SprintMeetingStage",
+      "items": [
+        {
+          "title": "每日短衝會議",
+          "subtitle": "Daily Scrum",
+          "overview": "每天都要進行的會議，以 15 分鐘為限制",
+          "list": [
+            "昨天為團隊的短衝目標（Sprint Goal）做了那些進度",
+            "今天我會如何準備來幫助團隊達到短衝目標",
+            "過程中有遇到什麼問題、難題"
+          ],
+          "conclusion": "透過團隊分享，追蹤大家的工作狀況。"
+        },
+        {
+          "title": "短衝檢視會議",
+          "subtitle": "Sprint Review",
+          "overview": "用來檢視該次短衝增量的成果，以蒐集相關的回饋數據或意見。"
+        },
+        {
+          "title": "短衝自省會議",
+          "subtitle": "Sprint Retrospective",
+          "overview": "團隊在自省會議裡，會共同回顧該短衝歷程發生的事情",
+          "list": ["好的地方", "可以改進的地方", "如何維持我們已有的成功經驗"],
+          "conclusion": "優化工作流程、讓團隊有變得更好的機會。",
+          "bonus": "推薦工具：",
+          "bonusImage": "confluence-logo.jpg"
+        }
+      ]
     }
   ]
 }

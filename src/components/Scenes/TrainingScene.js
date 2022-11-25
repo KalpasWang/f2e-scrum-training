@@ -7,6 +7,7 @@ import {
   PriorityDnDStage,
   GroupChatStage,
   SprintListDnDStage,
+  SprintMeetingStage,
 } from '../Stages';
 
 export const TrainingScene = () => {
@@ -32,6 +33,7 @@ export const TrainingScene = () => {
     PriorityDnDStage,
     GroupChatStage,
     SprintListDnDStage,
+    SprintMeetingStage,
   };
   const CurrentStage = Stages[currentStageName];
 
