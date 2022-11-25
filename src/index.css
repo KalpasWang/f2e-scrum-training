@@ -12,6 +12,10 @@
     font-size: clamp(1rem, 2vw, 1.875rem);
     line-height: 1.25;
   }
+
+  .h-screen-200 {
+    height: calc(100vh - 200px);
+  }
 }
 
 .text-primary3 {

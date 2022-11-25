@@ -5,7 +5,13 @@ import { useEffect, useRef } from 'react';
 export const GroupChatStage = ({ stageData, onComplete }) => {
   const lastActiveRole = useRef();
   const { roles, active } = stageData;
+  const border = {
+    primary1: 'border-primary1',
+    primary2: 'border-primary2',
+    primary3: 'border-primary3',
+  };
   const spacers = roles.slice();
+
   spacers.splice(2, 0, null);
 
   useEffect(() => {
@@ -13,42 +19,44 @@ export const GroupChatStage = ({ stageData, onComplete }) => {
   });
 
   const variants = {
-    hidden: { y: 0, opacity: 0, transition: { duration: 0.2 } },
-    show: { y: 0, opacity: 1, transition: { delay: 1, duration: 0.5 } },
+    hidden: { opacity: 0, transition: { duration: 0.2 } },
+    show: { opacity: 1, transition: { delay: 0.5, duration: 0.25 } },
     showAndUp: {
       y: [0, 0, -30],
       opacity: [0, 1, 1],
       transition: {
-        delay: 1,
-        duration: 1,
-        times: [0, 0.5, 1],
+        delay: 0.5,
+        duration: 0.75,
+        times: [0, 0.25, 0.75],
       },
     },
-    up: { y: -30, opacity: 1, transition: { delay: 1, duration: 0.5 } },
-    down: { y: 0, opacity: 1, transition: { delay: 0.5, duration: 0.5 } },
-    dialogFirstShow: { opacity: 1, transition: { delay: 2.5, duration: 0.5 } },
+    up: { y: -30, opacity: 1, transition: { duration: 0.5 } },
+    down: { y: 0, opacity: 1, transition: { duration: 0.5 } },
+    dialogFirstShow: { opacity: 1, transition: { delay: 1.5, duration: 0.5 } },
     dialogShow: {
       opacity: [0, 1],
-      transition: { delay: 2, duration: 0.5, times: [0, 0.5] },
+      transition: { delay: 0.75, duration: 0.5, times: [0, 0.5] },
     },
   };
 
   return (
     <div className="h-full">
-      <div className="relative min-h-max h-[60vh]">
+      <div className="relative h-screen-200 mt-10">
         <div className="bg-assist1 rounded-3xl h-2/3 relative"></div>
-        <div className="absolute inset-0 pt-[6vh] flex flex-col justify-start items-center">
+        <div className="absolute inset-0 pt-[6vh] flex flex-col justify-end items-center">
           {/* 對話框 */}
           <AnimatePresence>
             <motion.div
               key={active.role}
               initial="hidden"
+              exit={{ display: 'none' }}
               animate={
                 lastActiveRole.current ? 'dialogShow' : 'dialogFirstShow'
               }
-              exit="hidden"
               variants={variants}
-              className={`relative z-10 w-4/5 min-w-72 mx-auto rounded-3xl bg-assist1 border-3 border-${active.color} flex gap-4 px-6 py-8`}
+              className={`relative basis-1/3 flex-grow z-10 w-4/5 min-w-72 mx-auto rounded-3xl bg-assist1 border-3 ${
+                border[active.color]
+              } flex gap-4 px-6 py-8`}
             >
               <p
                 className="flex-grow text-assist2"
@@ -67,12 +75,12 @@ export const GroupChatStage = ({ stageData, onComplete }) => {
             <motion.div
               key={active.role}
               initial="hidden"
+              exit={{ display: 'none' }}
               animate={
                 lastActiveRole.current ? 'dialogShow' : 'dialogFirstShow'
               }
-              exit="hidden"
               variants={variants}
-              className="relative -top-1 w-3/5 min-w-72 mx-auto flex justify-between"
+              className="relative basis-1/4 -top-1 w-3/5 min-w-72 mx-auto flex justify-between"
             >
               {spacers.map((role, i) => {
                 return (
@@ -84,7 +92,7 @@ export const GroupChatStage = ({ stageData, onComplete }) => {
                       <img
                         src={require(`../../assets/${role.id}-line.svg`)}
                         alt="indicator"
-                        className="max-w-full"
+                        className="max-h-full"
                       />
                     )}
                   </div>
@@ -92,20 +100,21 @@ export const GroupChatStage = ({ stageData, onComplete }) => {
               })}
             </motion.div>
           </AnimatePresence>
-          <div className="flex justify-evenly items-end">
+          <div className="basis-1/3 flex justify-evenly items-end">
             {roles.map((role) => {
               const img = require('../../assets/' + role.img);
-              const initial = lastActiveRole.current ? false : 'hidden';
-              let animate;
+              const initial = lastActiveRole.current ? 'show' : 'hidden';
+              let animate = 'show';
               if (lastActiveRole.current === role.id) {
                 animate = 'down';
-              } else if (active.role === role.id && !lastActiveRole.current) {
-                animate = 'showAndUp';
-              } else if (active.role === role.id) {
-                animate = 'up';
-              } else {
-                animate = 'show';
               }
+              if (active.role === role.id && !lastActiveRole.current) {
+                animate = 'showAndUp';
+              }
+              if (active.role === role.id) {
+                animate = 'up';
+              }
+
               return (
                 <motion.div
                   initial={initial}

@@ -22,7 +22,7 @@ export const DialogStage = ({ stageData, onComplete }) => {
 
   return (
     <div className="h-full">
-      <div className="min-h-max bg-assist1 rounded-4xl px-[7vw] py-[6vh] flex flex-col justify-between items-center gap-4">
+      <div className="min-h-[60vh] mt-10 bg-assist1 rounded-4xl px-[7vw] py-[6vh] flex flex-col justify-between items-center gap-4">
         <div className="w-full text-assist2 text-2xl leading-relaxed">
           {renderTexts}
         </div>
@@ -34,7 +34,7 @@ export const DialogStage = ({ stageData, onComplete }) => {
         ReactDOM.createPortal(
           <img
             src={require(`../../assets/${stageData.roleImg}`)}
-            className="w-[25vw]"
+            className="w-[25vw] xl:w-[30vw]"
             alt="role"
           />,
           document.getElementById('role')
