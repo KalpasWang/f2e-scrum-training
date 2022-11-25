@@ -14,15 +14,14 @@ export const DroppableBox = ({ id, className, items = [] }) => {
             {...provided.droppableProps}
           >
             {items.map((item, i) => {
+              console.log(item);
               return (
                 <DraggableCard
                   key={item.id}
                   id={item.id}
                   index={i}
-                  type={item.type}
-                >
-                  {item.text}
-                </DraggableCard>
+                  item={item}
+                />
               );
             })}
             {provided.placeholder}

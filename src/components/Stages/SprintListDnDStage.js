@@ -30,6 +30,7 @@ export const SprintListDnDStage = ({ stageData, onComplete }) => {
     type: 'default',
     text: stageData.action,
   });
+  const [currentPoints, setCurrentPoints] = useState(0);
 
   function handleDragEnd({ source, destination }) {
     // 排除拖移到非 Droppable 與 沒有移動的情形
@@ -44,15 +45,15 @@ export const SprintListDnDStage = ({ stageData, onComplete }) => {
     const sourceItem = dndState[source.droppableId].items[source.index];
 
     dispatch({
-      type: 'add',
-      payload: {
-        ...source,
-        item: sourceItem,
-      },
+      type: 'remove',
+      payload: source,
     });
     dispatch({
-      type: 'remove',
-      payload: destination,
+      type: 'add',
+      payload: {
+        ...destination,
+        item: sourceItem,
+      },
     });
   }
 
@@ -61,12 +62,19 @@ export const SprintListDnDStage = ({ stageData, onComplete }) => {
       (accu, item) => (accu += item.points),
       0
     );
-    if (total > stageData.maxPoints && btnState.type === 'default') {
+    setCurrentPoints(total);
+  }, [dndState]);
+
+  useEffect(() => {
+    if (currentPoints > stageData.maxPoints && btnState.type === 'default') {
       setBtnState({ type: 'disabled', text: stageData.exceed });
-    } else if (total <= stageData.maxPoints && btnState.type === 'disabled') {
+    } else if (
+      currentPoints <= stageData.maxPoints &&
+      btnState.type === 'disabled'
+    ) {
       setBtnState({ type: 'default', text: stageData.action });
     }
-  }, [dndState, btnState, stageData]);
+  }, [currentPoints, btnState, stageData]);
 
   return (
     <div className="h-full">
@@ -75,6 +83,7 @@ export const SprintListDnDStage = ({ stageData, onComplete }) => {
       </h3>
       <DragDropContext onDragEnd={handleDragEnd}>
         <div className="relative h-full w-full flex flex-col lg:flex-row gap-4 justify-between items-stretch">
+          {/* 產品代辦清單 Product Backlog */}
           <div className="xl:basis-5/12 w-full px-6 py-8 flex flex-col bg-assist1 rounded-5xl">
             <h2 className="text-3xl text-assist2 text-center mb-4">
               {dndState.backlog.title}
@@ -104,10 +113,15 @@ export const SprintListDnDStage = ({ stageData, onComplete }) => {
               />
             </div>
           </div>
+          {/* 開發騎士的短衝代辦清單 */}
           <div className="xl:basis-5/12 w-full flex flex-col px-6 py-8 bg-assist1 rounded-5xl">
-            <h1 className="text-3xl text-assist2 text-center mb-4">
-              {dndState.backlog.title}
-            </h1>
+            <h2 className="text-3xl text-assist2 text-center mb-4">
+              {dndState.sprint.title}
+            </h2>
+            <p className="text-center text-assist2 text-2xl mb-4">
+              <span className="text-primary2">{currentPoints}</span> 點 /{' '}
+              {stageData.limit}
+            </p>
             <div className="flex-grow w-full relative flex flex-col items-stretch gap-4">
               {[1, 2, 3, 4].map((_, i) => {
                 return (
@@ -126,7 +140,7 @@ export const SprintListDnDStage = ({ stageData, onComplete }) => {
           </div>
         </div>
       </DragDropContext>
-      <div className="text-center pt-3 pb-8">
+      <div className="text-center pt-14 pb-8">
         <Button type={btnState.type} onClick={onComplete}>
           {btnState.text}
         </Button>

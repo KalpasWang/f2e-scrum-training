@@ -41,7 +41,7 @@ export const GroupChatStage = ({ stageData, onComplete }) => {
 
   return (
     <div className="h-full">
-      <div className="relative h-screen-200 mt-10">
+      <div className="relative h-screen-130 mt-10">
         <div className="bg-assist1 rounded-3xl h-2/3 relative"></div>
         <div className="absolute inset-0 pt-[6vh] flex flex-col justify-end items-center">
           {/* 對話框 */}
@@ -80,7 +80,7 @@ export const GroupChatStage = ({ stageData, onComplete }) => {
                 lastActiveRole.current ? 'dialogShow' : 'dialogFirstShow'
               }
               variants={variants}
-              className="relative basis-1/4 -top-1 w-3/5 min-w-72 mx-auto flex justify-between"
+              className="relative basis-1/4 h-1/4 flex-shrink -top-1 w-3/5 min-w-72 mx-auto flex justify-between"
             >
               {spacers.map((role, i) => {
                 return (
@@ -92,7 +92,7 @@ export const GroupChatStage = ({ stageData, onComplete }) => {
                       <img
                         src={require(`../../assets/${role.id}-line.svg`)}
                         alt="indicator"
-                        className="max-h-full"
+                        className="max-h-full max-w-full"
                       />
                     )}
                   </div>
@@ -123,7 +123,11 @@ export const GroupChatStage = ({ stageData, onComplete }) => {
                   key={role.id}
                   className="basis-1/6"
                 >
-                  <img src={img} alt={role.name} />
+                  <img
+                    src={img}
+                    alt={role.name}
+                    className="max-h-full max-w-full"
+                  />
                   <p className="text-center text-xl text-assist1 pt-6">
                     {role.name}
                   </p>

@@ -107,16 +107,52 @@ const droppedItem = (provided, snapshot, className, children) => {
   );
 };
 
-export const DraggableCard = ({ id, index, type, children, className }) => {
+const pointsItem = (provided, snapshot, className, item) => {
   return (
-    <Draggable draggableId={id} index={index} isDragDisabled={type === 'empty'}>
+    <div
+      ref={provided.innerRef}
+      {...provided.draggableProps}
+      {...provided.dragHandleProps}
+      className={`h-24 bg-primary3 text-assist1 border-4 border-assist2 rounded-full flex items-stretch ${className}`}
+    >
+      <div className="basis-1/6 flex-shrink-0 flex justify-center items-center">
+        <span className="w-12 h-12 bg-assist2 rounded-full text-assist1 text-3xl leading-none flex justify-center items-center">
+          {item.points}
+        </span>
+      </div>
+      {/* 身體 */}
+      <div className="px-4 flex-grow flex justify-center items-center">
+        {item.text}
+      </div>
+      {/* 臉 */}
+      <div className="relative basis-20 flex-shrink-0">
+        {/* 眼睛1 */}
+        <span className="w-1.5 h-3 rounded-full bg-primary1 absolute top-1/3 right-1/4"></span>
+        {/* 眼睛2 */}
+        <span className="w-1.5 h-3 rounded-full bg-primary1 absolute top-1/3 right-3/4"></span>
+        {/* 嘴巴 */}
+        <span className="border-x-6 border-t-7 border-transparent border-t-primary2 absolute top-12 right-9"></span>
+      </div>
+    </div>
+  );
+};
+
+export const DraggableCard = ({ id, index, item, className }) => {
+  return (
+    <Draggable
+      draggableId={id}
+      index={index}
+      isDragDisabled={item.type === 'empty'}
+    >
       {(provided, snapshot) => {
-        if (type === 'dark') {
-          return darkItem(provided, snapshot, className, children);
-        } else if (type === 'light') {
-          return lightItem(provided, snapshot, className, children);
-        } else if (type.includes('dropped')) {
-          return droppedItem(provided, snapshot, className, children);
+        if (item.type === 'dark') {
+          return darkItem(provided, snapshot, className, item.text);
+        } else if (item.type === 'light') {
+          return lightItem(provided, snapshot, className, item.text);
+        } else if (item.type.includes('dropped')) {
+          return droppedItem(provided, snapshot, className, item.text);
+        } else if (item.type === 'points') {
+          return pointsItem(provided, snapshot, className, item);
         }
         return (
           <div

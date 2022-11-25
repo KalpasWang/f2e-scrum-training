@@ -296,9 +296,9 @@
       "sprint": {
         "id": "sprint",
         "title": "開發騎士的短衝代辦清單",
-        "limit": "20 點 / 5 人",
         "items": []
       },
+      "limit": "20 點 (5 人)",
       "totalPoints": 34,
       "maxPoints": 20,
       "action": "完成清單",
