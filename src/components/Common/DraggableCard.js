@@ -137,6 +137,19 @@ const pointsItem = (provided, snapshot, className, item) => {
   );
 };
 
+const meetingItem = (provided, snapshot, className, item) => {
+  return (
+    <div
+      ref={provided.innerRef}
+      {...provided.draggableProps}
+      {...provided.dragHandleProps}
+      className={`w-full md:w-56 h-18 bg-primary3 text-assist1 text-base sm:text-2xl leading-none rounded-full flex justify-center items-center ${className}`}
+    >
+      {item.title}
+    </div>
+  );
+};
+
 export const DraggableCard = ({ id, index, item, className }) => {
   return (
     <Draggable
@@ -153,6 +166,8 @@ export const DraggableCard = ({ id, index, item, className }) => {
           return droppedItem(provided, snapshot, className, item.text);
         } else if (item.type === 'points') {
           return pointsItem(provided, snapshot, className, item);
+        } else if (item.type === 'meeting') {
+          return meetingItem(provided, snapshot, className, item);
         }
         return (
           <div

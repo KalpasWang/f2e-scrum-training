@@ -43,6 +43,7 @@ module.exports = {
         26: '6.5rem', // 104px
       },
       height: {
+        18: '4.5rem', // 72px
         26: '6.5rem', // 104px
       },
     },

@@ -335,7 +335,59 @@
       ]
     },
     {
-      "name": "DialogStage"
+      "name": "SprintFlowStage",
+      "candidates": {
+        "id": "candidates",
+        "items": [
+          {
+            "id": "01",
+            "title": "短衝自省會議",
+            "type": "meeting",
+            "order": 4
+          },
+          {
+            "id": "02",
+            "title": "每日短衝會議",
+            "type": "meeting",
+            "order": 2
+          },
+          {
+            "id": "03",
+            "title": "短衝規劃會議",
+            "type": "meeting",
+            "order": 1
+          },
+          {
+            "id": "04",
+            "title": "短衝檢視會議",
+            "type": "meeting",
+            "order": 3
+          }
+        ]
+      },
+      "flow": [
+        {
+          "id": "space01",
+          "answer": 1,
+          "item": null
+        },
+        {
+          "id": "space02",
+          "answer": 2,
+          "item": null
+        },
+        {
+          "id": "space03",
+          "answer": 3,
+          "item": null
+        },
+        {
+          "id": "space04",
+          "answer": 4,
+          "item": null
+        }
+      ],
+      "action": "完成挑戰"
     }
   ]
 }
