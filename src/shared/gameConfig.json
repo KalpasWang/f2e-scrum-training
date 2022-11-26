@@ -369,21 +369,29 @@
         {
           "id": "space01",
           "answer": 1,
+          "top": 0,
+          "left": 0,
           "item": null
         },
         {
           "id": "space02",
           "answer": 2,
+          "top": 0,
+          "left": 0,
           "item": null
         },
         {
           "id": "space03",
           "answer": 3,
+          "top": 0,
+          "left": 0,
           "item": null
         },
         {
           "id": "space04",
           "answer": 4,
+          "top": 0,
+          "left": 0,
           "item": null
         }
       ],
