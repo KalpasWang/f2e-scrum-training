@@ -333,6 +333,9 @@
           "bonusImage": "confluence-logo.jpg"
         }
       ]
+    },
+    {
+      "name": "DialogStage"
     }
   ]
 }
