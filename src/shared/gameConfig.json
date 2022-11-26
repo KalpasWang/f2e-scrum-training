@@ -365,37 +365,30 @@
           }
         ]
       },
-      "flow": [
-        {
+      "flow": {
+        "space01": {
           "id": "space01",
           "answer": 1,
-          "top": 0,
-          "left": 0,
           "item": null
         },
-        {
+        "space02": {
           "id": "space02",
           "answer": 2,
-          "top": 0,
-          "left": 0,
           "item": null
         },
-        {
+        "space03": {
           "id": "space03",
           "answer": 3,
-          "top": 0,
-          "left": 0,
           "item": null
         },
-        {
+        "space04": {
           "id": "space04",
           "answer": 4,
-          "top": 0,
-          "left": 0,
           "item": null
         }
-      ],
-      "action": "完成挑戰"
+      },
+      "action": "完成挑戰",
+      "action2": "知道了！"
     }
   ]
 }

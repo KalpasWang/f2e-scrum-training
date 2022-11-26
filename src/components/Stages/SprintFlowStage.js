@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useReducer, useEffect, useState } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { DroppableBox, Button, SprintFlowBox } from '../Common';
 
@@ -6,13 +6,41 @@ function dndReducer(state, action) {
   switch (action.type) {
     case 'add': {
       const { item, droppableId, index } = action.payload;
-      state[droppableId].items.splice(index, 0, item);
+      if (droppableId === 'candidates') {
+        state[droppableId].items.splice(index, 0, item);
+      } else {
+        state[droppableId].item = item;
+      }
+      return { ...state };
+    }
+    case 'moveItemToCandidates': {
+      const { droppableId } = action.payload;
+      const item = state[droppableId].item;
+      state[droppableId].item = null;
+      state[droppableId].items.push(item);
       return { ...state };
     }
     case 'remove': {
       const { droppableId, index } = action.payload;
-      state[droppableId].items.splice(index, 1);
+      if (droppableId === 'candidates') {
+        state[droppableId].items.splice(index, 1);
+      } else {
+        state[droppableId].item = null;
+      }
       return { ...state };
+    }
+    case 'showAnswer': {
+      const items = new Array(4);
+      for (let i = 1; i++; i < 5) {
+        const space = 'space0' + i;
+        const item = state[space].item;
+        items[item.order - 1] = item;
+      }
+      console.log(items);
+      items.forEach((item, i) => {
+        state['space0' + i + 1].item = item;
+      });
+      return { ...state, showResult: true };
     }
     default:
       return state;
@@ -23,7 +51,12 @@ export const SprintFlowStage = ({ stageData, onComplete }) => {
   const { candidates, flow } = stageData;
   const [dndState, dispatch] = useReducer(dndReducer, {
     candidates,
-    flow,
+    ...flow,
+    showResult: false,
+  });
+  const [btnState, setBtnState] = useState({
+    type: 'disabled',
+    text: stageData.action,
   });
 
   function handleDragEnd({ source, destination }) {
@@ -36,8 +69,18 @@ export const SprintFlowStage = ({ stageData, onComplete }) => {
       return;
     }
 
-    const sourceItem = dndState[source.droppableId].items[source.index];
+    const sourceItem =
+      dndState[source.droppableId].item ||
+      dndState[source.droppableId].items[source.index];
 
+    if (destination.droppableId !== 'candidates') {
+      if (dndState[destination.droppableId].item) {
+        dispatch({
+          type: 'moveItemToCandidates',
+          payload: destination,
+        });
+      }
+    }
     dispatch({
       type: 'remove',
       payload: source,
@@ -51,28 +94,51 @@ export const SprintFlowStage = ({ stageData, onComplete }) => {
     });
   }
 
+  function checkAnswer() {
+    const answer1 = dndState.space01.answer === dndState.space01.item.order;
+    const answer2 = dndState.space02.answer === dndState.space02.item.order;
+    const answer3 = dndState.space03.answer === dndState.space03.item.order;
+    const answer4 = dndState.space04.answer === dndState.space04.item.order;
+    if (answer1 && answer2 && answer3 && answer4) {
+      onComplete();
+    } else {
+      dispatch({ type: 'showAnswer' });
+    }
+  }
+
+  useEffect(() => {
+    const isAllFilled = dndState.candidates.items.length === 0;
+    if (!isAllFilled && btnState.type === 'default') {
+      setBtnState({ type: 'disabled', text: stageData.action });
+    } else if (isAllFilled && btnState.type === 'disabled') {
+      setBtnState({ type: 'default', text: stageData.action });
+    }
+  }, [dndState, btnState, stageData]);
+
   return (
     <div className="h-full pb-28">
       <div className="mt-12 bg-assist1 rounded-4xl px-4 xl:px-10 pt-12 pb-10">
         <DragDropContext onDragEnd={handleDragEnd}>
-          <div className="relative w-fit mx-auto p-4 mt-12 mb-10 border-3 border-primary3 border-dashed rounded-3xl xl:rounded-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
-            {[1, 2, 3, 4].map((_, i) => {
-              return (
-                <div
-                  key={i}
-                  className="border-3 border-primary3 border-dashed rounded-full w-full md:w-56 h-18 flex justify-center items-center text-assist1 text-base sm:text-2xl leading-none "
-                >
-                  短衝會議選項
-                </div>
-              );
-            })}
-            <DroppableBox
-              id={dndState.candidates.id}
-              items={dndState.candidates.items}
-              type="grid"
-              className="absolute inset-4 gap-3"
-            />
-          </div>
+          {!dndState.showResult && (
+            <div className="relative w-fit mx-auto p-4 mt-12 mb-10 border-3 border-primary3 border-dashed rounded-3xl xl:rounded-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
+              {[1, 2, 3, 4].map((_, i) => {
+                return (
+                  <div
+                    key={i}
+                    className="border-3 border-primary3 border-dashed rounded-full w-full md:w-56 h-18 flex justify-center items-center text-assist1 text-base sm:text-2xl leading-none "
+                  >
+                    短衝會議選項
+                  </div>
+                );
+              })}
+              <DroppableBox
+                id={dndState.candidates.id}
+                items={dndState.candidates.items}
+                type="grid"
+                className="absolute inset-4 gap-3"
+              />
+            </div>
+          )}
           <div className="overflow-auto">
             <div className="relative w-fit">
               <svg
@@ -174,31 +240,38 @@ export const SprintFlowStage = ({ stageData, onComplete }) => {
                 </defs>
               </svg>
               <SprintFlowBox
-                key={dndState.flow[0].id}
-                space={dndState.flow[0]}
+                key={dndState.space01.id}
+                space={dndState.space01}
                 className="bg-primary1 absolute top-[82.8%] left-1/4 -translate-x-1/2 -translate-y-1/2"
               />
               <SprintFlowBox
-                key={dndState.flow[1].id}
-                space={dndState.flow[1]}
+                key={dndState.space02.id}
+                space={dndState.space02}
                 className="bg-assist1 absolute top-[32.5%] left-[70%] -translate-x-1/2 -translate-y-1/2"
               />
               <SprintFlowBox
-                key={dndState.flow[2].id}
-                space={dndState.flow[2]}
+                key={dndState.space03.id}
+                space={dndState.space03}
                 className="bg-primary1 absolute top-[82.8%] left-[68%] -translate-x-1/2 -translate-y-1/2"
               />
               <SprintFlowBox
-                key={dndState.flow[3].id}
-                space={dndState.flow[3]}
+                key={dndState.space04.id}
+                space={dndState.space04}
                 className="bg-primary1 absolute top-[82.8%] left-[89%] -translate-x-1/2 -translate-y-1/2"
               />
             </div>
           </div>
           <div className="text-center pt-12">
-            <Button type="disabled" onClick={onComplete}>
-              {stageData.action}
-            </Button>
+            {dndState.showResult && (
+              <Button type="default" onClick={onComplete}>
+                {stageData.action2}
+              </Button>
+            )}
+            {!dndState.showResult && (
+              <Button type={btnState} onClick={checkAnswer}>
+                {stageData.action}
+              </Button>
+            )}
           </div>
         </DragDropContext>
       </div>
