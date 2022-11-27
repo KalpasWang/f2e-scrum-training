@@ -6,6 +6,7 @@ export const Message = ({
   color = 'assist2',
   img,
   className,
+  children,
 }) => {
   const borderStyle = {
     primary1: 'border-primary1',
@@ -41,6 +42,7 @@ export const Message = ({
           />
         </div>
       )}
+      {children && <div className="w-fit">{children}</div>}
     </div>
   );
 };

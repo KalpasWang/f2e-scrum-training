@@ -305,6 +305,33 @@
       "exceed": "超過20點！請再調整清單"
     },
     {
+      "name": "MessagesStage",
+      "messages": [
+        {
+          "id": "01",
+          "avatar": "avatarRD1",
+          "text": "等等等等！你都還不知道什麼是Sprint吧！<br />我們來介紹給你吧～等等會考你喔，仔細聽好了！",
+          "color": "primary1",
+          "direction": "left"
+        },
+        {
+          "id": "02",
+          "avatar": "avatarRD2",
+          "text": "Sprint是一個短衝，開發騎士們會在這期間執行開發。<br />在這段期間內，開發騎士們舉辦每日站立會議(Daily Scrum)以便追蹤成員間的工作狀況。<br /><br />除了每日站立會議，在Sprint結束時，也會舉行<span class=\"text-primary3\">短衝檢視會議(Sprint Review)、短衝自省會議(Sprint Retrospective)。</span>",
+          "color": "primary1",
+          "direction": "left"
+        },
+        {
+          "id": "03",
+          "avatar": "newbie",
+          "text": "什麼會議？？我搞不懂了......",
+          "color": "primary3",
+          "direction": "right"
+        }
+      ],
+      "action": true
+    },
+    {
       "name": "SprintMeetingStage",
       "items": [
         {
@@ -331,6 +358,19 @@
           "conclusion": "優化工作流程、讓團隊有變得更好的機會。",
           "bonus": "推薦工具：",
           "bonusImage": "confluence-logo.jpg"
+        }
+      ]
+    },
+    {
+      "name": "MessagesStage",
+      "messages": [
+        {
+          "id": "01",
+          "avatar": "avatarRD1",
+          "text": "把我們剛剛提過的各個會議，試著放到Scrum經典的流程圖當中吧！",
+          "color": "primary1",
+          "direction": "left",
+          "action": true
         }
       ]
     },
