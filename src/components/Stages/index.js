@@ -4,3 +4,4 @@ export * from './GroupChatStage';
 export * from './SprintListDnDStage';
 export * from './SprintMeetingStage';
 export * from './SprintFlowStage';
+export * from './EndingStage';

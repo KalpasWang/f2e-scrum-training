@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useGameContext } from '../../context/gameContext';
 import { Bar } from '../Common';
@@ -9,6 +9,7 @@ import {
   SprintListDnDStage,
   SprintMeetingStage,
   SprintFlowStage,
+  EndingStage,
 } from '../Stages';
 
 export const TrainingScene = () => {
@@ -36,11 +37,17 @@ export const TrainingScene = () => {
     SprintListDnDStage,
     SprintMeetingStage,
     SprintFlowStage,
+    EndingStage,
   };
   const CurrentStage = Stages[currentStageName];
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  });
+
   return (
     <motion.main
+      key={state.finishedCount}
       className="container relative h-full"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}

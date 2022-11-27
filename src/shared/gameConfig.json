@@ -426,6 +426,11 @@
       "successMessage": "厲害喔！答對了！",
       "action": "完成挑戰",
       "action2": "知道了！"
+    },
+    {
+      "name": "EndingStage",
+      "text": "恭喜新進勇者通過新手任務<br />歡迎加入開發騎士團！",
+      "action": "重新開始"
     }
   ]
 }

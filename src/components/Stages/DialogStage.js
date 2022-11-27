@@ -21,8 +21,8 @@ export const DialogStage = ({ stageData, onComplete }) => {
   });
 
   return (
-    <div className="h-full">
-      <div className="min-h-[60vh] mt-10 bg-assist1 rounded-4xl px-[7vw] py-[6vh] flex flex-col justify-between items-center gap-4">
+    <div className="h-full pt-10 pb-12">
+      <div className="min-h-[60vh] bg-assist1 rounded-4xl px-[7vw] py-9 flex flex-col justify-between items-center gap-52">
         <div className="w-full text-assist2 text-2xl leading-relaxed">
           {renderTexts}
         </div>

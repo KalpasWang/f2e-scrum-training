@@ -5,6 +5,7 @@ const initialState = {
   stages: game.stages,
   progress: 1,
   stagesAmount: game.stages.length,
+  finishedCount: 0,
 };
 
 export const GameContext = React.createContext({
@@ -12,6 +13,7 @@ export const GameContext = React.createContext({
     stages: [],
     progress: 1,
     stagesAmount: 0,
+    finishedCount: 0,
   },
   dispatch: () => {},
 });
@@ -20,10 +22,12 @@ const gameReducer = (state, action) => {
   switch (action.type) {
     case 'nextStage': {
       let progress = state.progress + 1;
+      let finishedCount = state.finishedCount;
       if (progress > state.stagesAmount) {
         progress = 1;
+        finishedCount++;
       }
-      return { ...state, progress: progress };
+      return { ...state, progress, finishedCount };
     }
     case 'prevStage': {
       return { ...state, progress: state.progress - 1 };

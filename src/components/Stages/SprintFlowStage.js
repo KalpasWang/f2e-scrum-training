@@ -71,12 +71,12 @@ export const SprintFlowStage = ({ stageData, onComplete }) => {
       setMessage(stageData.failMessage);
     }
     setShowResult(true);
+    window.scrollTo(0, 0);
   }
 
   useEffect(() => {
     const spaces = ['space01', 'space02', 'space03', 'space04'];
     const isAllFilled = spaces.every((space) => dndState[space].item);
-    console.log(isAllFilled);
     if (!isAllFilled && btnState === 'default') {
       setBtnState('disabled');
     } else if (isAllFilled && btnState === 'disabled') {
