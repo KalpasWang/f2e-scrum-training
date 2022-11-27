@@ -1,4 +1,4 @@
-# 4th F2E 第一關 視差滾動
+# 4th F2E 第三關 Scrum 新手村
 
 ---
 
@@ -9,10 +9,11 @@
 # 使用技術
 
 - React
+- React Context API
 - Tailwind CSS
 - react-beautiful-dnd
 - Framer motion
-- classnames
+- classNames
 
 # 設計稿
 
