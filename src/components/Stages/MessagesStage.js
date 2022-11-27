@@ -1,9 +1,18 @@
+import { motion } from 'framer-motion';
 import { Button, Message } from '../Common';
 import avatarRD1 from '../../assets/avatar-rd1.png';
 import avatarRD2 from '../../assets/avatar-rd2.png';
 import newbie from '../../assets/avatar-newbie.png';
 
 export const MessagesStage = ({ stageData, onComplete }) => {
+  const variants = {
+    initial: { opacity: 0 },
+    visible: (custom) => ({
+      opacity: 1,
+      transition: { delay: 0.5 + custom * 2.5 },
+    }),
+  };
+
   const flexRow = {
     left: 'flex-row',
     right: 'flex-row-reverse',
@@ -34,9 +43,13 @@ export const MessagesStage = ({ stageData, onComplete }) => {
   return (
     <div className="h-full pt-10 pb-12">
       <div className="min-h-[60vh] bg-assist1 rounded-4xl px-[3vw] py-9 flex flex-col justify-start items-center gap-9">
-        {stageData.messages.map((msg) => {
+        {stageData.messages.map((msg, i) => {
           return (
-            <div
+            <motion.div
+              initial="initial"
+              animate="visible"
+              custom={i}
+              variants={variants}
               key={msg.id}
               className={`flex ${flexRow[msg.direction]} ${
                 alignSelf[msg.direction]
@@ -70,13 +83,19 @@ export const MessagesStage = ({ stageData, onComplete }) => {
                   <Button type="next" size="sm" onClick={onComplete} />
                 )}
               </Message>
-            </div>
+            </motion.div>
           );
         })}
         {stageData.action && (
-          <div className="text-center pt-4">
+          <motion.div
+            initial="initial"
+            animate="visible"
+            custom={2.1}
+            variants={variants}
+            className="text-center pt-4"
+          >
             <Button type="next" onClick={onComplete} />
-          </div>
+          </motion.div>
         )}
       </div>
     </div>
