@@ -1,5 +1,6 @@
 import { useEffect, useReducer, useState } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
+import { motion } from 'framer-motion';
 import { Button } from '../Common';
 import { DroppableBox } from '../Common';
 import { Message } from '../Common/Message';
@@ -82,7 +83,10 @@ export const PriorityDnDStage = ({ stageData, onComplete }) => {
   return (
     <div>
       <div className="flex justify-start items-center px-8 relative z-10">
-        <img
+        <motion.img
+          key={stageData.roleImg}
+          initial={{ opacity: 0, y: -80 }}
+          animate={{ opacity: 1, y: 0 }}
           className="mr-4"
           src={require('../../assets/' + stageData.roleImg)}
           alt="role"

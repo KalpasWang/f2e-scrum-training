@@ -1,5 +1,6 @@
 import { useReducer, useEffect, useState } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
+import { motion } from 'framer-motion';
 import { Button, SprintFlowBox, Message } from '../Common';
 import rd1 from '../../assets/avatar-rd1.png';
 
@@ -89,14 +90,18 @@ export const SprintFlowStage = ({ stageData, onComplete }) => {
       <div className="mt-12 bg-assist1 rounded-4xl px-4 xl:px-10 pt-12 pb-10">
         <DragDropContext onDragEnd={handleDragEnd}>
           {showResult && (
-            <div className="flex justify-start items-center">
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
+              className="flex justify-start items-center"
+            >
               <img className="mr-4" src={rd1} alt="role" />
               <svg
                 width="44"
                 height="8"
                 viewBox="0 0 44 8"
                 fill="none"
-                className="-translate-y-6"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -106,12 +111,8 @@ export const SprintFlowStage = ({ stageData, onComplete }) => {
                   strokeLinecap="round"
                 />
               </svg>
-              <Message
-                borderColor="primary1"
-                text={message}
-                className="-translate-y-6"
-              />
-            </div>
+              <Message borderColor="primary1" text={message} />
+            </motion.div>
           )}
           {!showResult && (
             <div className="relative w-fit mx-auto p-4 mt-12 mb-10 border-3 border-primary3 border-dashed rounded-3xl xl:rounded-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
