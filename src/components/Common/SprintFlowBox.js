@@ -1,9 +1,9 @@
 import { Droppable } from 'react-beautiful-dnd';
 import { DraggableCard } from './DraggableCard';
 
-export const SprintFlowBox = ({ className, space }) => {
+export const SprintFlowBox = ({ className, space, placeholder }) => {
   return (
-    <Droppable droppableId={space.id}>
+    <Droppable droppableId={space.id} isDropDisabled={!!space.item}>
       {(provided, snapshot) => {
         return (
           <div
@@ -11,9 +11,11 @@ export const SprintFlowBox = ({ className, space }) => {
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
-            <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-              填入會議
-            </span>
+            {placeholder && (
+              <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                {placeholder}
+              </span>
+            )}
             {space.item && (
               <DraggableCard
                 id={space.item.id}

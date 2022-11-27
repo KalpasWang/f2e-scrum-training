@@ -336,34 +336,69 @@
     },
     {
       "name": "SprintFlowStage",
+      "items": [
+        {
+          "id": "03",
+          "title": "短衝規劃會議",
+          "type": "meeting",
+          "order": 1
+        },
+        {
+          "id": "02",
+          "title": "每日短衝會議",
+          "type": "meeting",
+          "order": 2
+        },
+        {
+          "id": "04",
+          "title": "短衝檢視會議",
+          "type": "meeting",
+          "order": 3
+        },
+        {
+          "id": "01",
+          "title": "短衝自省會議",
+          "type": "meeting",
+          "order": 4
+        }
+      ],
       "candidates": {
-        "id": "candidates",
-        "items": [
-          {
+        "candidate01": {
+          "id": "candidate01",
+          "item": {
             "id": "01",
             "title": "短衝自省會議",
             "type": "meeting",
             "order": 4
-          },
-          {
+          }
+        },
+        "candidate02": {
+          "id": "candidate02",
+          "item": {
             "id": "02",
             "title": "每日短衝會議",
             "type": "meeting",
             "order": 2
-          },
-          {
+          }
+        },
+        "candidate03": {
+          "id": "candidate03",
+          "item": {
             "id": "03",
             "title": "短衝規劃會議",
             "type": "meeting",
             "order": 1
-          },
-          {
+          }
+        },
+        "candidate04": {
+          "id": "candidate04",
+          "item": {
             "id": "04",
             "title": "短衝檢視會議",
             "type": "meeting",
             "order": 3
           }
-        ]
+        }
       },
       "flow": {
         "space01": {
@@ -387,6 +422,8 @@
           "item": null
         }
       },
+      "failMessage": "猴～剛剛沒有認真看齁<br />下圖這樣才是正確的Scrum流程圖喔！",
+      "successMessage": "厲害喔！答對了！",
       "action": "完成挑戰",
       "action2": "知道了！"
     }

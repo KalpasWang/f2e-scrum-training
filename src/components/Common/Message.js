@@ -8,6 +8,7 @@ export const Message = ({
   className,
 }) => {
   const borderStyle = {
+    primary1: 'border-primary1',
     primary2: 'border-primary2',
     primary3: 'border-primary3',
   };
@@ -31,13 +32,15 @@ export const Message = ({
           dangerouslySetInnerHTML={{ __html: text }}
         ></p>
       </div>
-      <div className="w-fit">
-        <img
-          src={require('../../assets/' + img)}
-          alt="logo"
-          className="max-w-full"
-        />
-      </div>
+      {img && (
+        <div className="w-fit">
+          <img
+            src={require('../../assets/' + img)}
+            alt="logo"
+            className="max-w-full"
+          />
+        </div>
+      )}
     </div>
   );
 };

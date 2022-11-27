@@ -8,6 +8,7 @@ function dndReducer(state, action) {
   switch (action.type) {
     case 'add/remove': {
       const { item, droppableId, index } = action.payload;
+      if (!item) return state;
       if (
         item.type !== 'empty' &&
         !item.type.includes('dropped-') &&
