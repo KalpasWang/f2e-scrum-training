@@ -13,6 +13,7 @@
 - Tailwind CSS
 - react-beautiful-dnd
 - Framer motion
+- typewriter-effect
 - classNames
 
 # 設計稿

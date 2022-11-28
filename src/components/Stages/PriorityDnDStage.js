@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Button } from '../Common';
 import { DroppableBox } from '../Common';
 import { Message } from '../Common/Message';
+import poSit from '../../assets/poSit.svg';
 
 function dndReducer(state, action) {
   switch (action.type) {
@@ -82,16 +83,19 @@ export const PriorityDnDStage = ({ stageData, onComplete }) => {
 
   return (
     <div>
-      <div className="flex justify-start items-center px-8 relative z-10">
+      <motion.div
+        initial={{ opacity: 0, y: -80 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.25 }}
+        className="flex justify-start items-center px-8 relative z-10"
+      >
         <motion.img
           key={stageData.roleImg}
-          initial={{ opacity: 0, y: -80 }}
-          animate={{ opacity: 1, y: 0 }}
           className="mr-4"
-          src={require('../../assets/' + stageData.roleImg)}
+          src={poSit}
           alt="role"
         />
-        <svg
+        <motion.svg
           width="44"
           height="8"
           viewBox="0 0 44 8"
@@ -105,15 +109,16 @@ export const PriorityDnDStage = ({ stageData, onComplete }) => {
             strokeWidth="3"
             strokeLinecap="round"
           />
-        </svg>
+        </motion.svg>
         <Message
           borderColor={stageData.messageColor}
           color={stageData.messageColor}
           text={stageData.message}
+          delay={1000}
           img={stageData.messageImg}
           className="-translate-y-6"
         />
-      </div>
+      </motion.div>
       <DragDropContext onDragEnd={handleDragEnd}>
         <div className="relative -top-16 h-full w-full flex flex-col lg:flex-row gap-4 justify-between items-stretch">
           <div className="xl:basis-5/12 w-full px-6 pb-8 pt-28 bg-assist1 rounded-5xl">

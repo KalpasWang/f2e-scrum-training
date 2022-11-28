@@ -9,9 +9,11 @@ export const MessagesStage = ({ stageData, onComplete }) => {
     initial: { opacity: 0 },
     visible: (custom) => ({
       opacity: 1,
-      transition: { delay: 0.5 + custom * 2.5 },
+      transition: { delay: custom / 1000 },
     }),
   };
+
+  const delay = [1000, 6000, 20000];
 
   const flexRow = {
     left: 'flex-row',
@@ -48,7 +50,7 @@ export const MessagesStage = ({ stageData, onComplete }) => {
             <motion.div
               initial="initial"
               animate="visible"
-              custom={i}
+              custom={delay[i]}
               variants={variants}
               key={msg.id}
               className={`flex ${flexRow[msg.direction]} ${
@@ -77,6 +79,7 @@ export const MessagesStage = ({ stageData, onComplete }) => {
               <Message
                 borderColor={msg.color}
                 text={msg.text}
+                delay={delay[i]}
                 className="max-w-[65%]"
               >
                 {msg.action && (
@@ -90,7 +93,7 @@ export const MessagesStage = ({ stageData, onComplete }) => {
           <motion.div
             initial="initial"
             animate="visible"
-            custom={2.1}
+            custom={22000}
             variants={variants}
             className="text-center pt-4"
           >

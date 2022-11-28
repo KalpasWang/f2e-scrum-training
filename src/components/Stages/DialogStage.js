@@ -1,5 +1,6 @@
 import ReactDOM from 'react-dom';
 import { motion } from 'framer-motion';
+import Typewriter from 'typewriter-effect';
 import { Button } from '../Common';
 import king from '../../assets/king.svg';
 import po from '../../assets/po.svg';
@@ -16,10 +17,15 @@ export const DialogStage = ({ stageData, onComplete }) => {
   return (
     <div className="h-full pt-10 pb-12">
       <div className="min-h-[60vh] bg-assist1 rounded-4xl px-[7vw] py-9 flex flex-col justify-between items-center gap-52">
-        <div
-          className="w-full text-assist2 text-2xl leading-tight"
-          dangerouslySetInnerHTML={{ __html: texts }}
-        ></div>
+        <div className="w-full text-assist2 text-2xl leading-tight">
+          <Typewriter
+            key={stageData.roleImg}
+            onInit={(typewriter) => {
+              typewriter.pauseFor(1500).typeString(texts).start();
+            }}
+            options={{ delay: 60 }}
+          />
+        </div>
         <Button type={stageData.button} onClick={onComplete}>
           {stageData.action}
         </Button>

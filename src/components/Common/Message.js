@@ -1,10 +1,13 @@
 import classNames from 'classnames';
+import Typewriter from 'typewriter-effect';
+import { motion } from 'framer-motion';
 
 export const Message = ({
   text,
   borderColor = 'primary3',
   color = 'assist2',
   img,
+  delay = 200,
   className,
   children,
 }) => {
@@ -28,14 +31,22 @@ export const Message = ({
   return (
     <div className={containerClass}>
       <div className="flex-grow relative">
-        <p
-          className={textColor[color]}
-          dangerouslySetInnerHTML={{ __html: text }}
-        ></p>
+        <p className={`${textColor[color]} min-h-[3rem]`}>
+          <Typewriter
+            key={text}
+            onInit={(typewriter) => {
+              typewriter.pauseFor(delay).typeString(text).start();
+            }}
+            options={{ delay: 70 }}
+          />
+        </p>
       </div>
       {img && (
-        <div className="w-fit">
-          <img
+        <div className="basis-1/4">
+          <motion.img
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: text.length * 0.05 }}
             src={require('../../assets/' + img)}
             alt="logo"
             className="max-w-full"
