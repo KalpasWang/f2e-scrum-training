@@ -31,7 +31,7 @@ export const Message = ({
   return (
     <div className={containerClass}>
       <div className="flex-grow relative">
-        <p className={`${textColor[color]} min-h-[3rem]`}>
+        <div className={`${textColor[color]} min-h-[3rem]`}>
           <Typewriter
             key={text}
             onInit={(typewriter) => {
@@ -39,7 +39,7 @@ export const Message = ({
             }}
             options={{ delay: 70 }}
           />
-        </p>
+        </div>
       </div>
       {img && (
         <div className="basis-1/4">

@@ -5,4 +5,5 @@ export * from './SprintListDnDStage';
 export * from './MessagesStage';
 export * from './SprintMeetingStage';
 export * from './SprintFlowStage';
+export * from './RetroStage';
 export * from './EndingStage';

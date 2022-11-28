@@ -10,6 +10,7 @@ import {
   MessagesStage,
   SprintMeetingStage,
   SprintFlowStage,
+  RetroStage,
   EndingStage,
 } from '../Stages';
 
@@ -39,6 +40,7 @@ export const TrainingScene = () => {
     MessagesStage,
     SprintMeetingStage,
     SprintFlowStage,
+    RetroStage,
     EndingStage,
   };
   const CurrentStage = Stages[currentStageName];

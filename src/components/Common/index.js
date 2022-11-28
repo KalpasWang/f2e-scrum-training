@@ -4,3 +4,4 @@ export * from './DraggableCard';
 export * from './Message';
 export * from './DroppableBox';
 export * from './SprintFlowBox';
+export * from './CheckItem';
