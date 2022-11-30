@@ -13,8 +13,8 @@
     line-height: 1.25;
   }
 
-  .h-screen-130 {
-    height: calc(100vh - 130px);
+  .h-screen-160 {
+    height: calc(100vh - 160px);
   }
 }
 

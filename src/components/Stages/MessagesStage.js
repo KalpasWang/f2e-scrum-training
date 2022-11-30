@@ -9,11 +9,11 @@ export const MessagesStage = ({ stageData, onComplete }) => {
     initial: { opacity: 0 },
     visible: (custom) => ({
       opacity: 1,
-      transition: { delay: custom / 1000 },
+      transition: { delay: custom },
     }),
   };
 
-  const delay = [1000, 6000, 20000];
+  const delay = [1, 6, 20];
 
   const flexRow = {
     left: 'flex-row',
@@ -44,7 +44,7 @@ export const MessagesStage = ({ stageData, onComplete }) => {
 
   return (
     <div className="h-full pt-10 pb-12">
-      <div className="min-h-[60vh] bg-assist1 rounded-4xl px-[3vw] py-9 flex flex-col justify-start items-center gap-9">
+      <div className="min-h-[60vh] bg-assist1 rounded-4xl px-[3vw] py-[5vh] flex flex-col justify-start items-center gap-[5vh]">
         {stageData.messages.map((msg, i) => {
           return (
             <motion.div
@@ -63,6 +63,7 @@ export const MessagesStage = ({ stageData, onComplete }) => {
                 alt="role"
               />
               <svg
+                className="flex-shrink-0"
                 width="44"
                 height="8"
                 viewBox="0 0 44 8"
@@ -80,7 +81,7 @@ export const MessagesStage = ({ stageData, onComplete }) => {
                 borderColor={msg.color}
                 text={msg.text}
                 delay={delay[i]}
-                className="max-w-[65%]"
+                className="min-w-[66%] max-w-[66%] basis-2/3"
               >
                 {msg.action && (
                   <Button type="next" size="sm" onClick={onComplete} />
@@ -93,7 +94,7 @@ export const MessagesStage = ({ stageData, onComplete }) => {
           <motion.div
             initial="initial"
             animate="visible"
-            custom={22000}
+            custom={22}
             variants={variants}
             className="text-center pt-4"
           >

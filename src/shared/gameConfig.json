@@ -9,7 +9,7 @@
     },
     {
       "name": "DialogStage",
-      "text": "我是TT資訊王國．敏捷騎士團的軍師小敏<br /><br />用你們的話來說就是<span class=\"text-primary3\">PO</span>，也就是<span class=\"text-primary3\">產品負責人 Product Owner</span><br /><br />PO會負責評估產品代辦清單的價值與重要性，依序排列要執行的優先順序，對齊產品目標，最後排出<span class=\"text-primary3\">產品待辦清單 Product Backlog。</span>",
+      "text": "我是TT資訊王國．敏捷騎士團的軍師小敏<br /><br />用你們的話來說就是<span class=\"text-primary3\">PO</span>，也就是<span class=\"text-primary3\">產品負責人 Product Owner</span><br /><br />PO會負責評估產品代辦清單的價值與重要性，依序排列要執行的優先順序，<br />對齊產品目標，最後排出<span class=\"text-primary3\">產品待辦清單 Product Backlog。</span>",
       "roleImg": "po",
       "button": "next"
     },

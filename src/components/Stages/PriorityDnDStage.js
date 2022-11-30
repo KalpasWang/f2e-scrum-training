@@ -89,13 +89,11 @@ export const PriorityDnDStage = ({ stageData, onComplete }) => {
         transition={{ delay: 0.25 }}
         className="flex justify-start items-center px-8 relative z-10"
       >
-        <motion.img
-          key={stageData.roleImg}
-          className="mr-4"
-          src={poSit}
-          alt="role"
-        />
+        <img key={stageData.roleImg} className="mr-4" src={poSit} alt="role" />
         <motion.svg
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1 }}
           width="44"
           height="8"
           viewBox="0 0 44 8"
@@ -114,9 +112,9 @@ export const PriorityDnDStage = ({ stageData, onComplete }) => {
           borderColor={stageData.messageColor}
           color={stageData.messageColor}
           text={stageData.message}
-          delay={1000}
+          delay={1}
           img={stageData.messageImg}
-          className="-translate-y-6"
+          className="-translate-y-6 flex-grow"
         />
       </motion.div>
       <DragDropContext onDragEnd={handleDragEnd}>

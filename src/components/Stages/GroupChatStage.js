@@ -41,9 +41,9 @@ export const GroupChatStage = ({ stageData, onComplete }) => {
 
   return (
     <div className="h-full">
-      <div className="relative h-screen-130 mt-10">
+      <div className="relative h-screen-160 mt-10">
         <div className="bg-assist1 rounded-3xl h-2/3 relative"></div>
-        <div className="absolute inset-0 pt-[6vh] flex flex-col justify-end items-center">
+        <div className="absolute inset-0 py-4 flex flex-col justify-end items-center">
           {/* 對話框 */}
           <AnimatePresence>
             <motion.div
@@ -54,7 +54,7 @@ export const GroupChatStage = ({ stageData, onComplete }) => {
                 lastActiveRole.current ? 'dialogShow' : 'dialogFirstShow'
               }
               variants={variants}
-              className={`relative basis-1/3 flex-grow z-10 w-4/5 min-w-72 mx-auto rounded-3xl bg-assist1 border-3 ${
+              className={`relative basis-1/3 z-10 w-4/5 min-w-72 mx-auto rounded-3xl bg-assist1 border-3 ${
                 border[active.color]
               } flex gap-4 px-6 py-8`}
             >
@@ -80,7 +80,7 @@ export const GroupChatStage = ({ stageData, onComplete }) => {
                 lastActiveRole.current ? 'dialogShow' : 'dialogFirstShow'
               }
               variants={variants}
-              className="relative basis-1/4 h-1/4 flex-shrink -top-1 w-3/5 min-w-72 mx-auto flex justify-between"
+              className="relative basis-1/5 h-1/5 lg:basis-1/4 lg:h-1/4 flex-shrink -top-1 w-3/5 min-w-72 mx-auto flex justify-between"
             >
               {spacers.map((role, i) => {
                 return (
@@ -100,7 +100,7 @@ export const GroupChatStage = ({ stageData, onComplete }) => {
               })}
             </motion.div>
           </AnimatePresence>
-          <div className="basis-1/3 flex justify-evenly items-end">
+          <div className="basis-1/3 min-h-[12.5rem] flex justify-evenly items-end">
             {roles.map((role) => {
               const img = require('../../assets/' + role.img);
               const initial = lastActiveRole.current ? 'show' : 'hidden';
@@ -121,14 +121,14 @@ export const GroupChatStage = ({ stageData, onComplete }) => {
                   animate={animate}
                   variants={variants}
                   key={role.id}
-                  className="basis-1/6"
+                  className="basis-1/6 w-1/6 h-full inline-flex flex-col justify-end"
                 >
                   <img
                     src={img}
                     alt={role.name}
-                    className="max-h-full max-w-full"
+                    className="max-h-full max-w-full mx-auto"
                   />
-                  <p className="text-center text-xl text-assist1 pt-6">
+                  <p className="text-center text-lg lg:text-xl text-assist1 pt-[2vh]">
                     {role.name}
                   </p>
                 </motion.div>

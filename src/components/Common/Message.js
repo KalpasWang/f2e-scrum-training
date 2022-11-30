@@ -7,7 +7,7 @@ export const Message = ({
   borderColor = 'primary3',
   color = 'assist2',
   img,
-  delay = 200,
+  delay = 0.1,
   className,
   children,
 }) => {
@@ -29,20 +29,28 @@ export const Message = ({
   );
 
   return (
-    <div className={containerClass}>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: delay }}
+      className={containerClass}
+    >
       <div className="flex-grow relative">
         <div className={`${textColor[color]} min-h-[3rem]`}>
           <Typewriter
             key={text}
             onInit={(typewriter) => {
-              typewriter.pauseFor(delay).typeString(text).start();
+              typewriter
+                .pauseFor(delay * 1000)
+                .typeString(text)
+                .start();
             }}
             options={{ delay: 70 }}
           />
         </div>
       </div>
       {img && (
-        <div className="basis-1/4">
+        <div className="basis-1/4 lg:basis-1/5 flex-shrink-0">
           <motion.img
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -54,6 +62,6 @@ export const Message = ({
         </div>
       )}
       {children && <div className="w-fit">{children}</div>}
-    </div>
+    </motion.div>
   );
 };
