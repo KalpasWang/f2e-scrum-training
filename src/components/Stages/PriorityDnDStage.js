@@ -89,16 +89,21 @@ export const PriorityDnDStage = ({ stageData, onComplete }) => {
         transition={{ delay: 0.25 }}
         className="flex justify-start items-center px-8 relative z-10"
       >
-        <img key={stageData.roleImg} className="mr-4" src={poSit} alt="role" />
+        <img
+          key={stageData.roleImg}
+          className="basis-1/4 lg:basis-auto mr-4 max-w-[25%] lg:max-w-none"
+          src={poSit}
+          alt="role"
+        />
         <motion.svg
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
+          transition={{ delay: 1.5 }}
           width="44"
           height="8"
           viewBox="0 0 44 8"
           fill="none"
-          className="-translate-y-6"
+          className="-translate-y-6 basis-1/12 lg:basis-auto"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
@@ -112,13 +117,13 @@ export const PriorityDnDStage = ({ stageData, onComplete }) => {
           borderColor={stageData.messageColor}
           color={stageData.messageColor}
           text={stageData.message}
-          delay={1}
+          delay={1.5}
           img={stageData.messageImg}
-          className="-translate-y-6 flex-grow"
+          className="-translate-y-6 basis-2/3"
         />
       </motion.div>
       <DragDropContext onDragEnd={handleDragEnd}>
-        <div className="relative -top-16 h-full w-full flex flex-col lg:flex-row gap-4 justify-between items-stretch">
+        <div className="relative md:-top-16 h-full w-full flex flex-col lg:flex-row gap-4 justify-between items-stretch">
           <div className="xl:basis-5/12 w-full px-6 pb-8 pt-28 bg-assist1 rounded-5xl">
             <DroppableBox
               id="candidates"

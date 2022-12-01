@@ -3,17 +3,19 @@ import { Button, Message } from '../Common';
 import avatarRD1 from '../../assets/avatar-rd1.png';
 import avatarRD2 from '../../assets/avatar-rd2.png';
 import newbie from '../../assets/avatar-newbie.png';
+import { useEffect } from 'react';
 
 export const MessagesStage = ({ stageData, onComplete }) => {
   const variants = {
-    initial: { opacity: 0 },
+    initial: { opacity: 0, display: 'none' },
     visible: (custom) => ({
       opacity: 1,
+      display: 'flex',
       transition: { delay: custom },
     }),
   };
 
-  const delay = [1, 6, 20];
+  const delay = [1, 6, 20, 22];
 
   const flexRow = {
     left: 'flex-row',
@@ -32,8 +34,8 @@ export const MessagesStage = ({ stageData, onComplete }) => {
   };
 
   const margin = {
-    left: 'mr-4',
-    right: 'ml-4',
+    left: 'mr-1 lg:mr-4',
+    right: 'ml-1 lg:ml-4',
   };
 
   const avatars = {
@@ -41,6 +43,25 @@ export const MessagesStage = ({ stageData, onComplete }) => {
     avatarRD2,
     newbie,
   };
+
+  useEffect(() => {
+    const timers = new Array(delay.length);
+    delay.forEach((d, i) => {
+      timers[i] = setTimeout(() => {
+        window.scrollTo({
+          top: document.body.scrollHeight,
+          left: 0,
+          behavior: 'smooth',
+        });
+      }, d * 1000 + 100);
+    });
+
+    return () => {
+      timers.forEach((id) => {
+        clearTimeout(id);
+      });
+    };
+  });
 
   return (
     <div className="h-full pt-10 pb-12">
@@ -55,15 +76,19 @@ export const MessagesStage = ({ stageData, onComplete }) => {
               key={msg.id}
               className={`flex ${flexRow[msg.direction]} ${
                 alignSelf[msg.direction]
-              } items-center`}
+              } items-center w-full`}
             >
-              <img
-                className={margin[msg.direction]}
-                src={avatars[msg.avatar]}
-                alt="role"
-              />
+              <div
+                className={`basis-1/4 lg:basis-auto ${margin[msg.direction]}`}
+              >
+                <img
+                  className="max-w-full mx-auto"
+                  src={avatars[msg.avatar]}
+                  alt="role"
+                />
+              </div>
               <svg
-                className="flex-shrink-0"
+                className="flex-shrink-0 basis-1/12 lg:basis-auto"
                 width="44"
                 height="8"
                 viewBox="0 0 44 8"
@@ -81,7 +106,7 @@ export const MessagesStage = ({ stageData, onComplete }) => {
                 borderColor={msg.color}
                 text={msg.text}
                 delay={delay[i]}
-                className="min-w-[66%] max-w-[66%] basis-2/3"
+                className="basis-2/3"
               >
                 {msg.action && (
                   <Button type="next" size="sm" onClick={onComplete} />
@@ -94,7 +119,7 @@ export const MessagesStage = ({ stageData, onComplete }) => {
           <motion.div
             initial="initial"
             animate="visible"
-            custom={22}
+            custom={delay[3]}
             variants={variants}
             className="text-center pt-4"
           >

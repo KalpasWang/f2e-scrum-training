@@ -23,7 +23,7 @@ export const Message = ({
   };
 
   const containerClass = classNames(
-    'flex flex-row items-center gap-4 py-3 px-6 rounded-3xl border-3',
+    'flex flex-col sm:flex-row items-center gap-1 sm:gap-4 py-1 sm:py-3 px-1 sm:px-6 rounded-3xl border-3',
     borderStyle[borderColor],
     className
   );
@@ -36,7 +36,7 @@ export const Message = ({
       className={containerClass}
     >
       <div className="flex-grow relative">
-        <div className={`${textColor[color]} min-h-[3rem]`}>
+        <div className={`${textColor[color]} min-h-[3rem] w-full`}>
           <Typewriter
             key={text}
             onInit={(typewriter) => {

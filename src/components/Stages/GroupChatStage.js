@@ -56,7 +56,7 @@ export const GroupChatStage = ({ stageData, onComplete }) => {
               variants={variants}
               className={`relative basis-1/3 z-10 w-4/5 min-w-72 mx-auto rounded-3xl bg-assist1 border-3 ${
                 border[active.color]
-              } flex gap-4 px-6 py-8`}
+              } flex flex-col sm:flex-row gap-4 px-6 py-8`}
             >
               <p
                 className="flex-grow text-assist2"
@@ -86,13 +86,17 @@ export const GroupChatStage = ({ stageData, onComplete }) => {
                 return (
                   <div
                     key={role?.id || i}
-                    className={role ? 'basis-1/12' : 'basis-2/3'}
+                    className={
+                      role
+                        ? 'basis-1/6 lg:basis-1/12'
+                        : 'basis-1/3 lg:basis-2/3'
+                    }
                   >
                     {active.role === role?.id && (
                       <img
                         src={require(`../../assets/${role.id}-line.svg`)}
                         alt="indicator"
-                        className="max-h-full max-w-full"
+                        className="max-h-full max-w-full mx-auto"
                       />
                     )}
                   </div>
@@ -100,7 +104,7 @@ export const GroupChatStage = ({ stageData, onComplete }) => {
               })}
             </motion.div>
           </AnimatePresence>
-          <div className="basis-1/3 min-h-[12.5rem] flex justify-evenly items-end">
+          <div className="basis-1/5 sm:basis-1/3 min-h-[10rem] flex justify-evenly items-end">
             {roles.map((role) => {
               const img = require('../../assets/' + role.img);
               const initial = lastActiveRole.current ? 'show' : 'hidden';

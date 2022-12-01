@@ -9,7 +9,7 @@ export const CheckItem = ({ children, className }) => {
   }
 
   const container = classNames(
-    'h-36 flex px-8 items-center gap-7 rounded-full cursor-pointer transition-all',
+    'h-36 flex px-8 items-center gap-2 lg:gap-7 rounded-full cursor-pointer transition-all',
     {
       'bg-assist2 bg-opacity-10 border-3 border-assist2 border-opacity-10': true,
       'border-primary3 border-opacity-100': checked,
@@ -50,7 +50,9 @@ export const CheckItem = ({ children, className }) => {
           />
         </svg>
       </div>
-      <div className="flex-grow text-assist2 text-2xl">{children}</div>
+      <div className="flex-grow text-assist2 text-lg lg:text-2xl">
+        {children}
+      </div>
       <input
         type="checkbox"
         className="hidden"
