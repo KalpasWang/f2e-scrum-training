@@ -8,23 +8,19 @@ import poSit from '../../assets/poSit.svg';
 
 function dndReducer(state, action) {
   switch (action.type) {
-    case 'add/remove': {
+    case 'add': {
       const { item, droppableId, index } = action.payload;
-      if (!item) return state;
-      if (
-        item.type !== 'empty' &&
-        !item.type.includes('dropped-') &&
-        droppableId === 'backlog'
-      ) {
+      if (droppableId === 'backlog') {
         item.type = 'dropped-' + item.type;
-      } else if (
-        item.type !== 'empty' &&
-        item.type.includes('dropped-') &&
-        droppableId === 'candidates'
-      ) {
-        item.type = item.type.split('-')[1];
+      } else {
+        item.type = item.type.slice(-6);
       }
-      state[droppableId].items.splice(index, 1, item);
+      state[droppableId].items.splice(index, 0, item);
+      return { ...state };
+    }
+    case 'remove': {
+      const { droppableId, index } = action.payload;
+      state[droppableId].items.splice(index, 1);
       return { ...state };
     }
     default:
@@ -40,9 +36,8 @@ export const PriorityDnDStage = ({ stageData, onComplete }) => {
   });
   const [btnState, setBtnState] = useState('disabled');
 
-  function handleDragEnd({ draggableId, source, destination }) {
-    // 排除拖移到非 Droppable 與 沒有移動的情形
-    if (!destination) return;
+  function handleDragEnd({ source, destination }) {
+    if (!destination) return; // 排除拖移到非 Droppable 與 沒有移動的情形
     if (
       destination.droppableId === source.droppableId &&
       destination.index === source.index
@@ -51,18 +46,13 @@ export const PriorityDnDStage = ({ stageData, onComplete }) => {
     }
 
     const sourceItem = dndState[source.droppableId].items[source.index];
-    const targetItem =
-      dndState[destination.droppableId].items[destination.index];
 
     dispatch({
-      type: 'add/remove',
-      payload: {
-        ...source,
-        item: targetItem,
-      },
+      type: 'remove',
+      payload: source,
     });
     dispatch({
-      type: 'add/remove',
+      type: 'add',
       payload: {
         ...destination,
         item: sourceItem,
@@ -71,9 +61,7 @@ export const PriorityDnDStage = ({ stageData, onComplete }) => {
   }
 
   useEffect(() => {
-    const isSet = dndState.backlog.items.every(
-      (item, i) => item.type !== 'empty'
-    );
+    let isSet = dndState.candidates.items.length === 0;
     if (isSet && btnState === 'disabled') {
       setBtnState('default');
     } else if (!isSet && btnState === 'default') {
@@ -83,15 +71,16 @@ export const PriorityDnDStage = ({ stageData, onComplete }) => {
 
   return (
     <div>
+      {/* PO 小敏的對話框 */}
       <motion.div
         initial={{ opacity: 0, y: -80 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.25 }}
-        className="flex justify-start items-center px-8 relative z-10"
+        className="relative z-10 flex items-center justify-start px-8"
       >
         <img
           key={stageData.roleImg}
-          className="basis-1/4 lg:basis-auto mr-4 max-w-[25%] lg:max-w-none"
+          className="mr-4 max-w-[25%] basis-1/4 lg:max-w-none lg:basis-auto"
           src={poSit}
           alt="role"
         />
@@ -103,7 +92,7 @@ export const PriorityDnDStage = ({ stageData, onComplete }) => {
           height="8"
           viewBox="0 0 44 8"
           fill="none"
-          className="-translate-y-6 basis-1/12 lg:basis-auto"
+          className="basis-1/12 -translate-y-6 lg:basis-auto"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
@@ -119,28 +108,31 @@ export const PriorityDnDStage = ({ stageData, onComplete }) => {
           text={stageData.message}
           delay={1.5}
           img={stageData.messageImg}
-          className="-translate-y-6 basis-2/3"
+          className="basis-2/3 -translate-y-6"
         />
       </motion.div>
+      {/* 拖拉貓貓區塊 */}
       <DragDropContext onDragEnd={handleDragEnd}>
-        <div className="relative md:-top-16 h-full w-full flex flex-col lg:flex-row gap-4 justify-between items-stretch">
-          <div className="xl:basis-5/12 w-full px-6 pb-8 pt-28 bg-assist1 rounded-5xl">
+        <div className="relative flex h-full w-full flex-col items-stretch justify-between gap-4 md:-top-16 lg:flex-row">
+          {/* 候選貓貓清單 */}
+          <div className="w-full rounded-5xl bg-assist1 px-6 pb-8 pt-16 xl:basis-5/12">
             <DroppableBox
               id="candidates"
               items={dndState.candidates.items}
               className="gap-7"
             />
           </div>
-          <div className="xl:basis-5/12 w-full flex flex-col px-6 py-8 bg-assist1 rounded-5xl">
-            <h1 className="text-3xl text-assist2 text-center mb-4">
+          <div className="flex w-full flex-col rounded-5xl bg-assist1 px-6 py-8 xl:basis-5/12">
+            <h1 className="mb-7 text-center text-3xl text-assist2">
               {dndState.backlog.title}
             </h1>
-            <div className="flex-grow w-full relative flex flex-col items-stretch gap-4">
-              {dndState.backlog.placeholders.map((p, i) => {
+            <div className="relative flex w-full flex-grow flex-col items-stretch gap-4">
+              {/* 按照優先度畫空格 */}
+              {dndState.backlog.placeholders.map((p) => {
                 return (
                   <div
                     key={p}
-                    className="border-3 border-primary3 border-dashed rounded-full h-24 flex justify-center items-center text-primary3"
+                    className="flex h-24 items-center justify-center rounded-full border-3 border-dashed border-primary3 text-primary3"
                   >
                     {p}
                   </div>
@@ -149,13 +141,13 @@ export const PriorityDnDStage = ({ stageData, onComplete }) => {
               <DroppableBox
                 id="backlog"
                 items={dndState.backlog.items}
-                className="gap-4 absolute inset-0"
+                className="absolute inset-0 gap-4"
               />
             </div>
           </div>
         </div>
       </DragDropContext>
-      <div className="text-center pt-3 pb-8">
+      <div className="pt-3 pb-8 text-center">
         <Button type={btnState} onClick={onComplete}>
           {stageData.action}
         </Button>
