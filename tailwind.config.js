@@ -46,6 +46,10 @@ module.exports = {
         18: '4.5rem', // 72px
         26: '6.5rem', // 104px
       },
+      rotate: {
+        16: '16deg', // 16 degrees
+        30: '30deg', // 30 degrees
+      },
     },
   },
   plugins: [],
