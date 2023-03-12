@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useGameContext } from '../../context/gameContext';
 import { Bar } from '../Common';
@@ -19,18 +20,23 @@ export const TrainingScene = () => {
   const [currentStageName, setCurrentStageName] = useState(
     state.stages[0].name
   );
+  const navigate = useNavigate();
 
   if (currentStageName !== state.stages[state.progress - 1].name) {
     setCurrentStageName(state.stages[state.progress - 1].name);
   }
 
-  const nextStageHandler = () => {
-    dispatch({ type: 'nextStage' });
-  };
+  function nextStageHandler() {
+    if (state.progress >= state.stagesAmount) {
+      navigate('/');
+    } else {
+      dispatch({ type: 'nextStage' });
+    }
+  }
 
-  const prevPageHandler = () => {
+  function prevPageHandler() {
     dispatch({ type: 'prevStage' });
-  };
+  }
 
   const Stages = {
     DialogStage,
@@ -63,13 +69,13 @@ export const TrainingScene = () => {
           <button
             type="button"
             onClick={prevPageHandler}
-            className="text-assist1 leading-6"
+            className="leading-6 text-assist1"
           >
             &lt; 回上一頁
           </button>
         </div>
       )}
-      <div className="container flex flex-col justify-start items-stretch">
+      <div className="container flex flex-col items-stretch justify-start">
         <Bar
           className="mt-20 mb-2"
           value={state.progress}
