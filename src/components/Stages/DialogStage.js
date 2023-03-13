@@ -38,7 +38,7 @@ export const DialogStage = ({ stageData, onComplete }) => {
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
             src={roleImage[stageData.roleImg]}
-            className="w-[35vw] sm:w-[30vw]"
+            className="max-h-[40vh] w-[35vw] sm:w-[30vw]"
             alt="role"
           />,
           document.getElementById('role')
