@@ -7,7 +7,7 @@ const purpleCat = (provided, snapshot, className, children) => {
   let containerDraggingStyle = snapshot.isDragging ? 'rotate-16' : '';
   let bodyDraggingStyle = snapshot.isDragging ? 'border-dashed' : '';
   let eyesDraggingStyle = snapshot.isDragging ? '!top-1/2' : '';
-  let mouthDraggingStyle = snapshot.isDragging ? 'top-2/3' : '';
+  let mouthDraggingStyle = snapshot.isDragging ? '!top-2/3' : '';
 
   return (
     <div
@@ -60,7 +60,7 @@ const purpleCat = (provided, snapshot, className, children) => {
             ></span>
           </div>
           {/* 身體 */}
-          <div className="flex flex-grow items-center justify-center px-4">
+          <div className="flex flex-grow items-center justify-center px-1 text-sm md:text-base lg:px-4">
             {children}
           </div>
           {snapshot.isDragging && (
@@ -85,7 +85,7 @@ const yellowCat = (provided, snapshot, className, children) => {
   let containerDraggingStyle = snapshot.isDragging ? '-rotate-16' : '';
   let bodyDraggingStyle = snapshot.isDragging ? 'border-dashed' : '';
   let eyesDraggingStyle = snapshot.isDragging ? '!top-1/2' : '';
-  let mouthDraggingStyle = snapshot.isDragging ? 'top-2/3' : '';
+  let mouthDraggingStyle = snapshot.isDragging ? '!top-2/3' : '';
 
   return (
     <div
@@ -119,7 +119,7 @@ const yellowCat = (provided, snapshot, className, children) => {
           {/* 耳朵2 */}
           <span className="absolute right-12 -top-1/4 border-x-22 border-b-44 border-transparent border-b-primary3"></span>
           {/* 身體 */}
-          <div className="flex flex-grow items-center justify-center px-4">
+          <div className="flex flex-grow items-center justify-center px-1 text-sm md:text-base lg:px-4">
             {children}
           </div>
           {/* 臉 */}
@@ -167,7 +167,7 @@ const droppedCat = (provided, snapshot, className, children) => {
         <img src={dragIcon} alt="drag" />
       </div>
       {/* 身體 */}
-      <div className="flex flex-grow items-center justify-center px-4">
+      <div className="flex flex-grow items-center justify-center px-1 text-sm md:text-base lg:px-4">
         {children}
       </div>
       {/* 臉 */}
@@ -197,7 +197,7 @@ const pointsCat = (provided, snapshot, className, item) => {
         </span>
       </div>
       {/* 身體 */}
-      <div className="flex flex-grow items-center justify-center px-4">
+      <div className="flex flex-grow items-center justify-center px-1 text-sm md:text-base lg:px-4">
         {item.text}
       </div>
       {/* 臉 */}
@@ -219,7 +219,7 @@ const meetingItem = (provided, snapshot, className, item) => {
       ref={provided.innerRef}
       {...provided.draggableProps}
       {...provided.dragHandleProps}
-      className={`flex h-18 w-56 items-center justify-center rounded-full bg-primary3 text-base leading-none text-assist1 sm:text-2xl ${className}`}
+      className={`flex h-18 w-56 items-center justify-center rounded-full bg-primary3 text-base leading-none text-assist1 sm:text-xl md:text-2xl ${className}`}
     >
       {item.title}
     </div>

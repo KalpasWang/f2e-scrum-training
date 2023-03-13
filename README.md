@@ -4,19 +4,28 @@
 
 # Demo
 
-[https://f2e-scrum-training.vercel.app/](https://f2e-scrum-training.vercel.app/)
+![](./public/scrum-demo.jpg)
+[Demo](https://f2e-scrum-training.vercel.app/)
+
+
+# Features
+
+- Scrum 教學遊戲
+- 透過拖放、勾選答案的方式增加互動
+- 有轉場與動畫效果
+- 文字有 Type Writer 特效
 
 # 使用技術
 
 - React
 - React Context API
+- React Router
 - Tailwind CSS
 - react-beautiful-dnd
 - Framer motion
 - typewriter-effect
-- classNames
 
 # 設計稿
 
-[source](https://www.figma.com/file/oW1YDvKU916KBx8iyz891p/F2E-Week3-by-%E8%AE%80%E6%9B%B8%E7%8B%97%E7%8B%97?node-id=1%3A2&t=9J66HMsttJ9toyN4-1)
+[source](https://2022.thef2e.com/users/12061549261446746191/)
 by 讀書狗狗
