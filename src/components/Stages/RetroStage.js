@@ -13,11 +13,11 @@ export const RetroStage = ({ stageData, onComplete }) => {
         initial={{ opacity: 0, y: -80 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.25 }}
-        className="relative z-10 flex items-center justify-start px-8"
+        className="relative z-10 flex flex-col-reverse items-center justify-start px-8 md:flex-row"
       >
         <img
           key={stageData.roleImg}
-          className="mr-1 w-1/4 basis-1/4 md:mr-4 lg:w-auto lg:basis-auto"
+          className="mr-1 basis-1/2 md:mr-4 md:w-1/4 md:basis-1/4 lg:w-auto lg:basis-auto"
           src={poSit}
           alt="role"
         />
@@ -29,7 +29,7 @@ export const RetroStage = ({ stageData, onComplete }) => {
           height="8"
           viewBox="0 0 44 8"
           fill="none"
-          className="basis-1/12 -translate-y-6 lg:basis-auto"
+          className="basis-1/12 -translate-y-6 rotate-90 md:rotate-0 lg:basis-auto"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
@@ -44,7 +44,7 @@ export const RetroStage = ({ stageData, onComplete }) => {
           color="primary2"
           text={stageData.message}
           delay={1}
-          className="basis-2/3 -translate-y-6"
+          className="basis-2/3 -translate-y-6 bg-assist2"
         >
           {stageData.button && (
             <Button
@@ -56,7 +56,7 @@ export const RetroStage = ({ stageData, onComplete }) => {
           )}
         </Message>
       </motion.div>
-      <div className="relative h-full rounded-5xl bg-assist1 px-1 pb-8 pt-28 lg:-top-16 lg:px-8">
+      <div className="relative -top-16 h-full rounded-5xl bg-assist1 px-1 pb-8 pt-28 lg:px-8">
         {stageData.show && (
           <div className="flex w-full flex-col items-stretch justify-center divide-y-3 divide-primary3 lg:flex-row lg:divide-x-3 lg:divide-y-0">
             <div className="w-full p-1 lg:p-11">

@@ -6,7 +6,7 @@ import dragIcon from '../../assets/drag-icon.svg';
 const purpleCat = (provided, snapshot, className, children) => {
   let containerDraggingStyle = snapshot.isDragging ? 'rotate-16' : '';
   let bodyDraggingStyle = snapshot.isDragging ? 'border-dashed' : '';
-  let eyesDraggingStyle = snapshot.isDragging ? 'top-1/2' : '';
+  let eyesDraggingStyle = snapshot.isDragging ? '!top-1/2' : '';
   let mouthDraggingStyle = snapshot.isDragging ? 'top-2/3' : '';
 
   return (
@@ -84,7 +84,7 @@ const purpleCat = (provided, snapshot, className, children) => {
 const yellowCat = (provided, snapshot, className, children) => {
   let containerDraggingStyle = snapshot.isDragging ? '-rotate-16' : '';
   let bodyDraggingStyle = snapshot.isDragging ? 'border-dashed' : '';
-  let eyesDraggingStyle = snapshot.isDragging ? 'top-1/2' : '';
+  let eyesDraggingStyle = snapshot.isDragging ? '!top-1/2' : '';
   let mouthDraggingStyle = snapshot.isDragging ? 'top-2/3' : '';
 
   return (

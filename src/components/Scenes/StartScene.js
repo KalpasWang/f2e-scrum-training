@@ -15,7 +15,7 @@ export const StartScene = () => {
     <motion.main
       ref={container}
       tabIndex="0"
-      className="h-screen cursor-pointer bg-primary3 p-6 lg:p-16"
+      className="h-screen cursor-pointer bg-primary3 p-4 lg:p-16"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
@@ -35,14 +35,14 @@ export const StartScene = () => {
             className="max-h-[80vh] max-w-full"
           />
         </div>
-        <div className="absolute top-14 right-12 rounded-2xl border-4 border-dashed border-primary3 p-5">
-          <h2 className="text-center text-4xl leading-tight text-assist2 lg:text-6xl">
+        <div className="absolute top-5 right-4 rounded-2xl border-4 border-dashed border-primary3 p-2 lg:top-14 lg:right-12 lg:p-5">
+          <h2 className="text-center text-xl leading-tight text-assist2 lg:text-6xl">
             F2E<span className="text-primary3">帶你前進</span>
           </h2>
-          <h1 className="text-5xl leading-tight text-primary2 lg:text-7xl">
+          <h1 className="text-center text-3xl leading-tight text-primary2 lg:text-7xl">
             敏捷騎士團
           </h1>
-          <p className="text-center text-sm text-primary3 lg:text-xl">
+          <p className="text-center text-xs text-primary3 lg:text-xl">
             Design by 讀書狗狗, Code by Kalpas
           </p>
         </div>

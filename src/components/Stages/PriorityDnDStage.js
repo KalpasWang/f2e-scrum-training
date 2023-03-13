@@ -76,11 +76,11 @@ export const PriorityDnDStage = ({ stageData, onComplete }) => {
         initial={{ opacity: 0, y: -80 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.25 }}
-        className="relative z-10 flex items-center justify-start px-8"
+        className="relative z-10 flex flex-col-reverse items-center justify-start px-8 md:flex-row"
       >
         <img
           key={stageData.roleImg}
-          className="mr-4 max-w-[25%] basis-1/4 lg:max-w-none lg:basis-auto"
+          className="mr-4 basis-1/2 md:max-w-[25%] md:basis-1/4 lg:max-w-none lg:basis-auto"
           src={poSit}
           alt="role"
         />
@@ -92,7 +92,7 @@ export const PriorityDnDStage = ({ stageData, onComplete }) => {
           height="8"
           viewBox="0 0 44 8"
           fill="none"
-          className="basis-1/12 -translate-y-6 lg:basis-auto"
+          className="basis-1/12 -translate-y-6 rotate-90 md:rotate-0 lg:basis-auto"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
@@ -108,12 +108,12 @@ export const PriorityDnDStage = ({ stageData, onComplete }) => {
           text={stageData.message}
           delay={1.5}
           img={stageData.messageImg}
-          className="basis-2/3 -translate-y-6"
+          className="basis-2/3 -translate-y-6 bg-assist2"
         />
       </motion.div>
       {/* 拖拉貓貓區塊 */}
       <DragDropContext onDragEnd={handleDragEnd}>
-        <div className="relative flex h-full w-full flex-col items-stretch justify-between gap-4 md:-top-16 lg:flex-row">
+        <div className="relative -top-16 flex h-full w-full flex-col items-stretch justify-between gap-4 lg:flex-row">
           {/* 候選貓貓清單 */}
           <div className="w-full rounded-5xl bg-assist1 px-6 pb-8 pt-16 xl:basis-5/12">
             <DroppableBox

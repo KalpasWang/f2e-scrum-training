@@ -16,8 +16,8 @@ export const DialogStage = ({ stageData, onComplete }) => {
 
   return (
     <div className="h-full overflow-hidden pt-10 pb-12">
-      <div className="flex min-h-[60vh] flex-col items-center justify-between gap-6 rounded-4xl bg-assist1 px-[7vw] py-9 lg:gap-[5vh]">
-        <div className="w-full text-2xl leading-tight text-assist2">
+      <div className="flex min-h-[60vh] flex-col items-center justify-between gap-6 rounded-4xl bg-assist1 px-4 py-9 lg:gap-[5vh] lg:px-[7vw]">
+        <div className="w-full text-base leading-tight text-assist2 sm:text-xl lg:text-2xl">
           <Typewriter
             key={stageData.roleImg}
             onInit={(typewriter) => {
@@ -38,7 +38,7 @@ export const DialogStage = ({ stageData, onComplete }) => {
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
             src={roleImage[stageData.roleImg]}
-            className="w-[25vw] xl:w-[30vw]"
+            className="w-[35vw] sm:w-[30vw]"
             alt="role"
           />,
           document.getElementById('role')

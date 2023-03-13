@@ -73,7 +73,7 @@ export const TrainingScene = () => {
           </button>
         </div>
       )}
-      <div className="container flex flex-col items-stretch justify-start">
+      <div className="container flex flex-col items-stretch justify-start p-0">
         <Bar
           className="mt-20 mb-2"
           value={state.progress}

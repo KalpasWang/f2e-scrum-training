@@ -21,7 +21,7 @@ const router = createBrowserRouter([
 
 export default function App() {
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       <RouterProvider router={router} />;
     </AnimatePresence>
   );
