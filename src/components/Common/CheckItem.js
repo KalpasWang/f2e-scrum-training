@@ -50,7 +50,7 @@ export const CheckItem = ({ children, className }) => {
           />
         </svg>
       </div>
-      <div className="flex-grow text-assist2 text-lg lg:text-2xl">
+      <div className="flex-grow text-lg text-assist2 lg:text-2xl">
         {children}
       </div>
       <input

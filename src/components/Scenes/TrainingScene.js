@@ -29,9 +29,8 @@ export const TrainingScene = () => {
   function nextStageHandler() {
     if (state.progress >= state.stagesAmount) {
       navigate('/');
-    } else {
-      dispatch({ type: 'nextStage' });
     }
+    dispatch({ type: 'nextStage' });
   }
 
   function prevPageHandler() {
@@ -57,11 +56,10 @@ export const TrainingScene = () => {
 
   return (
     <motion.main
-      key={state.finishedCount}
       className="container relative h-full"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.25 }}
+      transition={{ duration: 0.5 }}
       exit={{ opacity: 0 }}
     >
       {state.progress > 1 && (

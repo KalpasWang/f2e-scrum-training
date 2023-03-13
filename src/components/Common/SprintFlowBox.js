@@ -7,7 +7,7 @@ export const SprintFlowBox = ({ className, space, placeholder }) => {
       {(provided, snapshot) => {
         return (
           <div
-            className={`w-56 h-18 border-3 border-primary3 border-dashed rounded-full text-primary3 flex flex-col justify-center items-center ${className}`}
+            className={`flex h-18 w-56 flex-col items-center justify-center rounded-full border-3 border-dashed border-primary3 text-primary3 ${className}`}
             ref={provided.innerRef}
             {...provided.droppableProps}
           >

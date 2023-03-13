@@ -15,9 +15,9 @@ export const DialogStage = ({ stageData, onComplete }) => {
   let texts = stageData.text || '';
 
   return (
-    <div className="h-full pt-10 pb-12">
-      <div className="min-h-[60vh] bg-assist1 rounded-4xl px-[7vw] py-9 flex flex-col justify-between items-center gap-6 lg:gap-[5vh]">
-        <div className="w-full text-assist2 text-2xl leading-tight">
+    <div className="h-full overflow-hidden pt-10 pb-12">
+      <div className="flex min-h-[60vh] flex-col items-center justify-between gap-6 rounded-4xl bg-assist1 px-[7vw] py-9 lg:gap-[5vh]">
+        <div className="w-full text-2xl leading-tight text-assist2">
           <Typewriter
             key={stageData.roleImg}
             onInit={(typewriter) => {
@@ -34,8 +34,8 @@ export const DialogStage = ({ stageData, onComplete }) => {
         ReactDOM.createPortal(
           <motion.img
             key={stageData.roleImg}
-            initial={{ opacity: 0, y: 80 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
             src={roleImage[stageData.roleImg]}
             className="w-[25vw] xl:w-[30vw]"

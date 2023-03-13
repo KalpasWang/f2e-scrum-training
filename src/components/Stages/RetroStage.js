@@ -13,11 +13,11 @@ export const RetroStage = ({ stageData, onComplete }) => {
         initial={{ opacity: 0, y: -80 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.25 }}
-        className="flex justify-start items-center px-8 relative z-10"
+        className="relative z-10 flex items-center justify-start px-8"
       >
         <img
           key={stageData.roleImg}
-          className="mr-1 md:mr-4 basis-1/4 lg:basis-auto w-1/4 lg:w-auto"
+          className="mr-1 w-1/4 basis-1/4 md:mr-4 lg:w-auto lg:basis-auto"
           src={poSit}
           alt="role"
         />
@@ -29,7 +29,7 @@ export const RetroStage = ({ stageData, onComplete }) => {
           height="8"
           viewBox="0 0 44 8"
           fill="none"
-          className="-translate-y-6 basis-1/12 lg:basis-auto"
+          className="basis-1/12 -translate-y-6 lg:basis-auto"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
@@ -44,7 +44,7 @@ export const RetroStage = ({ stageData, onComplete }) => {
           color="primary2"
           text={stageData.message}
           delay={1}
-          className="-translate-y-6 basis-2/3"
+          className="basis-2/3 -translate-y-6"
         >
           {stageData.button && (
             <Button
@@ -56,11 +56,11 @@ export const RetroStage = ({ stageData, onComplete }) => {
           )}
         </Message>
       </motion.div>
-      <div className="relative bg-assist1 rounded-5xl px-1 lg:px-8 pb-8 pt-28 lg:-top-16 h-full">
+      <div className="relative h-full rounded-5xl bg-assist1 px-1 pb-8 pt-28 lg:-top-16 lg:px-8">
         {stageData.show && (
-          <div className="w-full flex flex-col lg:flex-row justify-center items-stretch divide-y-3 lg:divide-x-3 lg:divide-y-0 divide-primary3">
+          <div className="flex w-full flex-col items-stretch justify-center divide-y-3 divide-primary3 lg:flex-row lg:divide-x-3 lg:divide-y-0">
             <div className="w-full p-1 lg:p-11">
-              <h2 className="text-3xl text-primary3 text-center mb-6">
+              <h2 className="mb-6 text-center text-3xl text-primary3">
                 做得好的地方
               </h2>
               {stageData.goods.map((good) => {
@@ -72,7 +72,7 @@ export const RetroStage = ({ stageData, onComplete }) => {
               })}
             </div>
             <div className="w-full p-1 lg:p-11">
-              <h2 className="text-3xl text-primary3 text-center mb-6 mt-5 lg:mt-0">
+              <h2 className="mb-6 mt-5 text-center text-3xl text-primary3 lg:mt-0">
                 有哪些可以做得更好
               </h2>
               {stageData.bads.map((bad) => {
@@ -87,7 +87,7 @@ export const RetroStage = ({ stageData, onComplete }) => {
         )}
       </div>
       {stageData.show && (
-        <div className="text-center pt-3 pb-8">
+        <div className="pt-3 pb-8 text-center">
           <Button type="default" onClick={onComplete}>
             {stageData.action}
           </Button>

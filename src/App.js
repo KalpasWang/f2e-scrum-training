@@ -1,4 +1,5 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 import { StartScene, TrainingScene } from './components/Scenes';
 import { MainLayout } from './components/layouts';
 import './index.css';
@@ -19,5 +20,9 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <AnimatePresence>
+      <RouterProvider router={router} />;
+    </AnimatePresence>
+  );
 }

@@ -1,18 +1,29 @@
+import { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import family from '../../assets/family.svg';
 
 export const StartScene = () => {
   const navigate = useNavigate();
+  const container = useRef(null);
+
+  useEffect(() => {
+    container.current.focus();
+  }, []);
 
   return (
     <motion.main
-      className="h-screen cursor-pointer bg-primary3 p-16"
+      ref={container}
+      tabIndex="0"
+      className="h-screen cursor-pointer bg-primary3 p-6 lg:p-16"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.3 }}
+      transition={{ duration: 0.5 }}
       exit={{ opacity: 0 }}
       onClick={() => {
+        navigate('training');
+      }}
+      onKeyPress={() => {
         navigate('training');
       }}
     >

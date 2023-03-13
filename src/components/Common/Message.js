@@ -23,7 +23,7 @@ export const Message = ({
   };
 
   const containerClass = classNames(
-    'flex flex-col sm:flex-row items-center gap-1 sm:gap-4 py-1 sm:py-3 px-1 sm:px-6 rounded-3xl border-3',
+    'flex flex-col sm:flex-row items-center gap-1 sm:gap-4 py-1 sm:py-3 px-1 sm:px-6 rounded-3xl border-3 bg-assist2',
     borderStyle[borderColor],
     className
   );
@@ -35,7 +35,7 @@ export const Message = ({
       transition={{ delay: delay }}
       className={containerClass}
     >
-      <div className="flex-grow relative">
+      <div className="relative flex-grow">
         <div className={`${textColor[color]} min-h-[3rem] w-full`}>
           <Typewriter
             key={text}
@@ -50,7 +50,7 @@ export const Message = ({
         </div>
       </div>
       {img && (
-        <div className="basis-1/4 lg:basis-1/5 flex-shrink-0">
+        <div className="flex-shrink-0 basis-1/4 lg:basis-1/5">
           <motion.img
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

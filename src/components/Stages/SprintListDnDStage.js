@@ -78,29 +78,29 @@ export const SprintListDnDStage = ({ stageData, onComplete }) => {
 
   return (
     <div className="h-full">
-      <h3 className="text-center text-2xl text-assist1 mt-6 mb-8">
+      <h3 className="mt-6 mb-8 text-center text-2xl text-assist1">
         {stageData.title}
       </h3>
       <DragDropContext onDragEnd={handleDragEnd}>
-        <div className="relative h-full w-full flex flex-col lg:flex-row gap-4 justify-between items-stretch">
+        <div className="relative flex h-full w-full flex-col items-stretch justify-between gap-4 lg:flex-row">
           {/* 產品代辦清單 Product Backlog */}
-          <div className="xl:basis-5/12 w-full px-6 py-8 flex flex-col bg-assist1 rounded-5xl">
-            <h2 className="text-3xl text-assist2 text-center mb-4">
+          <div className="flex w-full flex-col rounded-5xl bg-assist1 px-6 py-8 xl:basis-5/12">
+            <h2 className="mb-4 text-center text-3xl text-assist2">
               {dndState.backlog.title}
             </h2>
-            <p className="text-center text-assist2 text-2xl mb-4">
+            <p className="mb-4 text-center text-2xl text-assist2">
               共
-              <span className="text-primary2 px-1">
+              <span className="px-1 text-primary2">
                 {stageData.totalPoints}
               </span>
               點
             </p>
-            <div className="flex-grow w-full relative flex flex-col items-stretch gap-4">
+            <div className="relative flex w-full flex-grow flex-col items-stretch gap-4">
               {[1, 2, 3, 4].map((_, i) => {
                 return (
                   <div
                     key={i}
-                    className="border-3 border-primary3 border-dashed rounded-full h-24 flex justify-center items-center text-primary3 text-2xl"
+                    className="flex h-24 items-center justify-center rounded-full border-3 border-dashed border-primary3 text-2xl text-primary3"
                   >
                     代辦清單
                   </div>
@@ -109,38 +109,38 @@ export const SprintListDnDStage = ({ stageData, onComplete }) => {
               <DroppableBox
                 id={dndState.backlog.id}
                 items={dndState.backlog.items}
-                className="gap-4 absolute inset-0"
+                className="absolute inset-0 gap-4"
               />
             </div>
           </div>
           {/* 開發騎士的短衝代辦清單 */}
-          <div className="xl:basis-5/12 w-full flex flex-col px-6 py-8 bg-assist1 rounded-5xl">
-            <h2 className="text-3xl text-assist2 text-center mb-4">
+          <div className="flex w-full flex-col rounded-5xl bg-assist1 px-6 py-8 xl:basis-5/12">
+            <h2 className="mb-4 text-center text-3xl text-assist2">
               {dndState.sprint.title}
             </h2>
-            <p className="text-center text-assist2 text-2xl mb-4">
+            <p className="mb-4 text-center text-2xl text-assist2">
               <span className="text-primary2">{currentPoints}</span> 點 /{' '}
               {stageData.limit}
             </p>
-            <div className="flex-grow w-full relative flex flex-col items-stretch gap-4">
+            <div className="relative flex w-full flex-grow flex-col items-stretch gap-4">
               {[1, 2, 3, 4].map((_, i) => {
                 return (
                   <div
                     key={i}
-                    className="border-3 border-primary3 border-dashed rounded-full h-24 flex justify-center items-center text-primary3"
+                    className="flex h-24 items-center justify-center rounded-full border-3 border-dashed border-primary3 text-primary3"
                   ></div>
                 );
               })}
               <DroppableBox
                 id={dndState.sprint.id}
                 items={dndState.sprint.items}
-                className="gap-4 absolute inset-0"
+                className="absolute inset-0 gap-4"
               />
             </div>
           </div>
         </div>
       </DragDropContext>
-      <div className="text-center pt-14 pb-8">
+      <div className="pt-14 pb-8 text-center">
         <Button type={btnState.type} onClick={onComplete}>
           {btnState.text}
         </Button>

@@ -11,7 +11,7 @@ export const EndingStage = ({ stageData, onComplete }) => {
     yoyo: (custom) => ({
       y: [0, -50, 0],
       transition: {
-        delay: custom * 0.6,
+        delay: custom * 0.4,
         duration: 1,
         times: [0, 0.5, 1],
         ease: 'easeOut',
@@ -28,7 +28,7 @@ export const EndingStage = ({ stageData, onComplete }) => {
           initial="initial"
           animate="visible"
           variants={variants}
-          className="text-assist1 text-3xl text-center z-10 md:absolute md:text-left top-[20%] left-[57%]"
+          className="top-[20%] left-[57%] z-10 text-center text-3xl text-assist1 md:absolute md:text-left"
           dangerouslySetInnerHTML={{ __html: stageData.text }}
         ></motion.p>
         <svg
@@ -354,7 +354,7 @@ export const EndingStage = ({ stageData, onComplete }) => {
           </defs>
         </svg>
       </div>
-      <div className="text-center pt-7 pb-16">
+      <div className="pt-7 pb-16 text-center">
         <Button type="default" onClick={onComplete}>
           {stageData.action}
         </Button>

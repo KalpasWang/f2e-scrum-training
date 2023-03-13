@@ -65,7 +65,7 @@ export const MessagesStage = ({ stageData, onComplete }) => {
 
   return (
     <div className="h-full pt-10 pb-12">
-      <div className="min-h-[60vh] bg-assist1 rounded-4xl px-[3vw] py-[5vh] flex flex-col justify-start items-center gap-[5vh]">
+      <div className="flex min-h-[60vh] flex-col items-center justify-start gap-[5vh] rounded-4xl bg-assist1 px-[3vw] py-[5vh]">
         {stageData.messages.map((msg, i) => {
           return (
             <motion.div
@@ -76,13 +76,13 @@ export const MessagesStage = ({ stageData, onComplete }) => {
               key={msg.id}
               className={`flex ${flexRow[msg.direction]} ${
                 alignSelf[msg.direction]
-              } items-center w-full`}
+              } w-full items-center`}
             >
               <div
                 className={`basis-1/4 lg:basis-auto ${margin[msg.direction]}`}
               >
                 <img
-                  className="max-w-full mx-auto"
+                  className="mx-auto max-w-full"
                   src={avatars[msg.avatar]}
                   alt="role"
                 />
@@ -121,7 +121,7 @@ export const MessagesStage = ({ stageData, onComplete }) => {
             animate="visible"
             custom={delay[3]}
             variants={variants}
-            className="text-center pt-4"
+            className="pt-4 text-center"
           >
             <Button type="next" onClick={onComplete} />
           </motion.div>

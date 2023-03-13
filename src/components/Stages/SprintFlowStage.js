@@ -87,14 +87,14 @@ export const SprintFlowStage = ({ stageData, onComplete }) => {
 
   return (
     <div className="h-full pb-28">
-      <div className="mt-12 bg-assist1 rounded-4xl px-4 xl:px-10 pt-12 pb-10">
+      <div className="mt-12 rounded-4xl bg-assist1 px-4 pt-12 pb-10 xl:px-10">
         <DragDropContext onDragEnd={handleDragEnd}>
           {showResult && (
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1 }}
-              className="flex justify-start items-center"
+              className="flex items-center justify-start"
             >
               <img className="mr-4" src={rd1} alt="role" />
               <svg
@@ -115,7 +115,7 @@ export const SprintFlowStage = ({ stageData, onComplete }) => {
             </motion.div>
           )}
           {!showResult && (
-            <div className="relative w-fit mx-auto p-4 mt-12 mb-10 border-3 border-primary3 border-dashed rounded-3xl xl:rounded-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3">
+            <div className="relative mx-auto mt-12 mb-10 grid w-fit grid-cols-1 gap-3 rounded-3xl border-3 border-dashed border-primary3 p-4 md:grid-cols-2 xl:grid-cols-4 xl:rounded-full">
               <SprintFlowBox space={dndState.candidate01} />
               <SprintFlowBox space={dndState.candidate02} />
               <SprintFlowBox space={dndState.candidate03} />
@@ -225,26 +225,26 @@ export const SprintFlowStage = ({ stageData, onComplete }) => {
               <SprintFlowBox
                 key={dndState.space01.id}
                 space={dndState.space01}
-                className="bg-primary1 absolute top-[74.5%] left-[18%]"
+                className="absolute top-[74.5%] left-[18%] bg-primary1"
               />
               <SprintFlowBox
                 key={dndState.space02.id}
                 space={dndState.space02}
-                className="bg-assist1 absolute top-[23.5%] left-[63%]"
+                className="absolute top-[23.5%] left-[63%] bg-assist1"
               />
               <SprintFlowBox
                 key={dndState.space03.id}
                 space={dndState.space03}
-                className="bg-primary1 absolute top-[74.5%] left-[58%]"
+                className="absolute top-[74.5%] left-[58%] bg-primary1"
               />
               <SprintFlowBox
                 key={dndState.space04.id}
                 space={dndState.space04}
-                className="bg-primary1 absolute top-[74.5%] left-[79%]"
+                className="absolute top-[74.5%] left-[79%] bg-primary1"
               />
             </div>
           </div>
-          <div className="text-center pt-12">
+          <div className="pt-12 text-center">
             {showResult && (
               <Button type="default" onClick={onComplete}>
                 {stageData.action2}
