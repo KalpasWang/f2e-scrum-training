@@ -1,4 +1,15 @@
-import classNames from 'classnames';
+import React from 'react';
+
+export type ButtonType = 'next' | 'disabled';
+export type ButtonColor = 'primary1' | 'primary2' | 'primary3';
+export type ButtonSize = 'lg' | 'sm';
+export type ButtonProps = {
+  onClick: () => void;
+  type?: ButtonType;
+  color?: ButtonColor;
+  size?: ButtonSize;
+  children: React.ReactNode;
+};
 
 export const Button = ({
   children,
@@ -6,23 +17,28 @@ export const Button = ({
   type,
   color = 'primary3',
   size = 'lg',
-}) => {
+}: ButtonProps) => {
   let bgColor = 'bg-primary2';
   let textColor = 'text-assist1';
   let isDisable = false;
-  const fill = {
+  const fill: Record<ButtonColor, string> = {
     primary1: 'fill-primary1',
     primary2: 'fill-primary2',
     primary3: 'fill-primary3',
   };
-  const sizing = {
+  const sizing: Record<ButtonSize, string> = {
     sm: 'w-16 h-16',
     lg: 'w-26 h-26',
   };
 
   if (type === 'next') {
     return (
-      <button type="button" onClick={onClick} className="inline-block">
+      <button
+        title="next"
+        type="button"
+        onClick={onClick}
+        className="inline-block"
+      >
         <svg
           width="104"
           height="104"
@@ -67,14 +83,13 @@ export const Button = ({
     isDisable = true;
   }
 
-  const style = classNames(
-    'inline-block py-6 px-8 text-3xl rounded-2xl',
-    bgColor,
-    textColor
-  );
-
   return (
-    <button onClick={onClick} className={style} disabled={isDisable}>
+    <button
+      type="button"
+      onClick={onClick}
+      className={`inline-block rounded-2xl py-6 px-8 text-3xl ${bgColor} ${textColor}`}
+      disabled={isDisable}
+    >
       {children}
     </button>
   );
