@@ -14,16 +14,17 @@ import {
   RetroStage,
   EndingStage,
 } from '../Stages';
+import { StageName } from '../../shared/types';
 
 export const TrainingScene = () => {
   const { state, dispatch } = useGameContext();
-  const [currentStageName, setCurrentStageName] = useState(
-    state.stages[0].name
+  const [currentStageName, setCurrentStageName] = useState<StageName>(
+    state.stages[0].name as StageName
   );
   const navigate = useNavigate();
 
   if (currentStageName !== state.stages[state.progress - 1].name) {
-    setCurrentStageName(state.stages[state.progress - 1].name);
+    setCurrentStageName(state.stages[state.progress - 1].name as StageName);
   }
 
   function nextStageHandler() {

@@ -1,3 +1,14 @@
+export type StageName =
+  | 'DialogStage'
+  | 'PriorityDnDStage'
+  | 'GroupChatStage'
+  | 'SprintListDnDStage'
+  | 'MessagesStage'
+  | 'SprintMeetingStage'
+  | 'SprintFlowStage'
+  | 'RetroStage'
+  | 'EndingStage';
+
 export interface Item {
   id: string;
   type: string;
