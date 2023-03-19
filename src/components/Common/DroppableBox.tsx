@@ -1,3 +1,4 @@
+import React from 'react';
 import classNames from 'classnames';
 import { Droppable } from 'react-beautiful-dnd';
 import { Item } from '../../shared/types';

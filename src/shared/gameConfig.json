@@ -329,12 +329,12 @@
           "conclusion": "透過團隊分享，追蹤大家的工作狀況。"
         },
         {
-          "title": "短衝檢視會議",
+          "text": "短衝檢視會議",
           "subtitle": "Sprint Review",
           "overview": "用來檢視該次短衝增量的成果，以蒐集相關的回饋數據或意見。"
         },
         {
-          "title": "短衝自省會議",
+          "text": "短衝自省會議",
           "subtitle": "Sprint Retrospective",
           "overview": "團隊在自省會議裡，會共同回顧該短衝歷程發生的事情",
           "list": ["好的地方", "可以改進的地方", "如何維持我們已有的成功經驗"],
@@ -362,25 +362,25 @@
       "items": [
         {
           "id": "03",
-          "title": "短衝規劃會議",
+          "text": "短衝規劃會議",
           "type": "meeting",
           "order": 1
         },
         {
           "id": "02",
-          "title": "每日短衝會議",
+          "text": "每日短衝會議",
           "type": "meeting",
           "order": 2
         },
         {
           "id": "04",
-          "title": "短衝檢視會議",
+          "text": "短衝檢視會議",
           "type": "meeting",
           "order": 3
         },
         {
           "id": "01",
-          "title": "短衝自省會議",
+          "text": "短衝自省會議",
           "type": "meeting",
           "order": 4
         }
@@ -390,7 +390,7 @@
           "id": "candidate01",
           "item": {
             "id": "01",
-            "title": "短衝自省會議",
+            "text": "短衝自省會議",
             "type": "meeting",
             "order": 4
           }
@@ -399,7 +399,7 @@
           "id": "candidate02",
           "item": {
             "id": "02",
-            "title": "每日短衝會議",
+            "text": "每日短衝會議",
             "type": "meeting",
             "order": 2
           }
@@ -408,7 +408,7 @@
           "id": "candidate03",
           "item": {
             "id": "03",
-            "title": "短衝規劃會議",
+            "text": "短衝規劃會議",
             "type": "meeting",
             "order": 1
           }
@@ -417,7 +417,7 @@
           "id": "candidate04",
           "item": {
             "id": "04",
-            "title": "短衝檢視會議",
+            "text": "短衝檢視會議",
             "type": "meeting",
             "order": 3
           }
