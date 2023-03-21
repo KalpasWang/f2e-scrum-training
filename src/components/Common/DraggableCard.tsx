@@ -5,7 +5,7 @@ import {
   DraggableStateSnapshot,
 } from 'react-beautiful-dnd';
 import dragIcon from '../../assets/drag-icon.svg';
-import { Item, MeetingItem, PointsItem } from '../../shared/types';
+import { Item, PointsItem, MeetingItem } from '../../shared/types';
 
 // type = { 'purple', 'yellow', 'dropped-purple','dropped-yellow', 'points', 'meeting' }
 
@@ -297,13 +297,13 @@ export const DraggableCard = ({
           return pointsCat({
             provided,
             className,
-            pointsItem: item as PointsItem,
+            pointsItem: item,
           });
         } else if (item.type === 'meeting') {
           return meetingItem({
             provided,
             className,
-            meetingItem: item as MeetingItem,
+            meetingItem: item,
           });
         }
         return (

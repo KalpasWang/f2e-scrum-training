@@ -9,25 +9,30 @@ export type StageName =
   | 'RetroStage'
   | 'EndingStage';
 
-export interface Item {
+export type BaseItem = {
   id: string;
   type: string;
   text: string;
-}
+};
 
-export interface PriorityItem extends Item {
+export type PriorityItem = BaseItem & {
+  type: 'purple' | 'yellow' | 'dropped_purple' | 'dropped-yellow';
   priority: number;
-}
+};
 
-export interface PointsItem extends Item {
+export type PointsItem = BaseItem & {
+  type: 'points';
   points: number;
-}
+};
 
-export interface MeetingItem extends Item {
+export type MeetingItem = BaseItem & {
+  type: 'meeting';
   order: number;
-}
+};
 
-export interface MeetingSpace {
+export type Item = PriorityItem | PointsItem | MeetingItem;
+
+export type MeetingSpace = {
   id: string;
   item: MeetingItem | null;
-}
+};
