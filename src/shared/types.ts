@@ -1,3 +1,13 @@
+import { ButtonType } from '../components/Common';
+
+export type DialogData = {
+  name: 'DialogStage';
+  text: string;
+  roleImg: string;
+  button: ButtonType;
+  action?: string;
+};
+
 export type StageName =
   | 'DialogStage'
   | 'PriorityDnDStage'

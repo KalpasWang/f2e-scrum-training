@@ -1,6 +1,6 @@
 import React from 'react';
 
-export type ButtonType = 'next' | 'disabled';
+export type ButtonType = 'default' | 'next' | 'disabled';
 export type ButtonColor = 'primary1' | 'primary2' | 'primary3';
 export type ButtonSize = 'lg' | 'sm';
 export type ButtonProps = {
