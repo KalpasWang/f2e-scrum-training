@@ -1,0 +1,9 @@
+export const DIALOG = 'DialogStage';
+export const PRIORITY_DND = 'PriorityDnDStage';
+export const GROUP_CHAT = 'GroupChatStage';
+export const SPRINT_LIST_DND = 'SprintListDnDStage';
+export const MESSAGES = 'MessagesStage';
+export const SPRINT_MEETING = 'SprintMeetingStage';
+export const SPRINT_FLOW = 'SprintFlowStage';
+export const RETRO = 'RetroStage';
+export const ENDING = 'EndingStage';

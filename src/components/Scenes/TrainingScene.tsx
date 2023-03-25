@@ -15,6 +15,7 @@ import {
   EndingStage,
 } from '../Stages';
 import { StageName } from '../../shared/types';
+import { DIALOG } from '../../shared/constants';
 
 export const TrainingScene = () => {
   const { state, dispatch } = useGameContext();
@@ -50,6 +51,7 @@ export const TrainingScene = () => {
     EndingStage,
   };
   const CurrentStage = Stages[currentStageName];
+  const currentStageData = state.stages[state.progress - 1];
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -85,6 +87,12 @@ export const TrainingScene = () => {
             stageData={state.stages[state.progress - 1]}
             onComplete={nextStageHandler}
           />
+          {currentStageData.name === DIALOG && (
+            <DialogStage
+              stageData={currentStageData}
+              onComplete={nextStageHandler}
+            />
+          )}
         </div>
       </div>
     </motion.main>
