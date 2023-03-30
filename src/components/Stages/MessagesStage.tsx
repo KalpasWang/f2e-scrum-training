@@ -1,14 +1,20 @@
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button, Message } from '../Common';
 import avatarRD1 from '../../assets/avatar-rd1.png';
 import avatarRD2 from '../../assets/avatar-rd2.png';
 import newbie from '../../assets/avatar-newbie.png';
-import { useEffect } from 'react';
+import { MessagesData } from '../../shared/types';
 
-export const MessagesStage = ({ stageData, onComplete }) => {
+type Props = {
+  stageData: MessagesData;
+  onComplete: () => void;
+};
+
+export const MessagesStage = ({ stageData, onComplete }: Props) => {
   const variants = {
     initial: { opacity: 0, display: 'none' },
-    visible: (custom) => ({
+    visible: (custom: number) => ({
       opacity: 1,
       display: 'flex',
       transition: { delay: custom },
@@ -38,11 +44,16 @@ export const MessagesStage = ({ stageData, onComplete }) => {
     right: 'ml-1 lg:ml-4',
   };
 
-  const avatars = {
-    avatarRD1,
-    avatarRD2,
-    newbie,
-  };
+  function getRoleAvatar(role: string) {
+    switch (role) {
+      case 'avatarRD1':
+        return avatarRD1;
+      case 'avatarRD2':
+        return avatarRD2;
+      default:
+        return newbie;
+    }
+  }
 
   useEffect(() => {
     const timers = new Array(delay.length);
@@ -83,7 +94,7 @@ export const MessagesStage = ({ stageData, onComplete }) => {
               >
                 <img
                   className="mx-auto max-w-full"
-                  src={avatars[msg.avatar]}
+                  src={getRoleAvatar(msg.avatar)}
                   alt="role"
                 />
               </div>

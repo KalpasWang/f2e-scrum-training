@@ -8,7 +8,7 @@ export type ButtonProps = {
   type?: ButtonType;
   color?: ButtonColor;
   size?: ButtonSize;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 };
 
 export const Button = ({

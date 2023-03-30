@@ -1,10 +1,16 @@
-// import { useEffect, useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Button, CheckItem } from '../Common';
 import { Message } from '../Common/Message';
 import poSit from '../../assets/poSit.svg';
+import { RetroData } from '../../shared/types';
 
-export const RetroStage = ({ stageData, onComplete }) => {
+type Props = {
+  stageData: RetroData;
+  onComplete: () => void;
+};
+
+export const RetroStage = ({ stageData, onComplete }: Props) => {
   // const [btnState, setBtnState] = useState('disabled');
 
   return (
@@ -16,7 +22,6 @@ export const RetroStage = ({ stageData, onComplete }) => {
         className="relative z-10 flex flex-col-reverse items-center justify-start px-8 md:flex-row"
       >
         <img
-          key={stageData.roleImg}
           className="mr-1 basis-1/2 md:mr-4 md:w-1/4 md:basis-1/4 lg:w-auto lg:basis-auto"
           src={poSit}
           alt="role"
@@ -63,25 +68,27 @@ export const RetroStage = ({ stageData, onComplete }) => {
               <h2 className="mb-6 text-center text-3xl text-primary3">
                 做得好的地方
               </h2>
-              {stageData.goods.map((good) => {
-                return (
-                  <CheckItem key={good.id} className="mb-6">
-                    {good.text}
-                  </CheckItem>
-                );
-              })}
+              {stageData.goods &&
+                stageData.goods.map((good) => {
+                  return (
+                    <CheckItem key={good.id} className="mb-6">
+                      {good.text}
+                    </CheckItem>
+                  );
+                })}
             </div>
             <div className="w-full p-1 lg:p-11">
               <h2 className="mb-6 mt-5 text-center text-3xl text-primary3 lg:mt-0">
                 有哪些可以做得更好
               </h2>
-              {stageData.bads.map((bad) => {
-                return (
-                  <CheckItem key={bad.id} className="mb-6">
-                    {bad.text}
-                  </CheckItem>
-                );
-              })}
+              {stageData.bads &&
+                stageData.bads.map((bad) => {
+                  return (
+                    <CheckItem key={bad.id} className="mb-6">
+                      {bad.text}
+                    </CheckItem>
+                  );
+                })}
             </div>
           </div>
         )}

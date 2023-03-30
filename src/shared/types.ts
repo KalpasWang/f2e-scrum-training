@@ -218,3 +218,6 @@ export type RetroItem = {
   text: string;
   truth: boolean;
 };
+
+export type PrimaryColor = 'primary1' | 'primary2' | 'primary3';
+export type TextColor = 'assist2' | 'primary2';

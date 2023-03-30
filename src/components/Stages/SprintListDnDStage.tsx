@@ -1,9 +1,56 @@
-import { useEffect, useReducer, useState } from 'react';
-import { DragDropContext } from 'react-beautiful-dnd';
-import { Button } from '../Common';
-import { DroppableBox } from '../Common';
+import React, { useEffect, useReducer, useState } from 'react';
+import {
+  DragDropContext,
+  DraggableLocation,
+  DropResult,
+} from 'react-beautiful-dnd';
+import { PointsItem, SprintListDnDData } from '../../shared/types';
+import { Button, ButtonType, DroppableBox } from '../Common';
 
-function dndReducer(state, action) {
+type DnDState = {
+  id: string;
+  title: string;
+  items: PointsItem[];
+};
+
+type State = {
+  backlog: DnDState;
+  sprint: DnDState;
+};
+
+type Action =
+  | {
+      type: 'add';
+      payload: {
+        index: number;
+        droppableId: keyof State;
+        item: PointsItem;
+      };
+    }
+  | {
+      type: 'remove';
+      payload: {
+        index: number;
+        droppableId: keyof State;
+      };
+    };
+
+type Props = {
+  stageData: SprintListDnDData;
+  onComplete: () => void;
+};
+
+type BtnState = {
+  type: ButtonType;
+  text: string;
+};
+
+type MyDraggableLocation = {
+  droppableId: keyof State;
+  index: number;
+};
+
+function dndReducer(state: State, action: Action) {
   switch (action.type) {
     case 'add': {
       const { item, droppableId, index } = action.payload;
@@ -20,19 +67,24 @@ function dndReducer(state, action) {
   }
 }
 
-export const SprintListDnDStage = ({ stageData, onComplete }) => {
+export const SprintListDnDStage = ({ stageData, onComplete }: Props) => {
   const { backlog, sprint } = stageData;
   const [dndState, dispatch] = useReducer(dndReducer, {
     sprint,
     backlog,
   });
-  const [btnState, setBtnState] = useState({
+  const [btnState, setBtnState] = useState<BtnState>({
     type: 'default',
     text: stageData.action,
   });
   const [currentPoints, setCurrentPoints] = useState(0);
 
-  function handleDragEnd({ source, destination }) {
+  function isValidLocation(arg: DraggableLocation): arg is MyDraggableLocation {
+    const id = arg.droppableId;
+    return id === 'sprint' || id === 'backlog';
+  }
+
+  function handleDragEnd({ source, destination }: DropResult) {
     // 排除拖移到非 Droppable 與 沒有移動的情形
     if (!destination) return;
     if (
@@ -41,6 +93,9 @@ export const SprintListDnDStage = ({ stageData, onComplete }) => {
     ) {
       return;
     }
+    // 將 droppableId 限定只能是 'sprint' or 'backlog'
+    if (!isValidLocation(source)) return;
+    if (!isValidLocation(destination)) return;
 
     const sourceItem = dndState[source.droppableId].items[source.index];
 

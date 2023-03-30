@@ -1,14 +1,21 @@
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '../Common';
+import { EndingData } from '../../shared/types';
 
-export const EndingStage = ({ stageData, onComplete }) => {
+type Props = {
+  stageData: EndingData;
+  onComplete: () => void;
+};
+
+export const EndingStage = ({ stageData, onComplete }: Props) => {
   const variants = {
     initial: { opacity: 0 },
-    visible: (custom) => ({
+    visible: (custom: number) => ({
       opacity: 1,
       transition: { delay: custom * 0.2 },
     }),
-    yoyo: (custom) => ({
+    yoyo: (custom: number) => ({
       y: [0, -50, 0],
       transition: {
         delay: custom * 0.4,

@@ -15,17 +15,28 @@ import {
   EndingStage,
 } from '../Stages';
 import { StageName } from '../../shared/types';
-import { DIALOG } from '../../shared/constants';
+import {
+  DIALOG,
+  ENDING,
+  GROUP_CHAT,
+  MESSAGES,
+  PRIORITY_DND,
+  RETRO,
+  SPRINT_FLOW,
+  SPRINT_LIST_DND,
+  SPRINT_MEETING,
+} from '../../shared/constants';
 
 export const TrainingScene = () => {
   const { state, dispatch } = useGameContext();
   const [currentStageName, setCurrentStageName] = useState<StageName>(
-    state.stages[0].name as StageName
+    state.stages[0].name
   );
   const navigate = useNavigate();
+  const currentStageData = state.stages[state.progress - 1];
 
   if (currentStageName !== state.stages[state.progress - 1].name) {
-    setCurrentStageName(state.stages[state.progress - 1].name as StageName);
+    setCurrentStageName(state.stages[state.progress - 1].name);
   }
 
   function nextStageHandler() {
@@ -38,20 +49,6 @@ export const TrainingScene = () => {
   function prevPageHandler() {
     dispatch({ type: 'prevStage' });
   }
-
-  const Stages = {
-    DialogStage,
-    PriorityDnDStage,
-    GroupChatStage,
-    SprintListDnDStage,
-    MessagesStage,
-    SprintMeetingStage,
-    SprintFlowStage,
-    RetroStage,
-    EndingStage,
-  };
-  const CurrentStage = Stages[currentStageName];
-  const currentStageData = state.stages[state.progress - 1];
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -83,12 +80,56 @@ export const TrainingScene = () => {
           maxValue={state.stagesAmount}
         />
         <div className="flex-grow">
-          <CurrentStage
-            stageData={state.stages[state.progress - 1]}
-            onComplete={nextStageHandler}
-          />
           {currentStageData.name === DIALOG && (
             <DialogStage
+              stageData={currentStageData}
+              onComplete={nextStageHandler}
+            />
+          )}
+          {currentStageData.name === PRIORITY_DND && (
+            <PriorityDnDStage
+              stageData={currentStageData}
+              onComplete={nextStageHandler}
+            />
+          )}
+          {currentStageData.name === GROUP_CHAT && (
+            <GroupChatStage
+              stageData={currentStageData}
+              onComplete={nextStageHandler}
+            />
+          )}
+          {currentStageData.name === SPRINT_LIST_DND && (
+            <SprintListDnDStage
+              stageData={currentStageData}
+              onComplete={nextStageHandler}
+            />
+          )}
+          {currentStageData.name === MESSAGES && (
+            <MessagesStage
+              stageData={currentStageData}
+              onComplete={nextStageHandler}
+            />
+          )}
+          {currentStageData.name === SPRINT_MEETING && (
+            <SprintMeetingStage
+              stageData={currentStageData}
+              onComplete={nextStageHandler}
+            />
+          )}
+          {currentStageData.name === SPRINT_FLOW && (
+            <SprintFlowStage
+              stageData={currentStageData}
+              onComplete={nextStageHandler}
+            />
+          )}
+          {currentStageData.name === RETRO && (
+            <RetroStage
+              stageData={currentStageData}
+              onComplete={nextStageHandler}
+            />
+          )}
+          {currentStageData.name === ENDING && (
+            <EndingStage
               stageData={currentStageData}
               onComplete={nextStageHandler}
             />

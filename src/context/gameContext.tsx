@@ -4,12 +4,12 @@ import React, {
   PropsWithChildren,
   Dispatch,
 } from 'react';
-import game from '../shared/gameConfig.json';
+import GameData from '../shared/gameData';
 
 const initialState = {
-  stages: game.stages,
+  stages: GameData.stages,
   progress: 1,
-  stagesAmount: game.stages.length,
+  stagesAmount: GameData.stages.length,
 };
 
 type ActionType = { type: 'nextStage' } | { type: 'prevStage' };

@@ -1,19 +1,68 @@
-import { useEffect, useReducer, useState } from 'react';
-import { DragDropContext } from 'react-beautiful-dnd';
+import React, { useEffect, useReducer, useState } from 'react';
+import {
+  DragDropContext,
+  DraggableLocation,
+  DropResult,
+} from 'react-beautiful-dnd';
 import { motion } from 'framer-motion';
-import { Button } from '../Common';
-import { DroppableBox } from '../Common';
-import { Message } from '../Common/Message';
+import { Button, ButtonType, DroppableBox, Message } from '../Common';
 import poSit from '../../assets/poSit.svg';
+import {
+  PrimaryColor,
+  PriorityDnDData,
+  PriorityItem,
+  TextColor,
+} from '../../shared/types';
 
-function dndReducer(state, action) {
+type DnDState = {
+  id: string;
+  items: PriorityItem[];
+};
+
+type State = {
+  candidates: DnDState;
+  backlog: DnDState & {
+    title: string;
+    placeholders: string[];
+  };
+};
+
+type Action =
+  | {
+      type: 'add';
+      payload: {
+        index: number;
+        droppableId: keyof State;
+        item: PriorityItem;
+      };
+    }
+  | {
+      type: 'remove';
+      payload: {
+        index: number;
+        droppableId: keyof State;
+      };
+    };
+
+type Props = {
+  stageData: PriorityDnDData;
+  onComplete: () => void;
+};
+
+type MyDraggableLocation = {
+  droppableId: keyof State;
+  index: number;
+};
+
+function dndReducer(state: State, action: Action) {
   switch (action.type) {
     case 'add': {
       const { item, droppableId, index } = action.payload;
       if (droppableId === 'backlog') {
-        item.type = 'dropped-' + item.type;
+        item.type =
+          item.type === 'purple' ? 'dropped_purple' : 'dropped-yellow';
       } else {
-        item.type = item.type.slice(-6);
+        item.type = item.type === 'dropped_purple' ? 'purple' : 'yellow';
       }
       state[droppableId].items.splice(index, 0, item);
       return { ...state };
@@ -28,15 +77,20 @@ function dndReducer(state, action) {
   }
 }
 
-export const PriorityDnDStage = ({ stageData, onComplete }) => {
+export const PriorityDnDStage = ({ stageData, onComplete }: Props) => {
   const { candidates, backlog } = stageData;
   const [dndState, dispatch] = useReducer(dndReducer, {
     candidates,
     backlog,
   });
-  const [btnState, setBtnState] = useState('disabled');
+  const [btnState, setBtnState] = useState<ButtonType>('disabled');
 
-  function handleDragEnd({ source, destination }) {
+  function isValid(arg: DraggableLocation): arg is MyDraggableLocation {
+    const id = arg.droppableId;
+    return id === 'candidates' || id === 'backlog';
+  }
+
+  function handleDragEnd({ source, destination }: DropResult) {
     if (!destination) return; // 排除拖移到非 Droppable 與 沒有移動的情形
     if (
       destination.droppableId === source.droppableId &&
@@ -44,6 +98,8 @@ export const PriorityDnDStage = ({ stageData, onComplete }) => {
     ) {
       return;
     }
+    if (!isValid(source)) return;
+    if (!isValid(destination)) return;
 
     const sourceItem = dndState[source.droppableId].items[source.index];
 
@@ -61,7 +117,7 @@ export const PriorityDnDStage = ({ stageData, onComplete }) => {
   }
 
   useEffect(() => {
-    let isSet = dndState.candidates.items.length === 0;
+    const isSet = dndState.candidates.items.length === 0;
     if (isSet && btnState === 'disabled') {
       setBtnState('default');
     } else if (!isSet && btnState === 'default') {
@@ -103,8 +159,8 @@ export const PriorityDnDStage = ({ stageData, onComplete }) => {
           />
         </motion.svg>
         <Message
-          borderColor={stageData.messageColor}
-          color={stageData.messageColor}
+          borderColor={stageData.messageColor as PrimaryColor}
+          color={stageData.messageColor as TextColor}
           text={stageData.message}
           delay={1.5}
           img={stageData.messageImg}

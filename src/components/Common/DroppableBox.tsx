@@ -8,7 +8,7 @@ import { DraggableCard } from './DraggableCard';
 
 export type DroppableBoxProps = {
   id: string;
-  type: 'flex' | 'grid';
+  type?: 'flex' | 'grid';
   className: string;
   items: Item[];
 };
@@ -26,7 +26,7 @@ export const DroppableBox = ({
 
   return (
     <Droppable droppableId={id}>
-      {(provided, snapshot) => {
+      {(provided) => {
         return (
           <div
             className={`${container} ${className}`}
