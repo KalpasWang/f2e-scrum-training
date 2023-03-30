@@ -50,7 +50,7 @@ export const GroupChatStage = ({ stageData, onComplete }: Props) => {
     <div className="h-full">
       <div className="h-screen-160 relative mt-10">
         <div className="relative h-2/3 rounded-3xl bg-assist1"></div>
-        <div className="absolute inset-0 flex flex-col items-center justify-end py-4">
+        <div className="absolute inset-0 flex flex-col items-center justify-end pb-4">
           {/* 對話框 */}
           <AnimatePresence>
             <motion.div
@@ -111,7 +111,7 @@ export const GroupChatStage = ({ stageData, onComplete }: Props) => {
               })}
             </motion.div>
           </AnimatePresence>
-          <div className="flex min-h-[10rem] basis-1/5 items-end justify-evenly sm:basis-1/3">
+          <div className="flex min-h-[10rem] w-full basis-1/5 items-end justify-around sm:basis-1/3 md:w-3/4">
             {roles.map((role) => {
               const initial = lastActiveRole.current ? 'show' : 'hidden';
               let animate = 'show';
@@ -131,14 +131,14 @@ export const GroupChatStage = ({ stageData, onComplete }: Props) => {
                   animate={animate}
                   variants={variants}
                   key={role.id}
-                  className="inline-flex h-full w-1/6 basis-1/6 flex-col justify-end"
+                  className="inline-flex h-full w-1/4 flex-col justify-end md:w-1/5"
                 >
                   <img
                     src={require('../../assets/' + role.img)}
                     alt={role.name}
-                    className="mx-auto max-h-full max-w-full"
+                    className="mx-auto max-h-[calc(100%-2rem)] max-w-full"
                   />
-                  <p className="pt-[2vh] text-center text-lg text-assist1 lg:text-xl">
+                  <p className="pt-2 text-center text-lg text-assist1 lg:text-xl">
                     {role.name}
                   </p>
                 </motion.div>
