@@ -1,11 +1,18 @@
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '../Common';
+import { SprintMeetingData } from '../../shared/types';
 
-export const SprintMeetingStage = ({ stageData, onComplete }) => {
+type Props = {
+  stageData: SprintMeetingData;
+  onComplete: () => void;
+};
+
+export const SprintMeetingStage = ({ stageData, onComplete }: Props) => {
   const variants = {
     initial: { opacity: 0, y: 80 },
     hidden: { opacity: 0, y: 0 },
-    visible: (custom) => ({
+    visible: (custom: number) => ({
       opacity: 1,
       y: 0,
       transition: { delay: 0.5 + custom * 0.5 },

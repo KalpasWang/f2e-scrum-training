@@ -1,33 +1,43 @@
-import React, { useContext, useReducer } from 'react';
-import game from '../shared/gameConfig.json';
+import React, {
+  useContext,
+  useReducer,
+  PropsWithChildren,
+  Dispatch,
+} from 'react';
+import GameData from '../shared/gameData';
 
 const initialState = {
-  stages: game.stages,
+  stages: GameData.stages,
   progress: 1,
-  stagesAmount: game.stages.length,
-  finishedCount: 0,
+  stagesAmount: GameData.stages.length,
 };
 
-export const GameContext = React.createContext({
+type ActionType = { type: 'nextStage' } | { type: 'prevStage' };
+
+type GameContextType = {
+  state: typeof initialState;
+  dispatch: Dispatch<ActionType>;
+};
+
+export const GameContext = React.createContext<GameContextType>({
   state: {
     stages: [],
     progress: 1,
     stagesAmount: 0,
-    finishedCount: 0,
   },
-  dispatch: () => {},
+  dispatch: () => {
+    /* update */
+  },
 });
 
-const gameReducer = (state, action) => {
+const gameReducer = (state: typeof initialState, action: ActionType) => {
   switch (action.type) {
     case 'nextStage': {
       let progress = state.progress + 1;
-      let finishedCount = state.finishedCount;
       if (progress > state.stagesAmount) {
         progress = 1;
-        finishedCount++;
       }
-      return { ...state, progress, finishedCount };
+      return { ...state, progress };
     }
     case 'prevStage': {
       return { ...state, progress: state.progress - 1 };
@@ -41,7 +51,7 @@ export const useGameContext = () => {
   return useContext(GameContext);
 };
 
-export const GameProvider = ({ children }) => {
+export const GameProvider = ({ children }: PropsWithChildren) => {
   const [state, dispatch] = useReducer(gameReducer, initialState);
 
   return (

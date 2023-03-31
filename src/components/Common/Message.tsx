@@ -1,6 +1,18 @@
+import React from 'react';
 import classNames from 'classnames';
 import Typewriter from 'typewriter-effect';
 import { motion } from 'framer-motion';
+import { PrimaryColor, TextColor } from '../../shared/types';
+
+type MessageProps = {
+  text: string;
+  borderColor?: PrimaryColor;
+  color?: TextColor;
+  img?: string;
+  delay?: number;
+  className?: string;
+  children?: React.ReactNode;
+};
 
 export const Message = ({
   text,
@@ -8,9 +20,9 @@ export const Message = ({
   color = 'assist2',
   img,
   delay = 0.1,
-  className,
+  className = '',
   children,
-}) => {
+}: MessageProps) => {
   const borderStyle = {
     primary1: 'border-primary1',
     primary2: 'border-primary2',

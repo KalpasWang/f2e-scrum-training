@@ -1,10 +1,25 @@
+import React from 'react';
 import { Droppable } from 'react-beautiful-dnd';
+import { MeetingItem } from '../../shared/types';
 import { DraggableCard } from './DraggableCard';
 
-export const SprintFlowBox = ({ className, space, placeholder }) => {
+type SprintFlowBoxProps = {
+  className?: string;
+  space: {
+    id: string;
+    item: MeetingItem | null;
+  };
+  placeholder?: string;
+};
+
+export const SprintFlowBox = ({
+  className = '',
+  space,
+  placeholder,
+}: SprintFlowBoxProps) => {
   return (
     <Droppable droppableId={space.id} isDropDisabled={!!space.item}>
-      {(provided, snapshot) => {
+      {(provided) => {
         return (
           <div
             className={`flex h-18 w-56 flex-col items-center justify-center rounded-full border-3 border-dashed border-primary3 text-primary3 ${className}`}

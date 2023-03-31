@@ -1,21 +1,28 @@
-import { Button } from '../Common';
+import React, { useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useEffect, useRef } from 'react';
+import { Button } from '../Common';
+import { ChatRole, GroupChatData } from '../../shared/types';
 
-export const GroupChatStage = ({ stageData, onComplete }) => {
-  const lastActiveRole = useRef();
+type Props = {
+  stageData: GroupChatData;
+  onComplete: () => void;
+};
+
+export const GroupChatStage = ({ stageData, onComplete }: Props) => {
+  const lastActiveRole = useRef<ChatRole>();
   const { roles, active } = stageData;
   const border = {
     primary1: 'border-primary1',
     primary2: 'border-primary2',
     primary3: 'border-primary3',
   };
-  const spacers = roles.slice();
+  const spacers: (ChatRole | null)[] = roles.slice();
+  const activeRole = roles[active.roleIdx];
 
   spacers.splice(2, 0, null);
 
   useEffect(() => {
-    lastActiveRole.current = active.role;
+    lastActiveRole.current = activeRole;
   });
 
   const variants = {
@@ -43,11 +50,11 @@ export const GroupChatStage = ({ stageData, onComplete }) => {
     <div className="h-full">
       <div className="h-screen-160 relative mt-10">
         <div className="relative h-2/3 rounded-3xl bg-assist1"></div>
-        <div className="absolute inset-0 flex flex-col items-center justify-end py-4">
+        <div className="absolute inset-0 flex flex-col items-center justify-end pb-4">
           {/* 對話框 */}
           <AnimatePresence>
             <motion.div
-              key={active.role}
+              key={activeRole.id}
               initial="hidden"
               exit={{ display: 'none' }}
               animate={
@@ -55,7 +62,7 @@ export const GroupChatStage = ({ stageData, onComplete }) => {
               }
               variants={variants}
               className={`relative z-10 mx-auto w-4/5 min-w-72 basis-1/3 rounded-3xl border-3 bg-assist1 ${
-                border[active.color]
+                border[activeRole.color]
               } flex flex-col gap-4 px-6 py-8 sm:flex-row`}
             >
               <p
@@ -64,7 +71,7 @@ export const GroupChatStage = ({ stageData, onComplete }) => {
               ></p>
               <Button
                 type="next"
-                color={active.color}
+                color={activeRole.color}
                 size="sm"
                 onClick={onComplete}
               />
@@ -73,7 +80,7 @@ export const GroupChatStage = ({ stageData, onComplete }) => {
           {/* 角色指示線 */}
           <AnimatePresence>
             <motion.div
-              key={active.role}
+              key={activeRole.id}
               initial="hidden"
               exit={{ display: 'none' }}
               animate={
@@ -92,7 +99,7 @@ export const GroupChatStage = ({ stageData, onComplete }) => {
                         : 'basis-1/3 lg:basis-2/3'
                     }
                   >
-                    {active.role === role?.id && (
+                    {activeRole.id === role?.id && (
                       <img
                         src={require(`../../assets/${role.id}-line.svg`)}
                         alt="indicator"
@@ -104,18 +111,17 @@ export const GroupChatStage = ({ stageData, onComplete }) => {
               })}
             </motion.div>
           </AnimatePresence>
-          <div className="flex min-h-[10rem] basis-1/5 items-end justify-evenly sm:basis-1/3">
+          <div className="flex min-h-[10rem] w-full basis-1/5 items-end justify-around sm:basis-1/3 md:w-3/4">
             {roles.map((role) => {
-              const img = require('../../assets/' + role.img);
               const initial = lastActiveRole.current ? 'show' : 'hidden';
               let animate = 'show';
-              if (lastActiveRole.current === role.id) {
+              if (lastActiveRole.current?.id === role.id) {
                 animate = 'down';
               }
-              if (active.role === role.id && !lastActiveRole.current) {
+              if (activeRole.id === role.id && !lastActiveRole.current) {
                 animate = 'showAndUp';
               }
-              if (active.role === role.id) {
+              if (activeRole.id === role.id) {
                 animate = 'up';
               }
 
@@ -125,14 +131,14 @@ export const GroupChatStage = ({ stageData, onComplete }) => {
                   animate={animate}
                   variants={variants}
                   key={role.id}
-                  className="inline-flex h-full w-1/6 basis-1/6 flex-col justify-end"
+                  className="inline-flex h-full w-1/4 flex-col justify-end md:w-1/5"
                 >
                   <img
-                    src={img}
+                    src={require('../../assets/' + role.img)}
                     alt={role.name}
-                    className="mx-auto max-h-full max-w-full"
+                    className="mx-auto max-h-[calc(100%-2rem)] max-w-full"
                   />
-                  <p className="pt-[2vh] text-center text-lg text-assist1 lg:text-xl">
+                  <p className="pt-2 text-center text-lg text-assist1 lg:text-xl">
                     {role.name}
                   </p>
                 </motion.div>

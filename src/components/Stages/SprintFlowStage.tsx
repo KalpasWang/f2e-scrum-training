@@ -1,10 +1,68 @@
-import { useReducer, useEffect, useState } from 'react';
-import { DragDropContext } from 'react-beautiful-dnd';
+import React, { useReducer, useEffect, useState } from 'react';
+import {
+  DragDropContext,
+  DraggableLocation,
+  DropResult,
+} from 'react-beautiful-dnd';
 import { motion } from 'framer-motion';
-import { Button, SprintFlowBox, Message } from '../Common';
+import { Button, SprintFlowBox, Message, ButtonType } from '../Common';
 import rd1 from '../../assets/avatar-rd1.png';
+import { MeetingItem, MeetingSpace, SprintFlowData } from '../../shared/types';
 
-function dndReducer(state, action) {
+type CandidateSpace = {
+  id: string;
+  item: MeetingItem | null;
+};
+
+type State = {
+  items: MeetingItem[];
+  candidate01: CandidateSpace;
+  candidate02: CandidateSpace;
+  candidate03: CandidateSpace;
+  candidate04: CandidateSpace;
+  space01: MeetingSpace;
+  space02: MeetingSpace;
+  space03: MeetingSpace;
+  space04: MeetingSpace;
+};
+
+type Action =
+  | {
+      type: 'add';
+      payload: {
+        droppableId: MyDroppableId;
+        item: MeetingItem;
+      };
+    }
+  | {
+      type: 'remove';
+      payload: {
+        droppableId: MyDroppableId;
+      };
+    }
+  | { type: 'showAnswer' };
+
+type Props = {
+  stageData: SprintFlowData;
+  onComplete: () => void;
+};
+
+type CandidateId =
+  | 'candidate01'
+  | 'candidate02'
+  | 'candidate03'
+  | 'candidate04';
+
+type SpaceId = 'space01' | 'space02' | 'space03' | 'space04';
+
+type MyDroppableId = CandidateId | SpaceId;
+
+type MyDraggableLocation = {
+  droppableId: MyDroppableId;
+  index: 0;
+};
+
+function dndReducer(state: State, action: Action) {
   switch (action.type) {
     case 'add': {
       const { item, droppableId } = action.payload;
@@ -17,8 +75,9 @@ function dndReducer(state, action) {
       return { ...state };
     }
     case 'showAnswer': {
-      state.items.forEach((item, i) => {
-        state['space0' + (i + 1)].item = item;
+      const spaces: SpaceId[] = ['space01', 'space02', 'space03', 'space04'];
+      spaces.forEach((space, idx) => {
+        state[space].item = state.items[idx];
       });
       return { ...state };
     }
@@ -27,18 +86,33 @@ function dndReducer(state, action) {
   }
 }
 
-export const SprintFlowStage = ({ stageData, onComplete }) => {
+export const SprintFlowStage = ({ stageData, onComplete }: Props) => {
   const { candidates, flow, items } = stageData;
   const [dndState, dispatch] = useReducer(dndReducer, {
     ...candidates,
     ...flow,
     items,
   });
-  const [btnState, setBtnState] = useState('disabled');
+  const [btnState, setBtnState] = useState<ButtonType>('disabled');
   const [showResult, setShowResult] = useState(false);
   const [message, setMessage] = useState(stageData.successMessage);
 
-  function handleDragEnd({ source, destination }) {
+  function isValid(source: DraggableLocation): source is MyDraggableLocation {
+    const validIds = [
+      'candidate01',
+      'candidate02',
+      'candidate03',
+      'candidate04',
+      'space01',
+      'space02',
+      'space03',
+      'space04',
+    ];
+    const idValid = validIds.includes(source.droppableId);
+    return idValid && source.index === 0;
+  }
+
+  function handleDragEnd({ source, destination }: DropResult) {
     // 排除拖移到非 Droppable 與 沒有移動的情形
     if (!destination) return;
     if (
@@ -47,8 +121,11 @@ export const SprintFlowStage = ({ stageData, onComplete }) => {
     ) {
       return;
     }
+    if (!isValid(source)) return;
+    if (!isValid(destination)) return;
 
     const sourceItem = dndState[source.droppableId].item;
+
     dispatch({
       type: 'remove',
       payload: source,
@@ -57,15 +134,15 @@ export const SprintFlowStage = ({ stageData, onComplete }) => {
       type: 'add',
       payload: {
         ...destination,
-        item: sourceItem,
+        item: sourceItem as MeetingItem,
       },
     });
   }
 
   function checkAnswer() {
-    const spaces = ['space01', 'space02', 'space03', 'space04'];
+    const spaces: SpaceId[] = ['space01', 'space02', 'space03', 'space04'];
     const isCorrect = spaces.every(
-      (space) => dndState[space].answer === dndState[space].item.order
+      (space) => dndState[space].answer === dndState[space].item?.order
     );
     if (!isCorrect) {
       dispatch({ type: 'showAnswer' });
@@ -76,7 +153,7 @@ export const SprintFlowStage = ({ stageData, onComplete }) => {
   }
 
   useEffect(() => {
-    const spaces = ['space01', 'space02', 'space03', 'space04'];
+    const spaces: SpaceId[] = ['space01', 'space02', 'space03', 'space04'];
     const isAllFilled = spaces.every((space) => dndState[space].item);
     if (!isAllFilled && btnState === 'default') {
       setBtnState('disabled');

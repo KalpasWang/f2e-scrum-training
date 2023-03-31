@@ -1,13 +1,51 @@
-import { Draggable } from 'react-beautiful-dnd';
+import React from 'react';
+import {
+  Draggable,
+  DraggableProvided,
+  DraggableStateSnapshot,
+} from 'react-beautiful-dnd';
 import dragIcon from '../../assets/drag-icon.svg';
+import { Item, PointsItem, MeetingItem } from '../../shared/types';
 
 // type = { 'purple', 'yellow', 'dropped-purple','dropped-yellow', 'points', 'meeting' }
 
-const purpleCat = (provided, snapshot, className, children) => {
-  let containerDraggingStyle = snapshot.isDragging ? 'rotate-16' : '';
-  let bodyDraggingStyle = snapshot.isDragging ? 'border-dashed' : '';
-  let eyesDraggingStyle = snapshot.isDragging ? '!top-1/2' : '';
-  let mouthDraggingStyle = snapshot.isDragging ? '!top-2/3' : '';
+type CatProps = {
+  provided: DraggableProvided;
+  snapshot: DraggableStateSnapshot;
+  className: string;
+  children: string;
+};
+
+type DroppedCatProps = {
+  provided: DraggableProvided;
+  className: string;
+  children: string;
+};
+
+type PointsCatProps = {
+  provided: DraggableProvided;
+  className: string;
+  pointsItem: PointsItem;
+};
+
+type MeetingCardProps = {
+  provided: DraggableProvided;
+  className: string;
+  meetingItem: MeetingItem;
+};
+
+type DrggableCardProps = {
+  id: string;
+  index: number;
+  item: Item;
+  className?: string;
+};
+
+const purpleCat = ({ provided, snapshot, className, children }: CatProps) => {
+  const containerDraggingStyle = snapshot.isDragging ? 'rotate-16' : '';
+  const bodyDraggingStyle = snapshot.isDragging ? 'border-dashed' : '';
+  const eyesDraggingStyle = snapshot.isDragging ? '!top-1/2' : '';
+  const mouthDraggingStyle = snapshot.isDragging ? '!top-2/3' : '';
 
   return (
     <div
@@ -81,11 +119,11 @@ const purpleCat = (provided, snapshot, className, children) => {
   );
 };
 
-const yellowCat = (provided, snapshot, className, children) => {
-  let containerDraggingStyle = snapshot.isDragging ? '-rotate-16' : '';
-  let bodyDraggingStyle = snapshot.isDragging ? 'border-dashed' : '';
-  let eyesDraggingStyle = snapshot.isDragging ? '!top-1/2' : '';
-  let mouthDraggingStyle = snapshot.isDragging ? '!top-2/3' : '';
+const yellowCat = ({ provided, snapshot, className, children }: CatProps) => {
+  const containerDraggingStyle = snapshot.isDragging ? '-rotate-16' : '';
+  const bodyDraggingStyle = snapshot.isDragging ? 'border-dashed' : '';
+  const eyesDraggingStyle = snapshot.isDragging ? '!top-1/2' : '';
+  const mouthDraggingStyle = snapshot.isDragging ? '!top-2/3' : '';
 
   return (
     <div
@@ -155,7 +193,7 @@ const yellowCat = (provided, snapshot, className, children) => {
   );
 };
 
-const droppedCat = (provided, snapshot, className, children) => {
+const droppedCat = ({ provided, className, children }: DroppedCatProps) => {
   return (
     <div
       ref={provided.innerRef}
@@ -183,7 +221,7 @@ const droppedCat = (provided, snapshot, className, children) => {
   );
 };
 
-const pointsCat = (provided, snapshot, className, item) => {
+const pointsCat = ({ provided, className, pointsItem }: PointsCatProps) => {
   return (
     <div
       ref={provided.innerRef}
@@ -193,12 +231,12 @@ const pointsCat = (provided, snapshot, className, item) => {
     >
       <div className="flex flex-shrink-0 basis-1/6 items-center justify-center">
         <span className="flex h-12 w-12 items-center justify-center rounded-full bg-assist2 text-3xl leading-none text-assist1">
-          {item.points}
+          {pointsItem.points}
         </span>
       </div>
       {/* 身體 */}
       <div className="flex flex-grow items-center justify-center px-1 text-sm md:text-base lg:px-4">
-        {item.text}
+        {pointsItem.text}
       </div>
       {/* 臉 */}
       <div className="relative flex-shrink-0 basis-20">
@@ -213,7 +251,11 @@ const pointsCat = (provided, snapshot, className, item) => {
   );
 };
 
-const meetingItem = (provided, snapshot, className, item) => {
+const meetingItem = ({
+  provided,
+  className,
+  meetingItem,
+}: MeetingCardProps) => {
   return (
     <div
       ref={provided.innerRef}
@@ -221,25 +263,48 @@ const meetingItem = (provided, snapshot, className, item) => {
       {...provided.dragHandleProps}
       className={`flex h-18 w-56 items-center justify-center rounded-full bg-primary3 text-base leading-none text-assist1 sm:text-xl md:text-2xl ${className}`}
     >
-      {item.title}
+      {meetingItem.text}
     </div>
   );
 };
 
-export const DraggableCard = ({ id, index, item, className }) => {
+export const DraggableCard = ({
+  id,
+  index,
+  item,
+  className = '',
+}: DrggableCardProps) => {
   return (
     <Draggable draggableId={id} index={index}>
       {(provided, snapshot) => {
         if (item.type === 'purple') {
-          return purpleCat(provided, snapshot, className, item.text);
+          return purpleCat({
+            provided,
+            snapshot,
+            className,
+            children: item.text,
+          });
         } else if (item.type === 'yellow') {
-          return yellowCat(provided, snapshot, className, item.text);
+          return yellowCat({
+            provided,
+            snapshot,
+            className,
+            children: item.text,
+          });
         } else if (item.type.includes('dropped')) {
-          return droppedCat(provided, snapshot, className, item.text);
+          return droppedCat({ provided, className, children: item.text });
         } else if (item.type === 'points') {
-          return pointsCat(provided, snapshot, className, item);
+          return pointsCat({
+            provided,
+            className,
+            pointsItem: item,
+          });
         } else if (item.type === 'meeting') {
-          return meetingItem(provided, snapshot, className, item);
+          return meetingItem({
+            provided,
+            className,
+            meetingItem: item,
+          });
         }
         return (
           <div

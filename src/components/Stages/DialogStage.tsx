@@ -1,3 +1,4 @@
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { motion } from 'framer-motion';
 import Typewriter from 'typewriter-effect';
@@ -5,14 +6,26 @@ import { Button } from '../Common';
 import king from '../../assets/king.svg';
 import po from '../../assets/po.svg';
 import poHand from '../../assets/poHand.svg';
+import { DialogData } from '../../shared/types';
 
-export const DialogStage = ({ stageData, onComplete }) => {
-  const roleImage = {
+type DialogProps = {
+  stageData: DialogData;
+  onComplete: () => void;
+};
+
+export const DialogStage = ({ stageData, onComplete }: DialogProps) => {
+  type Role = {
+    king: string;
+    po: string;
+    poHand: string;
+  };
+
+  const roleImage: Role = {
     king,
     po,
     poHand,
   };
-  let texts = stageData.text || '';
+  const texts = stageData.text || '';
 
   return (
     <div className="h-full overflow-hidden pt-10 pb-12">
@@ -37,11 +50,11 @@ export const DialogStage = ({ stageData, onComplete }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
-            src={roleImage[stageData.roleImg]}
+            src={roleImage[stageData.roleImg as keyof Role]}
             className="max-h-[40vh] w-[35vw] sm:w-[30vw]"
             alt="role"
           />,
-          document.getElementById('role')
+          document.getElementById('role') as HTMLElement
         )}
     </div>
   );
