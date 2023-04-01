@@ -88,16 +88,20 @@ function dndReducer(state: State, action: Action) {
 
 export const SprintFlowStage = ({ stageData, onComplete }: Props) => {
   const { candidates, flow, items } = stageData;
+  const candidatesCopy = JSON.parse(JSON.stringify(candidates));
+  const flowCopy = JSON.parse(JSON.stringify(flow));
   const [dndState, dispatch] = useReducer(dndReducer, {
-    ...candidates,
-    ...flow,
+    ...candidatesCopy,
+    ...flowCopy,
     items,
   });
   const [btnState, setBtnState] = useState<ButtonType>('disabled');
   const [showResult, setShowResult] = useState(false);
   const [message, setMessage] = useState(stageData.successMessage);
 
-  function isValid(source: DraggableLocation): source is MyDraggableLocation {
+  function isValidLocation(
+    source: DraggableLocation
+  ): source is MyDraggableLocation {
     const validIds = [
       'candidate01',
       'candidate02',
@@ -121,8 +125,9 @@ export const SprintFlowStage = ({ stageData, onComplete }: Props) => {
     ) {
       return;
     }
-    if (!isValid(source)) return;
-    if (!isValid(destination)) return;
+    // 排除非指定的 droppableId
+    if (!isValidLocation(source)) return;
+    if (!isValidLocation(destination)) return;
 
     const sourceItem = dndState[source.droppableId].item;
 

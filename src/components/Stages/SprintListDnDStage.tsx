@@ -69,9 +69,11 @@ function dndReducer(state: State, action: Action) {
 
 export const SprintListDnDStage = ({ stageData, onComplete }: Props) => {
   const { backlog, sprint } = stageData;
+  const backlogCopy = JSON.parse(JSON.stringify(backlog));
+  const sprintCopy = JSON.parse(JSON.stringify(sprint));
   const [dndState, dispatch] = useReducer(dndReducer, {
-    sprint,
-    backlog,
+    backlog: backlogCopy,
+    sprint: sprintCopy,
   });
   const [btnState, setBtnState] = useState<BtnState>({
     type: 'default',

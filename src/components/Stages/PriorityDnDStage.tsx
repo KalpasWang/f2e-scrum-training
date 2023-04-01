@@ -79,13 +79,15 @@ function dndReducer(state: State, action: Action) {
 
 export const PriorityDnDStage = ({ stageData, onComplete }: Props) => {
   const { candidates, backlog } = stageData;
+  const candidatesCopy = JSON.parse(JSON.stringify(candidates));
+  const backlogCopy = JSON.parse(JSON.stringify(backlog));
   const [dndState, dispatch] = useReducer(dndReducer, {
-    candidates,
-    backlog,
+    candidates: candidatesCopy,
+    backlog: backlogCopy,
   });
   const [btnState, setBtnState] = useState<ButtonType>('disabled');
 
-  function isValid(arg: DraggableLocation): arg is MyDraggableLocation {
+  function isValidLocation(arg: DraggableLocation): arg is MyDraggableLocation {
     const id = arg.droppableId;
     return id === 'candidates' || id === 'backlog';
   }
@@ -98,8 +100,9 @@ export const PriorityDnDStage = ({ stageData, onComplete }: Props) => {
     ) {
       return;
     }
-    if (!isValid(source)) return;
-    if (!isValid(destination)) return;
+    // 排除非指定的 droppableId
+    if (!isValidLocation(source)) return;
+    if (!isValidLocation(destination)) return;
 
     const sourceItem = dndState[source.droppableId].items[source.index];
 
@@ -178,6 +181,7 @@ export const PriorityDnDStage = ({ stageData, onComplete }: Props) => {
               className="gap-7"
             />
           </div>
+          {/* 優先順序清單 */}
           <div className="flex w-full flex-col rounded-5xl bg-assist1 px-6 py-8 xl:basis-5/12">
             <h1 className="mb-7 text-center text-3xl text-assist2">
               {dndState.backlog.title}

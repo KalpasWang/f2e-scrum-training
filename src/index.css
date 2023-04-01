@@ -15,7 +15,7 @@
 
   .h-screen-160 {
     height: calc(100vh - 160px);
-    min-height: 32rem;
+    min-height: 32rem; /* 512px */
   }
 }
 
