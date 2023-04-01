@@ -18,7 +18,7 @@ export const StartScene = () => {
       className="h-screen cursor-pointer bg-primary3 p-4 lg:p-16"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.25 }}
       exit={{ opacity: 0 }}
       onClick={() => {
         navigate('training');
@@ -35,7 +35,15 @@ export const StartScene = () => {
             className="max-h-[80vh] max-w-full"
           />
         </div>
-        <div className="absolute top-5 right-4 rounded-2xl border-4 border-dashed border-primary3 p-2 lg:top-14 lg:right-12 lg:p-5">
+        <motion.div
+          className="absolute top-5 right-4 rounded-2xl border-4 border-dashed border-primary3 p-2 lg:top-14 lg:right-12 lg:p-5"
+          initial={{ opacity: 0, y: -50 }}
+          animate={{
+            opacity: 1,
+            y: 0,
+            transition: { delay: 0.5, duration: 1, easings: 'easeOut' },
+          }}
+        >
           <h2 className="text-center text-xl leading-tight text-assist2 lg:text-6xl">
             F2E<span className="text-primary3">帶你前進</span>
           </h2>
@@ -45,7 +53,7 @@ export const StartScene = () => {
           <p className="text-center text-xs text-primary3 lg:text-xl">
             Design by 讀書狗狗, Code by Kalpas
           </p>
-        </div>
+        </motion.div>
       </div>
     </motion.main>
   );
