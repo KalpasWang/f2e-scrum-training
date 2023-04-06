@@ -54,6 +54,22 @@ export const StartScene = () => {
             Design by 讀書狗狗, Code by Kalpas
           </p>
         </motion.div>
+        <motion.div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+          initial={{ opacity: 0 }}
+          animate={{
+            opacity: 1,
+            transition: {
+              delay: 2,
+              duration: 1,
+              repeat: Infinity,
+            },
+          }}
+        >
+          <p className="whitespace-nowrap text-xl text-assist2 text-opacity-70 lg:text-3xl">
+            點擊任一鍵開始訓練
+          </p>
+        </motion.div>
       </div>
     </motion.main>
   );
