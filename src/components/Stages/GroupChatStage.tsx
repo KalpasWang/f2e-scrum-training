@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '../Common';
 import { ChatRole, GroupChatData } from '../../shared/types';
@@ -9,21 +9,30 @@ type Props = {
 };
 
 export const GroupChatStage = ({ stageData, onComplete }: Props) => {
-  const lastActiveRole = useRef<ChatRole>();
+  const [lastActiveRole, setLastActiveRole] = useState<ChatRole>();
   const { roles, active } = stageData;
   const border = {
     primary1: 'border-primary1',
     primary2: 'border-primary2',
     primary3: 'border-primary3',
   };
-  const spacers: (ChatRole | null)[] = roles.slice();
+  // const spacers: (ChatRole | null)[] = roles.slice();
   const activeRole = roles[active.roleIdx];
 
-  spacers.splice(2, 0, null);
+  // spacers.splice(2, 0, null);
 
   useEffect(() => {
-    lastActiveRole.current = activeRole;
+    if (lastActiveRole?.id !== activeRole.id) {
+      setLastActiveRole(activeRole);
+    }
   });
+
+  useEffect(() => {
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: 'smooth',
+    });
+  }, [lastActiveRole]);
 
   const variants = {
     hidden: { opacity: 0, transition: { duration: 0.2 } },
@@ -48,7 +57,7 @@ export const GroupChatStage = ({ stageData, onComplete }: Props) => {
 
   return (
     <div className="h-full">
-      <div className="h-screen-160 relative mt-10">
+      <div className="h-screen-[calc(100vh-160px)] relative mt-10 min-h-[32rem]">
         <div className="relative h-2/3 rounded-3xl bg-assist1"></div>
         <div className="absolute inset-0 flex flex-col items-center justify-end pb-4">
           {/* 對話框 */}
@@ -57,13 +66,11 @@ export const GroupChatStage = ({ stageData, onComplete }: Props) => {
               key={activeRole.id}
               initial="hidden"
               exit={{ display: 'none' }}
-              animate={
-                lastActiveRole.current ? 'dialogShow' : 'dialogFirstShow'
-              }
+              animate={lastActiveRole ? 'dialogShow' : 'dialogFirstShow'}
               variants={variants}
-              className={`relative z-10 mx-auto w-4/5 min-w-72 basis-1/3 rounded-3xl border-3 bg-assist1 ${
+              className={`relative z-10 mx-auto w-[calc(100%-32px)] min-w-72 basis-1/3 rounded-3xl border-3 bg-assist1 md:w-4/5 ${
                 border[activeRole.color]
-              } flex flex-col gap-4 px-6 py-8 sm:flex-row`}
+              } flex flex-col gap-4 p-4 sm:flex-row md:px-6 md:py-8`}
             >
               <p
                 className="flex-grow text-assist2"
@@ -83,22 +90,13 @@ export const GroupChatStage = ({ stageData, onComplete }: Props) => {
               key={activeRole.id}
               initial="hidden"
               exit={{ display: 'none' }}
-              animate={
-                lastActiveRole.current ? 'dialogShow' : 'dialogFirstShow'
-              }
+              animate={lastActiveRole ? 'dialogShow' : 'dialogFirstShow'}
               variants={variants}
               className="relative -top-1 mx-auto flex h-1/5 w-3/5 min-w-72 flex-shrink basis-1/5 justify-between lg:h-1/4 lg:basis-1/4"
             >
-              {spacers.map((role, i) => {
+              {roles.map((role) => {
                 return (
-                  <div
-                    key={role?.id || i}
-                    className={
-                      role
-                        ? 'basis-1/6 lg:basis-1/12'
-                        : 'basis-1/3 lg:basis-2/3'
-                    }
-                  >
+                  <div key={role.id} className="basis-1/4">
                     {activeRole.id === role?.id && (
                       <img
                         src={require(`../../assets/${role.id}-line.svg`)}
@@ -113,12 +111,12 @@ export const GroupChatStage = ({ stageData, onComplete }: Props) => {
           </AnimatePresence>
           <div className="flex min-h-[10rem] w-full basis-1/5 items-end justify-around sm:basis-1/3 md:w-3/4">
             {roles.map((role) => {
-              const initial = lastActiveRole.current ? 'show' : 'hidden';
+              const initial = lastActiveRole ? 'show' : 'hidden';
               let animate = 'show';
-              if (lastActiveRole.current?.id === role.id) {
+              if (lastActiveRole?.id === role.id) {
                 animate = 'down';
               }
-              if (activeRole.id === role.id && !lastActiveRole.current) {
+              if (activeRole.id === role.id && !lastActiveRole) {
                 animate = 'showAndUp';
               }
               if (activeRole.id === role.id) {
