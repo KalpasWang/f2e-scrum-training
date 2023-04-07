@@ -16,7 +16,7 @@ export const Button = ({
   onClick,
   type,
   color = 'primary3',
-  size = 'lg',
+  size,
 }: ButtonProps) => {
   let bgColor = 'bg-primary2';
   let textColor = 'text-assist1';
@@ -28,7 +28,7 @@ export const Button = ({
   };
   const sizing: Record<ButtonSize, string> = {
     sm: 'w-16 h-16',
-    lg: 'w-26 h-26',
+    lg: 'w-20 h-20',
   };
 
   if (type === 'next') {
@@ -40,12 +40,10 @@ export const Button = ({
         className="inline-block"
       >
         <svg
-          width="104"
-          height="104"
           viewBox="0 0 104 104"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className={sizing[size]}
+          className={size ? sizing[size] : 'h-16 w-16 lg:h-20 lg:w-20'}
         >
           <g clipPath="url(#clip0_35_346)">
             <path
@@ -87,7 +85,7 @@ export const Button = ({
     <button
       type="button"
       onClick={onClick}
-      className={`inline-block rounded-2xl py-6 px-8 text-3xl ${bgColor} ${textColor}`}
+      className={`inline-block rounded-2xl py-4 px-5 text-xl md:text-2xl lg:py-6 lg:px-8 lg:text-3xl ${bgColor} ${textColor}`}
       disabled={isDisable}
     >
       {children}
