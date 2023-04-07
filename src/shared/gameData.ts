@@ -8,7 +8,7 @@ const gamData: GameData = {
   stages: [
     {
       name: 'DialogStage',
-      text: '勇者！歡迎來到TT資訊王國，我是TT King<br />在正式加入王國的敏捷騎士團以前，需要請你先了解騎士團的<span class="text-primary3">Scrum流程與精神</span><br /><br />請跟隨我一起通過Scrum新手村的挑戰任務吧！',
+      text: '勇者！歡迎來到TT資訊王國，我是TT King<br /><br />在正式加入王國的敏捷騎士團以前，需要請你先了解騎士團的<span class="text-primary3">Scrum流程與精神</span><br /><br />請跟隨我一起通過Scrum新手村的挑戰任務吧！',
       roleImg: 'king',
       button: 'default',
       action: '開始任務',
@@ -29,7 +29,7 @@ const gamData: GameData = {
     {
       name: 'PriorityDnDStage',
       message:
-        '請把需求貓貓拖拉到右邊產品代辦清單，並調整代辦的優先度順序～<br />TT王國也推薦使用 <span class="text-primary1">Jira</span> 來做任務的管理喔！',
+        '請把需求貓貓拖拉到右邊產品代辦清單，並調整代辦的優先度順序～<br /><br />TT王國也推薦使用 <span class="text-primary1">Jira</span> 來做任務的管理喔！',
       messageColor: 'primary2',
       messageImg: 'jira_logo.png',
       roleImg: 'poSit.svg',

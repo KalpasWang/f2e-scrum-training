@@ -86,6 +86,7 @@ export const PriorityDnDStage = ({ stageData, onComplete }: Props) => {
     backlog: backlogCopy,
   });
   const [btnState, setBtnState] = useState<ButtonType>('disabled');
+  const [loaded, setLoaded] = useState(false);
 
   function isValidLocation(arg: DraggableLocation): arg is MyDraggableLocation {
     const id = arg.droppableId;
@@ -128,8 +129,16 @@ export const PriorityDnDStage = ({ stageData, onComplete }: Props) => {
     }
   }, [dndState, btnState]);
 
+  const img = new Image();
+  img.src = poSit;
+  img.onload = () => setLoaded(true);
+
+  if (!loaded) {
+    return <></>;
+  }
+
   return (
-    <div>
+    <>
       {/* PO 小敏的對話框 */}
       <motion.div
         initial={{ opacity: 0, y: -80 }}
@@ -140,6 +149,7 @@ export const PriorityDnDStage = ({ stageData, onComplete }: Props) => {
         <img
           key={stageData.roleImg}
           className="mr-4 basis-1/2 md:max-w-[25%] md:basis-1/4 lg:max-w-none lg:basis-auto"
+          onLoad={() => setLoaded(true)}
           src={poSit}
           alt="role"
         />
@@ -174,7 +184,7 @@ export const PriorityDnDStage = ({ stageData, onComplete }: Props) => {
       <DragDropContext onDragEnd={handleDragEnd}>
         <div className="relative -top-16 flex h-full w-full flex-col items-stretch justify-between gap-4 lg:flex-row">
           {/* 候選貓貓清單 */}
-          <div className="w-full rounded-5xl bg-assist1 px-6 pb-8 pt-16 xl:basis-5/12">
+          <div className="w-full rounded-5xl bg-assist1 px-1 pb-8 pt-16 md:px-6 xl:basis-5/12">
             <DroppableBox
               id="candidates"
               items={dndState.candidates.items}
@@ -182,7 +192,7 @@ export const PriorityDnDStage = ({ stageData, onComplete }: Props) => {
             />
           </div>
           {/* 優先順序清單 */}
-          <div className="flex w-full flex-col rounded-5xl bg-assist1 px-6 py-8 xl:basis-5/12">
+          <div className="flex w-full flex-col rounded-5xl bg-assist1 px-1 py-8 md:px-6 xl:basis-5/12">
             <h1 className="mb-7 text-center text-3xl text-assist2">
               {dndState.backlog.title}
             </h1>
@@ -212,6 +222,6 @@ export const PriorityDnDStage = ({ stageData, onComplete }: Props) => {
           {stageData.action}
         </Button>
       </div>
-    </div>
+    </>
   );
 };

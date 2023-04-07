@@ -35,7 +35,7 @@ export const Message = ({
   };
 
   const containerClass = classNames(
-    'flex flex-col sm:flex-row items-center gap-1 sm:gap-4 py-1 sm:py-3 px-1 sm:px-6 rounded-3xl border-3',
+    'flex flex-col sm:flex-row items-center gap-1 sm:gap-4 py-2 sm:py-3 px-2 sm:px-6 rounded-3xl border-3',
     borderStyle[borderColor],
     className
   );
