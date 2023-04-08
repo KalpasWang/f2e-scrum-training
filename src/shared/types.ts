@@ -185,7 +185,7 @@ export type MeetingSpace = {
 
 // GroupChatStage 用
 export type ChatRole = {
-  id: string;
+  id: 'po' | 'sm' | 'rd1' | 'rd2';
   name: string;
   img: string;
   color: 'primary1' | 'primary2' | 'primary3';
