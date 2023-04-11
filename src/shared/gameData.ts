@@ -311,6 +311,7 @@ const gamData: GameData = {
       maxPoints: 20,
       action: '完成清單',
       exceed: '超過20點！請再調整清單',
+      zero: '請至少加入一個項目',
     },
     {
       name: 'MessagesStage',

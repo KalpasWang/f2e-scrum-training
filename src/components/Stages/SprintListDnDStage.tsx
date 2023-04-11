@@ -76,8 +76,8 @@ export const SprintListDnDStage = ({ stageData, onComplete }: Props) => {
     sprint: sprintCopy,
   });
   const [btnState, setBtnState] = useState<BtnState>({
-    type: 'default',
-    text: stageData.action,
+    type: 'disabled',
+    text: stageData.zero,
   });
   const [currentPoints, setCurrentPoints] = useState(0);
 
@@ -125,6 +125,8 @@ export const SprintListDnDStage = ({ stageData, onComplete }: Props) => {
   useEffect(() => {
     if (currentPoints > stageData.maxPoints && btnState.type === 'default') {
       setBtnState({ type: 'disabled', text: stageData.exceed });
+    } else if (currentPoints === 0) {
+      setBtnState({ type: 'disabled', text: stageData.zero });
     } else if (
       currentPoints <= stageData.maxPoints &&
       btnState.type === 'disabled'

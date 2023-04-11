@@ -59,7 +59,7 @@ export const GroupChatStage = ({ stageData, onComplete }: Props) => {
     },
     indicatorShow: {
       opacity: [0, 1],
-      transition: { delay: 1, duration: 0.5, times: [0, 0.5] },
+      transition: { delay: 0.75, duration: 0.75, times: [0, 0.75] },
     },
   };
 

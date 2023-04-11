@@ -66,6 +66,7 @@ export type SprintListDnDData = {
   maxPoints: number;
   action: string;
   exceed: string;
+  zero: string;
 };
 
 export type MessagesData = {
@@ -194,7 +195,7 @@ export type ChatRole = {
 // MessagesStage 用
 export type AvatarMessage = {
   id: string;
-  avatar: string;
+  avatar: 'avatarRD1' | 'avatarRD2' | 'newbie';
   text: string;
   color: 'primary1' | 'primary2' | 'primary3';
   direction: 'left' | 'right';

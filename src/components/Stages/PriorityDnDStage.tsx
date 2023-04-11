@@ -156,15 +156,15 @@ export const PriorityDnDStage = ({ stageData, onComplete }: Props) => {
         <motion.svg
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
+          transition={{ delay: 1.75, duration: 1 }}
           width="44"
           height="8"
           viewBox="0 0 44 8"
           fill="none"
-          className="basis-1/12 -translate-y-6 rotate-90 md:rotate-0 lg:basis-auto"
+          className="basis-auto -translate-y-6 rotate-90 md:rotate-0"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path
+          <motion.path
             d="M2 2C8.51163 5.01849 25.6279 9.24439 42 2"
             stroke="#FF60FA"
             strokeWidth="3"
@@ -177,6 +177,7 @@ export const PriorityDnDStage = ({ stageData, onComplete }: Props) => {
           text={stageData.message}
           delay={1.5}
           img={stageData.messageImg}
+          scrolling={false}
           className="basis-2/3 -translate-y-6 bg-assist2"
         />
       </motion.div>
