@@ -168,8 +168,8 @@ export const SprintFlowStage = ({ stageData, onComplete }: Props) => {
   }, [dndState, btnState, stageData]);
 
   return (
-    <div className="h-full pb-28">
-      <div className="mt-12 rounded-4xl bg-assist1 px-4 pt-12 pb-10 xl:px-10">
+    <div className="h-full w-auto pb-8">
+      <div className="mt-12 w-full min-w-[22rem] rounded-4xl bg-assist1 px-4 pt-12 pb-10 xl:px-10">
         <DragDropContext onDragEnd={handleDragEnd}>
           {showResult && (
             <motion.div
