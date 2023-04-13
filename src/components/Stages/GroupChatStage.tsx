@@ -35,7 +35,7 @@ export const GroupChatStage = ({ stageData, onComplete }: Props) => {
     po: 'mx-auto',
     sm: 'mr-auto',
     rd1: 'ml-auto',
-    rd2: 'ml-auto',
+    rd2: 'mr-auto sm:ml-auto',
   };
 
   const variants = {
@@ -76,20 +76,24 @@ export const GroupChatStage = ({ stageData, onComplete }: Props) => {
               exit={{ display: 'none' }}
               animate={lastActiveRole ? 'dialogShow' : 'dialogFirstShow'}
               variants={variants}
-              className={`relative z-10 mx-auto flex min-h-[40%] w-[calc(100%-32px)] flex-col gap-4 rounded-3xl border-3 bg-assist1 p-4 sm:flex-row md:w-4/5 lg:px-6 lg:py-8 ${
-                border[activeRole.color]
-              }`}
+              className="relative z-10 mx-auto h-[45%] w-[calc(100%-32px)] overflow-visible"
             >
-              <p
-                className="flex-grow text-assist2"
-                dangerouslySetInnerHTML={{ __html: active.text }}
-              ></p>
-              <Button
-                type="next"
-                color={activeRole.color}
-                size="sm"
-                onClick={onComplete}
-              />
+              <div
+                className={`flex h-max min-h-full flex-col gap-2 rounded-3xl border-3 bg-assist1 p-2 sm:h-[40%] sm:flex-row sm:gap-4 sm:p-4 md:w-4/5 lg:px-6 lg:py-8 ${
+                  border[activeRole.color]
+                }`}
+              >
+                <p
+                  className="flex-grow text-assist2"
+                  dangerouslySetInnerHTML={{ __html: active.text }}
+                ></p>
+                <Button
+                  type="next"
+                  color={activeRole.color}
+                  size="sm"
+                  onClick={onComplete}
+                />
+              </div>
             </motion.div>
           </AnimatePresence>
           {/* 角色指示線 */}
@@ -120,7 +124,7 @@ export const GroupChatStage = ({ stageData, onComplete }: Props) => {
             </motion.div>
           </AnimatePresence>
           {/* 所有角色 */}
-          <div className="relative z-10 mx-auto flex h-[35%] w-full items-end justify-around lg:w-3/4">
+          <div className="relative z-10 mx-auto flex h-[30%] w-full items-end justify-around sm:h-[35%] lg:w-3/4">
             {roles.map((role) => {
               const initial = lastActiveRole ? 'show' : 'hidden';
               let animate = 'show';
@@ -147,7 +151,7 @@ export const GroupChatStage = ({ stageData, onComplete }: Props) => {
                     alt={role.name}
                     className="mx-auto max-h-[calc(100%-2rem)] max-w-[90%]"
                   />
-                  <p className="pt-2 text-center text-lg text-assist1 lg:text-xl">
+                  <p className="pt-2 text-center text-sm text-assist1 sm:text-lg lg:text-xl">
                     {role.name}
                   </p>
                 </motion.div>

@@ -261,7 +261,7 @@ const meetingItem = ({
       ref={provided.innerRef}
       {...provided.draggableProps}
       {...provided.dragHandleProps}
-      className={`flex h-18 w-56 items-center justify-center rounded-full bg-primary3 text-base leading-none text-assist1 sm:text-xl md:text-2xl ${className}`}
+      className={`relative flex h-18 w-56 items-center justify-center rounded-full bg-primary3 text-base leading-none text-assist1 sm:text-xl md:text-2xl ${className}`}
     >
       {meetingItem.text}
     </div>

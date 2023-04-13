@@ -169,7 +169,7 @@ export const SprintFlowStage = ({ stageData, onComplete }: Props) => {
 
   return (
     <div className="h-full w-auto pb-8">
-      <div className="mt-12 w-full min-w-[22rem] rounded-4xl bg-assist1 px-4 pt-12 pb-10 xl:px-10">
+      <div className="mt-12 w-full rounded-4xl bg-assist1 px-4 pt-12 pb-10 xl:px-10">
         <DragDropContext onDragEnd={handleDragEnd}>
           {showResult && (
             <motion.div
@@ -206,6 +206,7 @@ export const SprintFlowStage = ({ stageData, onComplete }: Props) => {
           )}
           <div className="overflow-auto">
             <div className="relative w-fit">
+              {/* Scrum 圖 */}
               <svg
                 width="1140"
                 height="400"
@@ -307,22 +308,22 @@ export const SprintFlowStage = ({ stageData, onComplete }: Props) => {
               <SprintFlowBox
                 key={dndState.space01.id}
                 space={dndState.space01}
-                className="absolute top-[74.5%] left-[18%] bg-primary1"
+                className="!absolute top-[74.5%] left-[18%] bg-primary1"
               />
               <SprintFlowBox
                 key={dndState.space02.id}
                 space={dndState.space02}
-                className="absolute top-[23.5%] left-[63%] bg-assist1"
+                className="!absolute top-[23.5%] left-[63%] bg-assist1"
               />
               <SprintFlowBox
                 key={dndState.space03.id}
                 space={dndState.space03}
-                className="absolute top-[74.5%] left-[58%] bg-primary1"
+                className="!absolute top-[74.5%] left-[58%] bg-primary1"
               />
               <SprintFlowBox
                 key={dndState.space04.id}
                 space={dndState.space04}
-                className="absolute top-[74.5%] left-[79%] bg-primary1"
+                className="!absolute top-[74.5%] left-[79%] bg-primary1"
               />
             </div>
           </div>

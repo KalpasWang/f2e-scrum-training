@@ -123,13 +123,14 @@ export const SprintListDnDStage = ({ stageData, onComplete }: Props) => {
   }, [dndState]);
 
   useEffect(() => {
-    if (currentPoints > stageData.maxPoints && btnState.type === 'default') {
+    if (currentPoints > stageData.maxPoints && btnState.type !== 'disabled') {
       setBtnState({ type: 'disabled', text: stageData.exceed });
-    } else if (currentPoints === 0 && btnState.type === 'default') {
+    } else if (currentPoints === 0 && btnState.type !== 'disabled') {
       setBtnState({ type: 'disabled', text: stageData.zero });
     } else if (
       currentPoints <= stageData.maxPoints &&
-      btnState.type === 'disabled'
+      currentPoints > 0 &&
+      btnState.type !== 'default'
     ) {
       setBtnState({ type: 'default', text: stageData.action });
     }
