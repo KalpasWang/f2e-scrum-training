@@ -76,10 +76,10 @@ export const GroupChatStage = ({ stageData, onComplete }: Props) => {
               exit={{ display: 'none' }}
               animate={lastActiveRole ? 'dialogShow' : 'dialogFirstShow'}
               variants={variants}
-              className="relative z-10 mx-auto h-[45%] w-[calc(100%-32px)] overflow-visible"
+              className="relative z-10 mx-auto h-[45%] w-[calc(100%-32px)] overflow-visible sm:h-[40%]"
             >
               <div
-                className={`flex h-max min-h-full flex-col gap-2 rounded-3xl border-3 bg-assist1 p-2 sm:h-[40%] sm:flex-row sm:gap-4 sm:p-4 md:w-4/5 lg:px-6 lg:py-8 ${
+                className={`mx-auto flex h-max min-h-full flex-col gap-2 rounded-3xl border-3 bg-assist1 p-2 sm:flex-row sm:gap-4 sm:p-4 md:w-4/5 lg:px-6 lg:py-8 ${
                   border[activeRole.color]
                 }`}
               >
@@ -104,7 +104,7 @@ export const GroupChatStage = ({ stageData, onComplete }: Props) => {
               exit={{ display: 'none' }}
               animate={lastActiveRole ? 'indicatorShow' : 'dialogFirstShow'}
               variants={variants}
-              className="relative -top-9 mx-auto flex h-1/4 w-4/5 justify-between lg:w-3/5"
+              className="relative mx-auto flex h-1/4 w-4/5 justify-between sm:-top-9 lg:w-3/5"
             >
               {roles.map((role) => {
                 return (

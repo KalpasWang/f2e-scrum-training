@@ -218,6 +218,7 @@ export type RetroItem = {
   id: string;
   text: string;
   truth: boolean;
+  checked: boolean;
 };
 
 export type PrimaryColor = 'primary1' | 'primary2' | 'primary3';

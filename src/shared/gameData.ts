@@ -493,11 +493,13 @@ const gamData: GameData = {
           id: 'good01',
           text: '這次我幫很多人救火欸！',
           truth: false,
+          checked: false,
         },
         {
           id: 'good02',
           text: '大家在開發上都會互相 Cover，讓任務都可以準時完成！',
           truth: true,
+          checked: false,
         },
       ],
       bads: [
@@ -505,11 +507,13 @@ const gamData: GameData = {
           id: 'bad01',
           text: '可以記錄這次的開發時間，讓預估團隊點數可以更精準。',
           truth: true,
+          checked: false,
         },
         {
           id: 'bad02',
           text: '開發預估時間不準確，請後端下次改進，以免影響到我。',
           truth: false,
+          checked: false,
         },
       ],
       action: '完成挑戰',
