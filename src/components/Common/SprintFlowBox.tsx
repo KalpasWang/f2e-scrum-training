@@ -22,10 +22,11 @@ export const SprintFlowBox = ({
       {(provided) => {
         return (
           <div
-            className={`flex h-18 w-56 flex-col items-center justify-center rounded-full border-3 border-dashed border-primary3 text-primary3 ${className}`}
+            className={`relative flex h-18 w-56 flex-col items-center justify-center rounded-full border-0 border-dashed border-primary3 text-primary3 ${className}`}
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
+            <span className="absolute inset-0 rounded-full border-3 border-dashed border-primary3"></span>
             {placeholder && (
               <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
                 {placeholder}

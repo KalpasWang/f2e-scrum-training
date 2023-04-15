@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Button, CheckItem } from '../Common';
+import { Button, ButtonType, CheckItem } from '../Common';
 import { Message } from '../Common/Message';
 import poSit from '../../assets/poSit.svg';
-import { RetroData } from '../../shared/types';
+import { RetroData, RetroItem } from '../../shared/types';
+import { clone } from '../../shared/utils';
+
+type BtnState = {
+  type: ButtonType;
+  text: string;
+};
 
 type Props = {
   stageData: RetroData;
@@ -11,7 +17,39 @@ type Props = {
 };
 
 export const RetroStage = ({ stageData, onComplete }: Props) => {
-  // const [btnState, setBtnState] = useState('disabled');
+  const [btnState, setBtnState] = useState<BtnState>({
+    type: 'disabled',
+    text: stageData.action || '完成挑戰',
+  });
+  const [goods, setGoods] = useState<RetroItem[]>();
+  const [bads, setBads] = useState<RetroItem[]>();
+  const [loaded, setLoaded] = useState(false);
+
+  const img = new Image();
+  img.src = poSit;
+  img.onload = () => setLoaded(true);
+
+  if (stageData.goods && stageData.bads && !goods && !bads) {
+    setGoods(clone(stageData.goods));
+    setBads(clone(stageData.bads));
+  }
+
+  useEffect(() => {
+    if (!goods || !bads) return;
+    const allItems = goods.concat(bads);
+    const isCorrect = allItems.every((item) => item.checked === item.truth);
+    if (isCorrect) {
+      setBtnState({ type: 'default', text: stageData.action as string });
+    } else if (allItems.every((item) => !item.checked)) {
+      setBtnState({ type: 'disabled', text: stageData.action as string });
+    } else {
+      setBtnState({ type: 'disabled', text: stageData.failMessage as string });
+    }
+  }, [goods, bads]);
+
+  if (!loaded) {
+    return <></>;
+  }
 
   return (
     <div>
@@ -34,7 +72,7 @@ export const RetroStage = ({ stageData, onComplete }: Props) => {
           height="8"
           viewBox="0 0 44 8"
           fill="none"
-          className="basis-1/12 -translate-y-6 rotate-90 md:rotate-0 lg:basis-auto"
+          className="basis-auto -translate-y-6 rotate-90 md:rotate-0"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
@@ -68,35 +106,49 @@ export const RetroStage = ({ stageData, onComplete }: Props) => {
               <h2 className="mb-6 text-center text-3xl text-primary3">
                 做得好的地方
               </h2>
-              {stageData.goods &&
-                stageData.goods.map((good) => {
-                  return (
-                    <CheckItem key={good.id} className="mb-6">
-                      {good.text}
-                    </CheckItem>
-                  );
-                })}
+              {goods?.map((good, i) => {
+                return (
+                  <CheckItem
+                    key={good.id}
+                    checked={good.checked}
+                    onChange={(checked) => {
+                      goods[i].checked = checked;
+                      setGoods([...goods]);
+                    }}
+                    className="mb-6"
+                  >
+                    {good.text}
+                  </CheckItem>
+                );
+              })}
             </div>
             <div className="w-full p-1 lg:p-11">
               <h2 className="mb-6 mt-5 text-center text-3xl text-primary3 lg:mt-0">
                 有哪些可以做得更好
               </h2>
-              {stageData.bads &&
-                stageData.bads.map((bad) => {
-                  return (
-                    <CheckItem key={bad.id} className="mb-6">
-                      {bad.text}
-                    </CheckItem>
-                  );
-                })}
+              {bads?.map((bad, i) => {
+                return (
+                  <CheckItem
+                    key={bad.id}
+                    checked={bad.checked}
+                    onChange={(checked) => {
+                      bads[i].checked = checked;
+                      setBads([...bads]);
+                    }}
+                    className="mb-6"
+                  >
+                    {bad.text}
+                  </CheckItem>
+                );
+              })}
             </div>
           </div>
         )}
       </div>
       {stageData.show && (
         <div className="pt-3 pb-8 text-center">
-          <Button type="default" onClick={onComplete}>
-            {stageData.action}
+          <Button type={btnState.type} onClick={onComplete}>
+            {btnState.text}
           </Button>
         </div>
       )}

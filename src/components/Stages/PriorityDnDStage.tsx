@@ -86,6 +86,7 @@ export const PriorityDnDStage = ({ stageData, onComplete }: Props) => {
     backlog: backlogCopy,
   });
   const [btnState, setBtnState] = useState<ButtonType>('disabled');
+  const [loaded, setLoaded] = useState(false);
 
   function isValidLocation(arg: DraggableLocation): arg is MyDraggableLocation {
     const id = arg.droppableId;
@@ -128,8 +129,16 @@ export const PriorityDnDStage = ({ stageData, onComplete }: Props) => {
     }
   }, [dndState, btnState]);
 
+  const img = new Image();
+  img.src = poSit;
+  img.onload = () => setLoaded(true);
+
+  if (!loaded) {
+    return <></>;
+  }
+
   return (
-    <div>
+    <>
       {/* PO 小敏的對話框 */}
       <motion.div
         initial={{ opacity: 0, y: -80 }}
@@ -140,21 +149,22 @@ export const PriorityDnDStage = ({ stageData, onComplete }: Props) => {
         <img
           key={stageData.roleImg}
           className="mr-4 basis-1/2 md:max-w-[25%] md:basis-1/4 lg:max-w-none lg:basis-auto"
+          onLoad={() => setLoaded(true)}
           src={poSit}
           alt="role"
         />
         <motion.svg
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
+          transition={{ delay: 1.75, duration: 1 }}
           width="44"
           height="8"
           viewBox="0 0 44 8"
           fill="none"
-          className="basis-1/12 -translate-y-6 rotate-90 md:rotate-0 lg:basis-auto"
+          className="basis-auto -translate-y-6 rotate-90 md:rotate-0"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path
+          <motion.path
             d="M2 2C8.51163 5.01849 25.6279 9.24439 42 2"
             stroke="#FF60FA"
             strokeWidth="3"
@@ -167,6 +177,7 @@ export const PriorityDnDStage = ({ stageData, onComplete }: Props) => {
           text={stageData.message}
           delay={1.5}
           img={stageData.messageImg}
+          scrolling={false}
           className="basis-2/3 -translate-y-6 bg-assist2"
         />
       </motion.div>
@@ -174,7 +185,7 @@ export const PriorityDnDStage = ({ stageData, onComplete }: Props) => {
       <DragDropContext onDragEnd={handleDragEnd}>
         <div className="relative -top-16 flex h-full w-full flex-col items-stretch justify-between gap-4 lg:flex-row">
           {/* 候選貓貓清單 */}
-          <div className="w-full rounded-5xl bg-assist1 px-6 pb-8 pt-16 xl:basis-5/12">
+          <div className="w-full rounded-5xl bg-assist1 px-1 pb-8 pt-16 md:px-6 xl:basis-5/12">
             <DroppableBox
               id="candidates"
               items={dndState.candidates.items}
@@ -182,7 +193,7 @@ export const PriorityDnDStage = ({ stageData, onComplete }: Props) => {
             />
           </div>
           {/* 優先順序清單 */}
-          <div className="flex w-full flex-col rounded-5xl bg-assist1 px-6 py-8 xl:basis-5/12">
+          <div className="flex w-full flex-col rounded-5xl bg-assist1 px-1 py-8 md:px-6 xl:basis-5/12">
             <h1 className="mb-7 text-center text-3xl text-assist2">
               {dndState.backlog.title}
             </h1>
@@ -212,6 +223,6 @@ export const PriorityDnDStage = ({ stageData, onComplete }: Props) => {
           {stageData.action}
         </Button>
       </div>
-    </div>
+    </>
   );
 };

@@ -36,7 +36,16 @@ export const DialogStage = ({ stageData, onComplete }: DialogProps) => {
             onInit={(typewriter) => {
               typewriter.pauseFor(1500).typeString(texts).start();
             }}
-            options={{ delay: 60 }}
+            options={{
+              delay: 70,
+              onCreateTextNode: (character) => {
+                window.scrollTo({
+                  top: document.body.scrollHeight,
+                  behavior: 'smooth',
+                });
+                return document.createTextNode(character);
+              },
+            }}
           />
         </div>
         <Button type={stageData.button} onClick={onComplete}>

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '../Common';
 import { ChatRole, GroupChatData } from '../../shared/types';
@@ -9,21 +9,34 @@ type Props = {
 };
 
 export const GroupChatStage = ({ stageData, onComplete }: Props) => {
-  const lastActiveRole = useRef<ChatRole>();
+  const [lastActiveRole, setLastActiveRole] = useState<ChatRole>();
   const { roles, active } = stageData;
   const border = {
     primary1: 'border-primary1',
     primary2: 'border-primary2',
     primary3: 'border-primary3',
   };
-  const spacers: (ChatRole | null)[] = roles.slice();
   const activeRole = roles[active.roleIdx];
 
-  spacers.splice(2, 0, null);
+  useEffect(() => {
+    if (lastActiveRole?.id !== activeRole.id) {
+      setLastActiveRole(activeRole);
+    }
+  });
 
   useEffect(() => {
-    lastActiveRole.current = activeRole;
-  });
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: 'smooth',
+    });
+  }, [lastActiveRole]);
+
+  const indicators: Record<ChatRole['id'], string> = {
+    po: 'mx-auto',
+    sm: 'mr-auto',
+    rd1: 'ml-auto',
+    rd2: 'mr-auto sm:ml-auto',
+  };
 
   const variants = {
     hidden: { opacity: 0, transition: { duration: 0.2 } },
@@ -44,37 +57,43 @@ export const GroupChatStage = ({ stageData, onComplete }: Props) => {
       opacity: [0, 1],
       transition: { delay: 0.75, duration: 0.5, times: [0, 0.5] },
     },
+    indicatorShow: {
+      opacity: [0, 1],
+      transition: { delay: 0.75, duration: 0.75, times: [0, 0.75] },
+    },
   };
 
   return (
     <div className="h-full">
-      <div className="h-screen-160 relative mt-10">
+      <div className="relative mt-10 h-[calc(100vh-160px)] min-h-[25rem] min-w-72">
         <div className="relative h-2/3 rounded-3xl bg-assist1"></div>
-        <div className="absolute inset-0 flex flex-col items-center justify-end pb-4">
+        <div className="absolute inset-0 py-4">
           {/* 對話框 */}
           <AnimatePresence>
             <motion.div
               key={activeRole.id}
               initial="hidden"
               exit={{ display: 'none' }}
-              animate={
-                lastActiveRole.current ? 'dialogShow' : 'dialogFirstShow'
-              }
+              animate={lastActiveRole ? 'dialogShow' : 'dialogFirstShow'}
               variants={variants}
-              className={`relative z-10 mx-auto w-4/5 min-w-72 basis-1/3 rounded-3xl border-3 bg-assist1 ${
-                border[activeRole.color]
-              } flex flex-col gap-4 px-6 py-8 sm:flex-row`}
+              className="relative z-10 mx-auto h-[45%] w-[calc(100%-32px)] overflow-visible sm:h-[40%]"
             >
-              <p
-                className="flex-grow text-assist2"
-                dangerouslySetInnerHTML={{ __html: active.text }}
-              ></p>
-              <Button
-                type="next"
-                color={activeRole.color}
-                size="sm"
-                onClick={onComplete}
-              />
+              <div
+                className={`mx-auto flex h-max min-h-full flex-col gap-2 rounded-3xl border-3 bg-assist1 p-2 sm:flex-row sm:gap-4 sm:p-4 md:w-4/5 lg:px-6 lg:py-8 ${
+                  border[activeRole.color]
+                }`}
+              >
+                <p
+                  className="flex-grow text-assist2"
+                  dangerouslySetInnerHTML={{ __html: active.text }}
+                ></p>
+                <Button
+                  type="next"
+                  color={activeRole.color}
+                  size="sm"
+                  onClick={onComplete}
+                />
+              </div>
             </motion.div>
           </AnimatePresence>
           {/* 角色指示線 */}
@@ -83,27 +102,20 @@ export const GroupChatStage = ({ stageData, onComplete }: Props) => {
               key={activeRole.id}
               initial="hidden"
               exit={{ display: 'none' }}
-              animate={
-                lastActiveRole.current ? 'dialogShow' : 'dialogFirstShow'
-              }
+              animate={lastActiveRole ? 'indicatorShow' : 'dialogFirstShow'}
               variants={variants}
-              className="relative -top-1 mx-auto flex h-1/5 w-3/5 min-w-72 flex-shrink basis-1/5 justify-between lg:h-1/4 lg:basis-1/4"
+              className="relative mx-auto flex h-1/4 w-4/5 justify-between sm:-top-9 lg:w-3/5"
             >
-              {spacers.map((role, i) => {
+              {roles.map((role) => {
                 return (
-                  <div
-                    key={role?.id || i}
-                    className={
-                      role
-                        ? 'basis-1/6 lg:basis-1/12'
-                        : 'basis-1/3 lg:basis-2/3'
-                    }
-                  >
-                    {activeRole.id === role?.id && (
+                  <div key={role.id} className="basis-1/4">
+                    {activeRole.id === role.id && (
                       <img
                         src={require(`../../assets/${role.id}-line.svg`)}
                         alt="indicator"
-                        className="mx-auto max-h-full max-w-full"
+                        className={`max-h-full max-w-full ${
+                          indicators[role.id]
+                        }`}
                       />
                     )}
                   </div>
@@ -111,14 +123,15 @@ export const GroupChatStage = ({ stageData, onComplete }: Props) => {
               })}
             </motion.div>
           </AnimatePresence>
-          <div className="flex min-h-[10rem] w-full basis-1/5 items-end justify-around sm:basis-1/3 md:w-3/4">
+          {/* 所有角色 */}
+          <div className="relative z-10 mx-auto flex h-[30%] w-full items-end justify-around sm:h-[35%] lg:w-3/4">
             {roles.map((role) => {
-              const initial = lastActiveRole.current ? 'show' : 'hidden';
+              const initial = lastActiveRole ? 'show' : 'hidden';
               let animate = 'show';
-              if (lastActiveRole.current?.id === role.id) {
+              if (lastActiveRole?.id === role.id) {
                 animate = 'down';
               }
-              if (activeRole.id === role.id && !lastActiveRole.current) {
+              if (activeRole.id === role.id && !lastActiveRole) {
                 animate = 'showAndUp';
               }
               if (activeRole.id === role.id) {
@@ -136,9 +149,9 @@ export const GroupChatStage = ({ stageData, onComplete }: Props) => {
                   <img
                     src={require('../../assets/' + role.img)}
                     alt={role.name}
-                    className="mx-auto max-h-[calc(100%-2rem)] max-w-full"
+                    className="mx-auto max-h-[calc(100%-2rem)] max-w-[90%]"
                   />
-                  <p className="pt-2 text-center text-lg text-assist1 lg:text-xl">
+                  <p className="pt-2 text-center text-sm text-assist1 sm:text-lg lg:text-xl">
                     {role.name}
                   </p>
                 </motion.div>

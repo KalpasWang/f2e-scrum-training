@@ -67,11 +67,11 @@ const purpleCat = ({ provided, snapshot, className, children }: CatProps) => {
             {/* 腳外框1 */}
             <span className="absolute left-1/4 bottom-2 h-16 w-8 translate-y-[2.875rem] -translate-x-[0.125rem] rotate-16 rounded-full border-4 border-dashed border-assist2 bg-primary1"></span>
             {/* 腳外框2 */}
-            <span className="absolute left-[32%] bottom-2 h-16 w-8 translate-y-[2.875rem] -translate-x-[0.125rem] rotate-16 rounded-full border-4 border-dashed border-assist2 bg-primary1"></span>
+            <span className="absolute left-[35%] bottom-2 h-16 w-8 translate-y-[2.875rem] -translate-x-[0.125rem] rotate-16 rounded-full border-4 border-dashed border-assist2 bg-primary1 md:left-[32%]"></span>
             {/* 腳外框3 */}
             <span className="absolute right-[8%] bottom-2 h-16 w-8 translate-y-[2.875rem] translate-x-[0.125rem] rotate-16 rounded-full border-4 border-dashed border-assist2 bg-primary1"></span>
             {/* 腳外框4 */}
-            <span className="absolute right-[15%] bottom-2 h-16 w-8 translate-y-[2.875rem] translate-x-[0.125rem] rotate-16 rounded-full border-4 border-dashed border-assist2 bg-primary1"></span>
+            <span className="absolute right-[18%] bottom-2 h-16 w-8 translate-y-[2.875rem] translate-x-[0.125rem] rotate-16 rounded-full border-4 border-dashed border-assist2 bg-primary1 md:right-[15%]"></span>
           </>
         )}
         {/* 貓主體 */}
@@ -106,11 +106,11 @@ const purpleCat = ({ provided, snapshot, className, children }: CatProps) => {
               {/* 腳1 */}
               <span className="absolute left-1/4 bottom-2 h-12 w-6 translate-y-11 rotate-16 rounded-full bg-primary1"></span>
               {/* 腳2 */}
-              <span className="absolute left-[32%] bottom-2 h-12 w-6 translate-y-11 rotate-16 rounded-full bg-primary1"></span>
+              <span className="absolute left-[35%] bottom-2 h-12 w-6 translate-y-11 rotate-16 rounded-full bg-primary1 md:left-[32%]"></span>
               {/* 腳3 */}
               <span className="absolute right-[8%] bottom-2 h-12 w-6 translate-y-11 rotate-16 rounded-full bg-primary1"></span>
               {/* 腳4 */}
-              <span className="absolute right-[15%] bottom-2 h-12 w-6 translate-y-11 rotate-16 rounded-full bg-primary1"></span>
+              <span className="absolute right-[18%] bottom-2 h-12 w-6 translate-y-11 rotate-16 rounded-full bg-primary1 md:right-[15%]"></span>
             </>
           )}
         </div>
@@ -141,11 +141,11 @@ const yellowCat = ({ provided, snapshot, className, children }: CatProps) => {
             {/* 腳外框1 */}
             <span className="absolute right-1/4 bottom-2 h-16 w-8 translate-y-[2.875rem] translate-x-[0.125rem] -rotate-16 rounded-full border-4 border-dashed border-assist2 bg-primary3"></span>
             {/* 腳外框2 */}
-            <span className="absolute right-[32%] bottom-2 h-16 w-8 translate-y-[2.875rem] translate-x-[0.125rem] -rotate-16 rounded-full border-4 border-dashed border-assist2 bg-primary3"></span>
+            <span className="absolute right-[35%] bottom-2 h-16 w-8 translate-y-[2.875rem] translate-x-[0.125rem] -rotate-16 rounded-full border-4 border-dashed border-assist2 bg-primary3 md:right-[32%]"></span>
             {/* 腳外框3 */}
             <span className="absolute left-[8%] bottom-2 h-16 w-8 translate-y-[2.875rem] -translate-x-[0.125rem] -rotate-16 rounded-full border-4 border-dashed border-assist2 bg-primary3"></span>
             {/* 腳外框4 */}
-            <span className="absolute left-[15%] bottom-2 h-16 w-8 translate-y-[2.875rem] -translate-x-[0.125rem] -rotate-16 rounded-full border-4 border-dashed border-assist2 bg-primary3"></span>
+            <span className="absolute left-[18%] bottom-2 h-16 w-8 translate-y-[2.875rem] -translate-x-[0.125rem] -rotate-16 rounded-full border-4 border-dashed border-assist2 bg-primary3 md:left-[15%]"></span>
           </>
         )}
         {/* 貓主體 */}
@@ -180,11 +180,11 @@ const yellowCat = ({ provided, snapshot, className, children }: CatProps) => {
               {/* 腳1 */}
               <span className="absolute right-1/4 bottom-2 h-12 w-6 translate-y-11 -rotate-16 rounded-full bg-primary3"></span>
               {/* 腳2 */}
-              <span className="absolute right-[32%] bottom-2 h-12 w-6 translate-y-11 -rotate-16 rounded-full bg-primary3"></span>
+              <span className="absolute right-[35%] bottom-2 h-12 w-6 translate-y-11 -rotate-16 rounded-full bg-primary3 md:right-[32%]"></span>
               {/* 腳3 */}
               <span className="absolute left-[8%] bottom-2 h-12 w-6 translate-y-11 -rotate-16 rounded-full bg-primary3"></span>
               {/* 腳4 */}
-              <span className="absolute left-[15%] bottom-2 h-12 w-6 translate-y-11 -rotate-16 rounded-full bg-primary3"></span>
+              <span className="absolute left-[18%] bottom-2 h-12 w-6 translate-y-11 -rotate-16 rounded-full bg-primary3 md:left-[15%]"></span>
             </>
           )}
         </div>
@@ -261,7 +261,7 @@ const meetingItem = ({
       ref={provided.innerRef}
       {...provided.draggableProps}
       {...provided.dragHandleProps}
-      className={`flex h-18 w-56 items-center justify-center rounded-full bg-primary3 text-base leading-none text-assist1 sm:text-xl md:text-2xl ${className}`}
+      className={`relative flex h-18 w-56 items-center justify-center rounded-full bg-primary3 text-base leading-none text-assist1 sm:text-xl md:text-2xl ${className}`}
     >
       {meetingItem.text}
     </div>

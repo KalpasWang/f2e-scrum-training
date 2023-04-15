@@ -31,7 +31,7 @@ export const SprintMeetingStage = ({ stageData, onComplete }: Props) => {
                 custom={i}
                 variants={variants}
                 key={item.title}
-                className="basis-1/3 rounded-3xl border-3 border-primary1 py-4 px-2 text-base text-assist2 lg:py-10 lg:px-6 lg:text-xl"
+                className="basis-1/3 rounded-3xl border-3 border-primary1 py-4 px-2 text-center text-base text-assist2 lg:py-10 lg:px-6 lg:text-xl"
               >
                 <h2 className="mb-4 text-center text-xl leading-none text-primary3 lg:text-3xl">
                   {item.title}
@@ -40,7 +40,7 @@ export const SprintMeetingStage = ({ stageData, onComplete }: Props) => {
                   {item.subtitle}
                 </h4>
                 <p>{item.overview}</p>
-                <ul className="">
+                <ul className="flex flex-col items-center">
                   {item?.list?.map((li) => {
                     return (
                       <li

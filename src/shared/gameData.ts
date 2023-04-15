@@ -8,7 +8,7 @@ const gamData: GameData = {
   stages: [
     {
       name: 'DialogStage',
-      text: '勇者！歡迎來到TT資訊王國，我是TT King<br />在正式加入王國的敏捷騎士團以前，需要請你先了解騎士團的<span class="text-primary3">Scrum流程與精神</span><br /><br />請跟隨我一起通過Scrum新手村的挑戰任務吧！',
+      text: '勇者！歡迎來到TT資訊王國，我是TT King<br /><br />在正式加入王國的敏捷騎士團以前，需要請你先了解騎士團的<span class="text-primary3">Scrum流程與精神</span><br /><br />請跟隨我一起通過Scrum新手村的挑戰任務吧！',
       roleImg: 'king',
       button: 'default',
       action: '開始任務',
@@ -29,7 +29,7 @@ const gamData: GameData = {
     {
       name: 'PriorityDnDStage',
       message:
-        '請把需求貓貓拖拉到右邊產品代辦清單，並調整代辦的優先度順序～<br />TT王國也推薦使用 <span class="text-primary1">Jira</span> 來做任務的管理喔！',
+        '請把需求貓貓拖拉到右邊產品代辦清單，並調整代辦的優先度順序～<br /><br />TT王國也推薦使用 <span class="text-primary1">Jira</span> 來做任務的管理喔！',
       messageColor: 'primary2',
       messageImg: 'jira_logo.png',
       roleImg: 'poSit.svg',
@@ -311,6 +311,7 @@ const gamData: GameData = {
       maxPoints: 20,
       action: '完成清單',
       exceed: '超過20點！請再調整清單',
+      zero: '請至少加入一個項目',
     },
     {
       name: 'MessagesStage',
@@ -492,11 +493,13 @@ const gamData: GameData = {
           id: 'good01',
           text: '這次我幫很多人救火欸！',
           truth: false,
+          checked: false,
         },
         {
           id: 'good02',
           text: '大家在開發上都會互相 Cover，讓任務都可以準時完成！',
           truth: true,
+          checked: false,
         },
       ],
       bads: [
@@ -504,11 +507,13 @@ const gamData: GameData = {
           id: 'bad01',
           text: '可以記錄這次的開發時間，讓預估團隊點數可以更精準。',
           truth: true,
+          checked: false,
         },
         {
           id: 'bad02',
           text: '開發預估時間不準確，請後端下次改進，以免影響到我。',
           truth: false,
+          checked: false,
         },
       ],
       action: '完成挑戰',

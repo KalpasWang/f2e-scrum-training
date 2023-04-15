@@ -66,6 +66,7 @@ export type SprintListDnDData = {
   maxPoints: number;
   action: string;
   exceed: string;
+  zero: string;
 };
 
 export type MessagesData = {
@@ -185,7 +186,7 @@ export type MeetingSpace = {
 
 // GroupChatStage 用
 export type ChatRole = {
-  id: string;
+  id: 'po' | 'sm' | 'rd1' | 'rd2';
   name: string;
   img: string;
   color: 'primary1' | 'primary2' | 'primary3';
@@ -194,7 +195,7 @@ export type ChatRole = {
 // MessagesStage 用
 export type AvatarMessage = {
   id: string;
-  avatar: string;
+  avatar: 'avatarRD1' | 'avatarRD2' | 'newbie';
   text: string;
   color: 'primary1' | 'primary2' | 'primary3';
   direction: 'left' | 'right';
@@ -217,6 +218,7 @@ export type RetroItem = {
   id: string;
   text: string;
   truth: boolean;
+  checked: boolean;
 };
 
 export type PrimaryColor = 'primary1' | 'primary2' | 'primary3';

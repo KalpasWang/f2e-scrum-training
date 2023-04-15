@@ -1,16 +1,21 @@
 import classNames from 'classnames';
-import React, { ChangeEvent, ReactNode, useState } from 'react';
+import React, { ChangeEvent, ReactNode } from 'react';
 
 type CheckItemProps = {
   className: string;
+  checked: boolean;
+  onChange: (checked: boolean) => void;
   children: ReactNode;
 };
 
-export const CheckItem = ({ children, className }: CheckItemProps) => {
-  const [checked, setChecked] = useState(false);
-
+export const CheckItem = ({
+  children,
+  checked,
+  onChange,
+  className,
+}: CheckItemProps) => {
   function changeHandler({ target }: ChangeEvent<HTMLInputElement>) {
-    setChecked(target.checked);
+    onChange(target.checked);
   }
 
   const container = classNames(
