@@ -33,6 +33,7 @@ specifiers:
   tailwindcss: ^3.1.8
   typescript: ^4.9.5
   typewriter-effect: ^2.19.0
+  use-sound: ^4.0.1
   web-vitals: ^2.1.4
 
 dependencies:
@@ -51,6 +52,7 @@ dependencies:
   react-scripts: 5.0.1_qy2rn3axir6ui2dcv757elnck4
   tailwindcss: 3.1.8_postcss@8.4.18
   typewriter-effect: 2.19.0_biqbaboplfbrettd7655fr4n2y
+  use-sound: 4.0.1_react@18.2.0
   web-vitals: 2.1.4
 
 devDependencies:
@@ -5528,6 +5530,10 @@ packages:
     engines: {node: '>= 6.0.0'}
     dev: false
 
+  /howler/2.2.3:
+    resolution: {integrity: sha512-QM0FFkw0LRX1PR8pNzJVAY25JhIWvbKMBFM4gqk+QdV+kPXOhleWGCB6AiAF/goGjIHK2e/nIElplvjQwhr0jg==}
+    dev: false
+
   /hpack.js/2.1.6:
     resolution: {integrity: sha512-zJxVehUdMGIKsRaNt7apO2Gqp0BdqW5yaiGHXXmbpvxgBYVZnAql+BJb4RO5ad2MgpbZKn5G6nMnegrH1FcNYQ==}
     dependencies:
@@ -9826,6 +9832,15 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
+      react: 18.2.0
+    dev: false
+
+  /use-sound/4.0.1_react@18.2.0:
+    resolution: {integrity: sha512-hykJ86kNcu6y/FzlSHcQxhjSGMslZx2WlfLpZNoPbvueakv4OF3xPxEtGV2YmculrIaH0tPp9LtG4jgy17xMWg==}
+    peerDependencies:
+      react: '>=16.8'
+    dependencies:
+      howler: 2.2.3
       react: 18.2.0
     dev: false
 
