@@ -4,6 +4,7 @@ specifiers:
   '@testing-library/jest-dom': ^5.16.5
   '@testing-library/react': ^13.4.0
   '@testing-library/user-event': ^13.5.0
+  '@types/canvas-confetti': ^1.6.0
   '@types/jest': ^29.2.3
   '@types/node': ^18.15.3
   '@types/react': ^18.0.28
@@ -12,6 +13,7 @@ specifiers:
   '@typescript-eslint/eslint-plugin': ^5.55.0
   '@typescript-eslint/parser': ^5.55.0
   autoprefixer: ^10.4.12
+  canvas-confetti: ^1.6.0
   classnames: ^2.3.2
   eslint: ^8.36.0
   eslint-config-prettier: ^8.5.0
@@ -38,6 +40,7 @@ dependencies:
   '@testing-library/react': 13.4.0_biqbaboplfbrettd7655fr4n2y
   '@testing-library/user-event': 13.5.0_aaq3sbffpfe3jnxzm2zngsddei
   autoprefixer: 10.4.12_postcss@8.4.18
+  canvas-confetti: 1.6.0
   classnames: 2.3.2
   framer-motion: 7.6.1_biqbaboplfbrettd7655fr4n2y
   postcss: 8.4.18
@@ -51,6 +54,7 @@ dependencies:
   web-vitals: 2.1.4
 
 devDependencies:
+  '@types/canvas-confetti': 1.6.0
   '@types/jest': 29.2.3
   '@types/node': 18.15.3
   '@types/react': 18.0.28
@@ -2424,6 +2428,10 @@ packages:
       '@types/node': 18.15.3
     dev: false
 
+  /@types/canvas-confetti/1.6.0:
+    resolution: {integrity: sha512-Yq6rIccwcco0TLD5SMUrIM7Fk7Fe/C0jmNRxJJCLtAF6gebDkPuUjK5EHedxecm69Pi/aA+It39Ux4OHmFhjRw==}
+    dev: true
+
   /@types/connect-history-api-fallback/1.3.5:
     resolution: {integrity: sha512-h8QJa8xSb1WD4fpKBDcATDNGXghFj6/3GRWG6dhmRcu0RX1Ubasur2Uvx5aeEwlf0MwblEC2bMzzMQntxnw/Cw==}
     dependencies:
@@ -3605,6 +3613,10 @@ packages:
 
   /caniuse-lite/1.0.30001420:
     resolution: {integrity: sha512-OnyeJ9ascFA9roEj72ok2Ikp7PHJTKubtEJIQ/VK3fdsS50q4KWy+Z5X0A1/GswEItKX0ctAp8n4SYDE7wTu6A==}
+    dev: false
+
+  /canvas-confetti/1.6.0:
+    resolution: {integrity: sha512-ej+w/m8Jzpv9Z7W7uJZer14Ke8P2ogsjg4ZMGIuq4iqUOqY2Jq8BNW42iGmNfRwREaaEfFIczLuZZiEVSYNHAA==}
     dev: false
 
   /case-sensitive-paths-webpack-plugin/2.4.0:

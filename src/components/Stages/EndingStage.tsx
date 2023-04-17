@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import Typewriter from 'typewriter-effect';
 import { motion } from 'framer-motion';
 import { Button } from '../Common';
 import { EndingData } from '../../shared/types';
+import confetti from 'canvas-confetti';
 
 type Props = {
   stageData: EndingData;
@@ -13,7 +15,7 @@ export const EndingStage = ({ stageData, onComplete }: Props) => {
     initial: { opacity: 0 },
     visible: (custom: number) => ({
       opacity: 1,
-      transition: { delay: custom * 0.2 },
+      transition: { delay: custom * 0.1 },
     }),
     yoyo: (custom: number) => ({
       y: [0, -50, 0],
@@ -27,19 +29,45 @@ export const EndingStage = ({ stageData, onComplete }: Props) => {
     }),
   };
 
+  function randomInRange(min: number, max: number): number {
+    return Math.random() * (max - min) + min;
+  }
+
+  useEffect(() => {
+    // 用 canvas-confetti 產生煙火特效
+    const duration = 3;
+    const animationEnd = Date.now() + duration * 1000;
+    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+    const interval: ReturnType<typeof setInterval> = setInterval(() => {
+      const timeLeft = animationEnd - Date.now();
+
+      if (timeLeft <= 0) {
+        return clearInterval(interval);
+      }
+
+      const particleCount = 100 * (timeLeft / (duration * 1000));
+      // since particles fall down, start a bit higher than random
+      confetti(
+        Object.assign({}, defaults, {
+          particleCount,
+          origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+        })
+      );
+      confetti(
+        Object.assign({}, defaults, {
+          particleCount,
+          origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+        })
+      );
+    }, 250);
+  }, []);
+
   return (
-    <div className="h-full">
-      <div className="relative mt-4">
-        <motion.p
-          custom={7}
-          initial="initial"
-          animate="visible"
-          variants={variants}
-          className="top-[20%] left-[57%] z-10 text-center text-3xl text-assist1 md:absolute md:text-left"
-          dangerouslySetInnerHTML={{ __html: stageData.text }}
-        ></motion.p>
+    <div className="relative h-full">
+      <div className="flex h-[calc(100vh-7rem)] items-end overflow-hidden">
         <svg
-          className="w-full"
+          className="max-h-full max-w-full"
           viewBox="0 -50 1200 815"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -361,7 +389,23 @@ export const EndingStage = ({ stageData, onComplete }: Props) => {
           </defs>
         </svg>
       </div>
-      <div className="pt-7 pb-16 text-center">
+      <motion.div
+        custom={7}
+        initial="initial"
+        animate="visible"
+        variants={variants}
+        className="absolute top-3 right-[50%] z-10 translate-x-1/2 whitespace-nowrap text-center text-xl text-assist1 md:right-auto md:left-[55%] md:top-[15%] md:translate-x-0 md:text-left md:text-2xl lg:text-3xl xl:text-5xl"
+      >
+        <Typewriter
+          onInit={(typewriter) => {
+            typewriter.pauseFor(1000).typeString(stageData.text).start();
+          }}
+          options={{
+            delay: 70,
+          }}
+        />
+      </motion.div>
+      <div className="absolute top-2/3 left-1/2 z-10 -translate-x-1/2 pt-7 pb-16 text-center">
         <Button type="default" onClick={onComplete}>
           {stageData.action}
         </Button>
