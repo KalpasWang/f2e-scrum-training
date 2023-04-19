@@ -1,18 +1,22 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import family from '../../assets/family.svg';
 import startSound from '../../assets/start.mp3';
-import useSound from 'use-sound';
 
 export const StartScene = () => {
   const navigate = useNavigate();
   const container = useRef<HTMLDivElement>(null);
-  const [playSound] = useSound(startSound);
 
   useEffect(() => {
     container.current?.focus();
   }, []);
+
+  const playSound = useCallback(() => {
+    const audio = new Audio(startSound);
+    audio.oncanplaythrough = audio.play;
+    navigate('training');
+  }, [startSound]);
 
   return (
     <motion.main
@@ -23,13 +27,8 @@ export const StartScene = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.25 }}
       exit={{ opacity: 0 }}
-      onClick={() => {
-        playSound();
-        navigate('training');
-      }}
-      onKeyPress={() => {
-        navigate('training');
-      }}
+      onClick={playSound}
+      onKeyPress={playSound}
     >
       <div className="relative h-full bg-assist1">
         <div className="absolute -inset-x-2 bottom-[5vh]">

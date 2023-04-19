@@ -26,6 +26,7 @@ import {
   SPRINT_LIST_DND,
   SPRINT_MEETING,
 } from '../../shared/constants';
+import bgMusic from '../../assets/bgmusic.mp3';
 
 export const TrainingScene = () => {
   const { state, dispatch } = useGameContext();
@@ -53,6 +54,13 @@ export const TrainingScene = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   });
+
+  useEffect(() => {
+    const audio = new Audio(bgMusic);
+    audio.loop = true;
+    audio.volume = 0.2;
+    audio.oncanplaythrough = audio.play;
+  }, []);
 
   return (
     <motion.main
