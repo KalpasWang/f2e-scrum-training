@@ -2,10 +2,13 @@ import React, { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import family from '../../assets/family.svg';
+import startSound from '../../assets/start.mp3';
+import useSound from 'use-sound';
 
 export const StartScene = () => {
   const navigate = useNavigate();
   const container = useRef<HTMLDivElement>(null);
+  const [playSound] = useSound(startSound);
 
   useEffect(() => {
     container.current?.focus();
@@ -21,6 +24,7 @@ export const StartScene = () => {
       transition={{ duration: 0.25 }}
       exit={{ opacity: 0 }}
       onClick={() => {
+        playSound();
         navigate('training');
       }}
       onKeyPress={() => {

@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import Typewriter from 'typewriter-effect';
+import useSound from 'use-sound';
 import { motion } from 'framer-motion';
 import { PrimaryColor, TextColor } from '../../shared/types';
+import TypingSound from '../../assets/typing.mp3';
 
 type MessageProps = {
   text: string;
@@ -29,6 +31,7 @@ export const Message = React.memo(function Message({
   children,
 }: MessageProps) {
   const container = useRef(null);
+  const [play, { stop }] = useSound(TypingSound, { loop: true, volume: 0.5 });
 
   const borderStyle = {
     primary1: 'border-primary1',
@@ -74,8 +77,10 @@ export const Message = React.memo(function Message({
             onInit={(typewriter) => {
               typewriter
                 .pauseFor(delay * 1000)
+                .callFunction(() => play())
                 .typeString(text)
                 .start()
+                .callFunction(() => stop())
                 .callFunction(finishCallBack);
             }}
             options={{

@@ -23,13 +23,16 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-  const [play, { stop }] = useSound(bgMusic, { loop: true, volume: 0.5 });
+  const [playMusic, { stop: stopMusic }] = useSound(bgMusic, {
+    loop: true,
+    volume: 0.5,
+  });
 
   useEffect(() => {
-    play();
+    playMusic();
 
     return () => {
-      stop();
+      stopMusic();
     };
   }, []);
 
