@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect, useState } from 'react';
+import React, { useReducer, useEffect, useState, useMemo } from 'react';
 import {
   DragDropContext,
   DraggableLocation,
@@ -8,6 +8,8 @@ import { motion } from 'framer-motion';
 import { Button, SprintFlowBox, Message, ButtonType } from '../Common';
 import rd1 from '../../assets/avatar-rd1.png';
 import { MeetingItem, MeetingSpace, SprintFlowData } from '../../shared/types';
+import successSound from '../../assets/success.mp3';
+import errorSound from '../../assets/error.mp3';
 
 type CandidateSpace = {
   id: string;
@@ -98,6 +100,10 @@ export const SprintFlowStage = ({ stageData, onComplete }: Props) => {
   const [btnState, setBtnState] = useState<ButtonType>('disabled');
   const [showResult, setShowResult] = useState(false);
   const [message, setMessage] = useState(stageData.successMessage);
+  const audioSuccess = useMemo(() => new Audio(successSound), [successSound]);
+  const audioError = useMemo(() => new Audio(errorSound), [errorSound]);
+  audioSuccess.volume = 0.5;
+  audioError.volume = 0.5;
 
   function isValidLocation(
     source: DraggableLocation
@@ -152,6 +158,9 @@ export const SprintFlowStage = ({ stageData, onComplete }: Props) => {
     if (!isCorrect) {
       dispatch({ type: 'showAnswer' });
       setMessage(stageData.failMessage);
+      audioError.play();
+    } else {
+      audioSuccess.play();
     }
     setShowResult(true);
     window.scrollTo(0, 0);

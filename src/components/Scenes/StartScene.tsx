@@ -14,7 +14,8 @@ export const StartScene = () => {
 
   const playSound = useCallback(() => {
     const audio = new Audio(startSound);
-    audio.oncanplaythrough = audio.play;
+    audio.volume = 0.5;
+    audio.play();
     navigate('training');
   }, [startSound]);
 
@@ -61,10 +62,12 @@ export const StartScene = () => {
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
           initial={{ opacity: 0 }}
           animate={{
-            opacity: 1,
+            opacity: [0, 0, 1, 1],
             transition: {
+              ease: 'linear',
               delay: 2,
               duration: 1,
+              times: [0, 0.45, 0.55, 1],
               repeat: Infinity,
             },
           }}

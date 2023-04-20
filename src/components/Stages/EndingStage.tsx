@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import Typewriter from 'typewriter-effect';
 import { motion } from 'framer-motion';
 import { Button } from '../Common';
 import { EndingData } from '../../shared/types';
 import confetti from 'canvas-confetti';
+import endingSound from '../../assets/ending.mp3';
 
 type Props = {
   stageData: EndingData;
@@ -11,6 +12,8 @@ type Props = {
 };
 
 export const EndingStage = ({ stageData, onComplete }: Props) => {
+  const audio = useMemo(() => new Audio(endingSound), [endingSound]);
+  audio.volume = 0.5;
   const variants = {
     initial: { opacity: 0 },
     visible: (custom: number) => ({
@@ -61,6 +64,12 @@ export const EndingStage = ({ stageData, onComplete }: Props) => {
         })
       );
     }, 250);
+
+    audio.play();
+
+    return () => {
+      audio.pause();
+    };
   }, []);
 
   return (

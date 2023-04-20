@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import Typewriter from 'typewriter-effect';
 import { motion } from 'framer-motion';
 import { PrimaryColor, TextColor } from '../../shared/types';
@@ -30,9 +30,11 @@ export const Message = React.memo(function Message({
   children,
 }: MessageProps) {
   const container = useRef(null);
-  const audio = new Audio(TypingSound);
+  const audio = useMemo(() => new Audio(TypingSound), [TypingSound]);
   audio.loop = true;
   audio.volume = 0.5;
+  audio.playbackRate = 0.7;
+  audio.pause();
 
   const borderStyle = {
     primary1: 'border-primary1',
@@ -56,7 +58,9 @@ export const Message = React.memo(function Message({
       });
     });
     observer.observe(container.current);
+
     return () => {
+      audio.pause();
       if (container.current && scrolling) {
         observer.unobserve(container.current);
       }
@@ -80,13 +84,11 @@ export const Message = React.memo(function Message({
                 .pauseFor(delay * 1000)
                 .callFunction(() => {
                   audio.play();
-                  console.log('typing');
                 })
                 .typeString(text)
                 .start()
                 .callFunction(() => {
                   audio.pause();
-                  console.log('end');
                 })
                 .callFunction(finishCallBack);
             }}

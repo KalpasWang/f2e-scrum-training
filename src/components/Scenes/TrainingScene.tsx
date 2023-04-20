@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useGameContext } from '../../context/gameContext';
@@ -34,7 +34,11 @@ export const TrainingScene = () => {
     state.stages[0].name
   );
   const navigate = useNavigate();
+  const audio = useMemo(() => new Audio(bgMusic), [bgMusic]);
   const currentStageData = state.stages[state.progress - 1];
+
+  audio.loop = true;
+  audio.volume = 0.2;
 
   if (currentStageName !== state.stages[state.progress - 1].name) {
     setCurrentStageName(state.stages[state.progress - 1].name);
@@ -51,15 +55,20 @@ export const TrainingScene = () => {
     dispatch({ type: 'prevStage' });
   }
 
+  if (currentStageName === 'EndingStage') {
+    audio.pause();
+  } else {
+    audio.play();
+  }
+
   useEffect(() => {
     window.scrollTo(0, 0);
   });
 
   useEffect(() => {
-    const audio = new Audio(bgMusic);
-    audio.loop = true;
-    audio.volume = 0.2;
-    audio.oncanplaythrough = audio.play;
+    return () => {
+      audio.pause();
+    };
   }, []);
 
   return (
