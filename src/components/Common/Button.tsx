@@ -19,6 +19,8 @@ export const Button = ({
   size,
 }: ButtonProps) => {
   let bgColor = 'bg-primary2';
+  let hoverBgColor = 'hover:bg-assist2';
+  let borderColor = 'border-primary2';
   let textColor = 'text-assist1';
   let isDisable = false;
   const fill: Record<ButtonColor, string> = {
@@ -37,7 +39,7 @@ export const Button = ({
         title="next"
         type="button"
         onClick={onClick}
-        className="inline-block"
+        className="inline-block transition-all hover:scale-105"
       >
         <svg
           viewBox="0 0 104 104"
@@ -77,6 +79,8 @@ export const Button = ({
 
   if (type === 'disabled') {
     bgColor = 'bg-disabled';
+    hoverBgColor = 'hover:bg-disabled';
+    borderColor = 'border-disabled';
     textColor = 'text-assist2';
     isDisable = true;
   }
@@ -85,7 +89,7 @@ export const Button = ({
     <button
       type="button"
       onClick={onClick}
-      className={`inline-block rounded-2xl py-4 px-5 text-xl md:text-2xl lg:py-6 lg:px-8 lg:text-3xl ${bgColor} ${textColor}`}
+      className={`inline-block rounded-2xl py-4 px-5 text-xl md:text-2xl lg:py-6 lg:px-8 lg:text-3xl ${bgColor} ${textColor} ${borderColor} ${hoverBgColor} border-3 transition-all`}
       disabled={isDisable}
     >
       {children}

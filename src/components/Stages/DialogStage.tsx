@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useMemo } from 'react';
 import ReactDOM from 'react-dom';
 import { motion } from 'framer-motion';
 import Typewriter from 'typewriter-effect';
@@ -6,7 +6,14 @@ import { Button } from '../Common';
 import king from '../../assets/king.svg';
 import po from '../../assets/po.svg';
 import poHand from '../../assets/poHand.svg';
+import TypingSound from '../../assets/typing.mp3';
 import { DialogData } from '../../shared/types';
+
+type Role = {
+  king: string;
+  po: string;
+  poHand: string;
+};
 
 type DialogProps = {
   stageData: DialogData;
@@ -14,18 +21,23 @@ type DialogProps = {
 };
 
 export const DialogStage = ({ stageData, onComplete }: DialogProps) => {
-  type Role = {
-    king: string;
-    po: string;
-    poHand: string;
-  };
-
   const roleImage: Role = {
     king,
     po,
     poHand,
   };
   const texts = stageData.text || '';
+  const audio = useMemo(() => new Audio(TypingSound), [TypingSound]);
+  audio.loop = true;
+  audio.volume = 0.5;
+  audio.playbackRate = 0.7;
+  audio.pause();
+
+  useEffect(() => {
+    return () => {
+      audio.pause();
+    };
+  }, []);
 
   return (
     <div className="h-full overflow-hidden pt-10 pb-12">
@@ -34,7 +46,12 @@ export const DialogStage = ({ stageData, onComplete }: DialogProps) => {
           <Typewriter
             key={stageData.roleImg}
             onInit={(typewriter) => {
-              typewriter.pauseFor(1500).typeString(texts).start();
+              typewriter
+                .pauseFor(1500)
+                .callFunction(() => audio.play())
+                .typeString(texts)
+                .start()
+                .callFunction(() => audio.pause());
             }}
             options={{
               delay: 70,

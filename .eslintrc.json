@@ -32,6 +32,6 @@
         "project": {}
       }
     },
-    "import/ignore": ["node_modules"]
+    "import/ignore": ["node_modules", "use-sound"]
   }
 }
