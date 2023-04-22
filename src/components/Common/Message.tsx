@@ -73,7 +73,7 @@ export const Message = React.memo(function Message({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay: delay }}
-      className={`flex flex-col items-center gap-1 rounded-3xl border-3 py-2 px-2 transition-all sm:flex-row sm:gap-4 sm:py-3 sm:px-6 ${borderStyle[borderColor]} ${className}`}
+      className={`flex flex-col items-center gap-1 rounded-3xl border-3 py-2 px-2 transition-all md:flex-row md:gap-4 md:py-3 md:px-6 ${borderStyle[borderColor]} ${className}`}
     >
       <div className="relative flex-grow">
         <div className={`${textColor[color]} min-h-[3rem] w-full`}>
